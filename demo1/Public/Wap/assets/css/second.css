@@ -1,0 +1,75 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*视频列表*/
+.video_list{ overflow:hidden; width:98%; margin:0 auto;}
+.video_list dl{ float:left; width:48%; margin:0 1% 30px;}
+.video_list dl a{ display:block;}
+.video_list dl dt{ position:relative; width:100%;border-radius:4px;min-height:120px; max-height:200px;margin-bottom:6px; overflow:hidden;}
+.video_list dl dt img{width: 100%;position:absolute; left:0; right:0; top:0; bottom:0; margin:auto;border-radius:4px;}
+.video_list dl dt i{ position:absolute; right:0; bottom:0; min-width:70px; text-align:center; height:24px; background-color:rgba(0,0,0,0.7); color:#fff; font-size:12px; line-height:24px; z-index:10;border-radius:4px;}
+.video_list dd p{ font-size:16px; width:100%;overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:6px;}
+.video_list dd b{ display:block;width:100%;overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#999; font-size:12px;}
+
+.secondon{width:98%; margin:15px auto; border-left:4px solid #f06000; line-height:20px; padding-left:10px;}
+.secondon b{ font-size:18px; position:relative;}
+.secondon .no{ position:absolute; right:-90px; top:0; border:1px solid #CCC;width:80px; height:24px; line-height:20px; text-align:center; font-size:12px; background-color:#FFF; border-radius:2px; z-index:40;}
+.secondon .yes{ display:none;position:absolute; right:-90px; top:0; border:1px solid #f00;width:80px; height:24px; line-height:20px; text-align:center; font-size:12px; background-color:#f00; color:#FFF; border-radius:2px; z-index:10; }
+
+
+/*播放页面*/
+.shipin{ width:100%;}
+.caozuo{ border-bottom:1px solid #CCC; background-color:#FFF; overflow:hidden; padding:8px 0; margin-top:-2px;}
+.caozuo a{ float:left; width:50%; height:26px; text-align:center; border-left:1px solid #CCC; margin-left:-1px;}
+.caozuo a b{ font-size:16px; line-height:24px; padding:0 10px 9px 10px;}
+.caozuo a.con b{ color:#f06000; border-bottom:2px solid #f06000;}
+.xq{ padding-bottom:30px;}
+.info{ background-color:#FFF; padding:15px 2%; margin:10px 0; border:1px solid #CCC; position:relative;}
+.info h2{ font-size:18px;width:90%;margin-bottom:10px;}
+.info h3{ font-size:12px; color:#999; margin-bottom:10px;}
+.info h4{ overflow:hidden; border-top:1px solid #e6e6e6; padding:15px 0 0;}
+.info h4 a{ float:left; width:25%; border-left:1px solid #e6e6e6; text-align:center;  height:24px; }
+.info h4 a b{line-height:24px;font-size:12px; padding:4px 0 4px 30px;}
+.info h4 a:nth-child(1){ border:none; width:35%;}
+.info h4 a:nth-child(2){ width:35%;}
+.info h4 a:nth-child(3){ width:15%;}
+.info h4 a:nth-child(4){ width:15%;}
+.info h4 a img{ width:24px; height:24px;}
+.info .arrow{ background:url(../images/arrow_up.png) center center no-repeat; width:20px; height:10px; position:absolute; top:18px; right:10px;}
+.info .arrowdown{ background:url(../images/arrow_down.png) center center no-repeat; }
+.info .text{font-size:12px; color:#666; line-height:18px; margin-bottom:10px; }
+.info .text1{width:100%;overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px;color:#999;}
+.info .text2{ width:100%; height:auto;}
+.sc02{ display:none;}
+
+
+.main .qiehuan{ display:none;}
+.tuijian{background-color:#FFF; padding:15px 2%; margin:10px 0; border:1px solid #CCC;}
+.tuijian h2{ font-size:18px; height:30px;border-bottom:1px solid #e6e6e6; margin-bottom:15px;}
+.tuijian .tj_list{overflow:hidden;}
+.tuijian .tj_list dl{ float:left; width:31%; margin:0 1% 15px;}
+.tuijian .tj_list dl a{ display:block;}
+.tuijian .tj_list dl dt{ position:relative; width:100%;border-radius:4px;min-height:80px; max-height:200px;margin-bottom:6px; overflow:hidden;}
+.tuijian .tj_list dl dt img{width: 100%;position:absolute; left:0; right:0; top:0; bottom:0; margin:auto;border-radius:4px;}
+.tuijian .tj_list dl dt i{ position:absolute; right:0; bottom:0; min-width:70px; text-align:center; height:18px; background-color:rgba(0,0,0,0.7); color:#fff; font-size:12px; line-height:18px; z-index:10;border-radius:4px;}
+.tuijian .tj_list dd p{ font-size:16px; width:100%;overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:6px;}
+.tuijian .tj_list dd b{ display:block;width:100%;overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#999; font-size:12px;}
+
+.pl{background-color:#FFF; padding:15px 2% 40px; margin:10px 0; border:1px solid #CCC;}
+.pl h2{ font-size:18px; height:30px;border-bottom:1px solid #e6e6e6; margin-bottom:15px;}
+.pl_list dl{ overflow:hidden; margin-bottom:10px;}
+.pl_list dl dt{ float:left;width:10%; min-width:50px; min-height:50px; border-radius:50%; margin-right:2%;}
+.pl_list dl dt img{width:50px; height:50px;border-radius:50%;}
+.pl_list dl dd{ float:left; width:80%; border-bottom:1px solid #e6e6e6; padding-bottom:10px;}
+.pl_list dl dd h3{width:100%;overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:4px; font-size:12px; color:#666;}
+.pl_list dl dd p{width:100%;margin-bottom:4px;color:#000;}
+.pl_list dl dd b{ display:block;width:100%;overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px;color:#999;}
+.mypl{ position:fixed; left:0; bottom:0; z-index:999; background-color:#FFF; width:100%; padding:10px; box-shadow:0px -2px 4px #999999;}
+.mypl input:nth-child(1){ background-color:#ebecf1; border:1px solid #CCC; width:75%; height:40px; padding:0 1%; border-radius:4px;}
+.mypl input:nth-child(2){ background-color:#f00; border:1px solid #f00; width:22%; height:40px;border-radius:4px; color:#fff;}
+
+
+
+
+
+

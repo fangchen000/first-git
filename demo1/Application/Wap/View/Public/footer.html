@@ -1,0 +1,48 @@
+<footer>
+    	<div class="logo_bar">
+			<p>©2016 youyuba视频网站 版权所有<br>技术支持：河南九尾狐科技</p>
+		</div>
+		<div class="foot_nav">
+			<!-- <a href="{:U('Wap/User/center')}">首页</a> -->
+			<a href="{:U('Wap/Goods/index')}">视频分类</a>
+            <a href="{:U('Wap/Vimeo/all_channel')}">所有频道</a>
+			<a href="{:U('Wap/User/center')}">个人中心</a>
+		</div>
+	</footer>
+	<?php 
+
+$theusagt = $_SERVER["HTTP_USER_AGENT"];
+$is_mobile = false;
+
+
+if(stripos($theusagt , "iPhone") !== false || stripos($theusagt , "iPod") !== false){
+    
+    $is_mobile = true;
+	
+	
+}
+else if(stripos($theusagt , "Mac OS") !== false){
+    $is_mobile = false;
+}
+else if(stripos($theusagt , "Mobile") !== false){
+    $is_mobile = true;
+}
+else if(stripos($theusagt , "Android") !== false){
+    $is_mobile = false;
+}
+else if(stripos($theusagt , "Windows Phone") !== false){
+    $is_mobile = true;
+}
+else {
+    $is_mobile = false;
+}
+?>
+
+ <script>
+var is_mobile=$("#is_mobile").val(); 
+if(is_mobile){
+
+}else{
+window.location.href="/index.php/Home/Index/index.html";
+}
+</script>  

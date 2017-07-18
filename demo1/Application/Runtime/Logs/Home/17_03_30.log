@@ -1,0 +1,87 @@
+[ 2017-03-30T15:22:38+08:00 ] ::1 /demo1/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: uid D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 27 行.
+NOTIC: [8] Undefined variable: _info D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 151 行.
+NOTIC: [8] Undefined variable: goods D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 191 行.
+NOTIC: [8] Undefined variable: goods1 D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 224 行.
+NOTIC: [8] Undefined variable: news_s D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 270 行.
+NOTIC: [8] Undefined variable: news_x D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 280 行.
+NOTIC: [8] Undefined variable: orders D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 302 行.
+NOTIC: [8] Undefined variable: orders D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 307 行.
+NOTIC: [8] Undefined index: uid D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 353 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.012001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.012001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-03-30T16:41:12+08:00 ] ::1 /demo1/index.php/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: uid D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 27 行.
+NOTIC: [8] Undefined variable: _info D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 151 行.
+NOTIC: [8] Undefined variable: goods D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 191 行.
+NOTIC: [8] Undefined variable: goods1 D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 224 行.
+NOTIC: [8] Undefined variable: news_s D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 270 行.
+NOTIC: [8] Undefined variable: news_x D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 280 行.
+NOTIC: [8] Undefined variable: orders D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 302 行.
+NOTIC: [8] Undefined variable: orders D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 307 行.
+NOTIC: [8] Undefined index: uid D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 353 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.013000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-03-30T18:08:11+08:00 ] ::1 /demo1/index.php/Home/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: uid D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 27 行.
+NOTIC: [8] Undefined variable: _info D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 151 行.
+NOTIC: [8] Undefined variable: goods D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 191 行.
+NOTIC: [8] Undefined variable: goods1 D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 224 行.
+NOTIC: [8] Undefined variable: news_s D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 270 行.
+NOTIC: [8] Undefined variable: news_x D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 280 行.
+NOTIC: [8] Undefined variable: orders D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 302 行.
+NOTIC: [8] Undefined variable: orders D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 307 行.
+NOTIC: [8] Undefined index: uid D:\fang\XAMPP\htdocs\demo1\Application\Runtime\Cache\Home\2a94b8bda04ff446dcedd42276fc99ee.php 第 353 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.013001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+

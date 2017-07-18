@@ -1,0 +1,318 @@
+<include file="Public:header1" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/index.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/style.css">
+<script src="__PUBLIC__/Home/assets/js/jquery-1.8.3.min.js" type="text/jscript"></script>
+<script src="__PUBLIC__/Home/assets/js/jquery.SuperSlide.2.1.1.js" type="text/jscript"></script>
+<script src="__PUBLIC__/Home/assets/js/base.js" type="text/jscript"></script>
+<script src="__PUBLIC__/Home/assets/layer/layer.js" type="text/jscript"></script>
+
+<div class="ab-line"></div>
+<div class="shop-box">
+    <div class="container" style="background:#eee;border:solid 1px #ddd;margin-top: 100px;border-radius:4px;padding-bottom:30px;">
+        <ul class="shop-tit">
+            <li>选择</li>
+            <li class="sh-in">商品信息</li>
+            <li>单价（元）</li>
+            <li class="sh-shu">数量</li>
+            <li>金额</li>
+            <li>操作</li>
+        </ul>
+        <div class="clearfix"></div> 
+        <ul class="shop-list">
+			<volist name="detail" id="v">
+            <li>
+                <input type="checkbox" name="subBox" value='{$v.id}' class="xz" onclick="saveupdat()" >
+                <div class="shop-info">
+                    <div class="sh-part">
+                       <a href="#"><img src="__ROOT__/Uploads/{$v.goods_thumb}" alt=""></a>
+                    </div>
+                    <div class="sh-part sh-long"><a href="#">
+                        <p>{$v.goods_name}</p>
+                       
+                    </div>
+                    <div class="sh-part">
+                        <p class="sh-price">{$v.goods_price}</p>
+                    </div>
+                    <div class="sh-part sh-mid">
+                        <b class="sh-minus jian"  onclick="decrease_quantity({$v.id})">-</b>
+						<input class="sh-count sl" type="text" value="{$v.goods_num}"  id="input_item_{$v.id}" onkeyup="shuru({$v.id})" goods-attr="{$v.goods_attr_id}" data-max="{$v.number}" price="{$v.goods_price}">
+						<b class="sh-add jia"  onclick="add_quantity({$v.id})">+</b>
+                    </div>
+                    <div class="sh-part">
+                        <p class="sh-money jz"  id="all_{$v.id}">{$v.all_money}</p>
+                    </div>
+                    <div class="sh-part">
+                        <img class="sh-dele1" src="__PUBLIC__/Home/assets/images/sh1.png" alt="" onclick="del({$v.id})">
+                    </div>
+                </a></div>
+            </li>
+			</volist>
+          
+        </ul>
+        <div class="sh-pay">
+            <div class="sp-le">
+                <label><input type="checkbox" id="sh-all2" class="qxk" onclick="check_all(this)">全选</label>
+                <span class="sh-dele2" href="javascript:void(0);" onclick="del_all()">删除选中商品</span>
+            </div>
+            <div class="sp-ri">
+            	
+                <div class="sh-sum zx">
+                  <span class="yixuansh">已选商品<b>0</b>件</span>
+				  <span class="yf">总价：<b class="hs">0.00</b></span>
+				  <a href="javascript:void(0);" onclick="accounts()">去结算</a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="sh-pro">
+            <h5>大家都在买</h5>
+            <ul class="other-pro">
+                <li>
+                    <a class="sh-link" href="proxq.html"><img src="__PUBLIC__/home/images/sho3.jpg" alt=""></a>
+                    <div class="other-info">
+                      <p>韩国 thefaceshop 菲诗小铺Face itartist 手指唇彩PP401妖艳紫色15g</p>
+                      <span>￥<b>499</b><a class="add-shop" href="#">加入购物车</a></span> 
+                    </div> 
+                </li>
+                <li>
+                    <a class="sh-link" href="proxq.html"><img src="__PUBLIC__/home/images/sho4.jpg" alt=""></a>
+                    <div class="other-info">
+                      <p>韩国 thefaceshop 菲诗小铺Face itartist 手指唇彩PP401妖艳紫色15g</p>
+                      <span>￥<b>499</b><a class="add-shop" href="#">加入购物车</a></span> 
+                    </div> 
+                </li>
+                <li>
+                    <a class="sh-link" href="proxq.html"><img src="__PUBLIC__/home/images/sho5.jpg" alt=""></a>
+                    <div class="other-info">
+                      <p>韩国 thefaceshop 菲诗小铺Face itartist 手指唇彩PP401妖艳紫色15g</p>
+                      <span>￥<b>499</b><a class="add-shop" href="#">加入购物车</a></span> 
+                    </div> 
+                </li>
+                <li>
+                    <a class="sh-link" href="proxq.html"><img src="__PUBLIC__/home/images/sho6.jpg" alt=""></a>
+                    <div class="other-info">
+                      <p>韩国 thefaceshop 菲诗小铺Face itartist 手指唇彩PP401妖艳紫色15g</p>
+                      <span>￥<b>499</b><a class="add-shop" href="#">加入购物车</a></span> 
+                    </div> 
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+/*
+**
+ * 购物车减少商品数量
+ * @param cart_id
+ */
+function decrease_quantity(cart_id){
+    var item = $('#input_item_' + cart_id);
+    var orig = Number(item.val());
+	
+    if(orig > 1){
+        item.val(orig - 1);
+        item.keyup();
+		calc_price(cart_id);
+		totalmoney();
+    }
+}
+
+/**
+ * 购物车增加商品数量
+ * @param cart_id
+ */
+function add_quantity(cart_id){
+   
+    var item = $('#input_item_' + cart_id);	
+    var orig = Number(item.val());
+    var rs=item.val(orig + 1);
+    item.keyup();
+	calc_price(cart_id);
+	totalmoney()
+	//$('#cartTotal').val(number_format(total,2));
+	
+}
+/**
+ * 价格计算
+ */
+function calc_price(v) {
+    var cart_id=v;
+    var item = $('#input_item_' + cart_id);
+    var total = item.val()* item.attr('price');
+	$('#all_money_'+cart_id).html(total.toFixed(2));	
+}
+
+ function check_all(obj){
+var len=$("input[name='subBox']");
+for(i=0;i<len.length;i++){
+ len[i].checked=obj.checked;
+}
+totalmoney();
+ }
+
+
+/**
+ *输入数据
+ */
+ function shuru(v){
+     var id=v;
+	 var input_val=$('#input_item_'+id).val();
+	 var max_val=$('#input_item_'+id).attr('data-max');
+	 if(parseInt(input_val) < 1 || !input_val){
+	    $('#input_item_'+id).val('1');
+	 }else if(parseInt(input_val)>parseInt(max_val)){
+	    $('#input_item_'+id).val(max_val);
+	 }else{
+	  var patt1 = new RegExp(/^([0-9]*)+$/g);
+      var result = patt1.test(input_val);
+	  if(!result){
+	     $('#input_item_'+id).val('1');
+	  }else{
+	    var numb=$('#input_item_'+id).val();
+		var pri=$('#input_item_'+id).attr('price');
+		var _attmoney=(numb*pri).toFixed(2);
+		$('#all_'+id).html(_attmoney);
+		totalmoney();
+	  }
+	 }
+ }
+ /**
+ * 更改购物车数量
+ */
+ $(function(){
+ var tr_num=$('.sl').length;
+ for(i=0;i<tr_num;i++){
+  var num=$('.sl').eq(i).val();
+  var price=$('.sl').eq(i).attr('price');
+  var total=(num*price).toFixed(2);
+  $('.sl').eq(i).parent().parent().next().html(total);
+  }
+  totalmoney()
+  //$().find().html();
+ })
+ function saveupdat(){
+ totalmoney();
+ }
+ 
+ 
+function del(id){
+
+layer.confirm('确定要删除此购物车吗？', {
+    btn: ['确定','取消'] //按钮
+}, function(){
+  $.ajax({
+        'data':'cid='+id,
+        'type':'post',
+        'dataType':'json',
+        'url':"{:U('Order/delete')}",
+        'success':function(dat){
+            if(dat.status==1){
+			      layer.msg('删除成功', {icon: 1});
+                location.reload();
+            }else{
+                layer.alert("删除失败");
+                location.reload();
+            }
+        }
+    })
+
+   
+});
+
+
+  
+}
+
+
+
+
+  function del_all(){
+		    var leng=$("input[name='subBox']:checked").length;
+			//alert(leng);return;
+			if(leng!=0){
+			var id="";
+			for(var i=0;i<leng;i++){
+			    id+=$("input[name='subBox']:checked").eq(i).val()+"-";
+			 }
+			 layer.confirm('确定要删除此购物车吗？', {
+    btn: ['确定','取消'] //按钮
+}, function(){
+			 $.ajax({
+			 type:'post',
+			 url:"{:U('Order/delete_all')}",
+			 data:{id:id},
+			 dataType:'json',
+			 success:function(b){
+			   if(b.fg==1){
+			     layer.alert('删除成功！');
+				 $('.yf').find('b').html("￥0.00元");
+				 window.location.href="{:U('Order/car')}";
+			   }else{
+			   layer.alert('删除失败！');
+			   }
+			 }
+			 })
+			 });
+			 
+			}else{
+			layer.alert('请选择要删除的商品！');
+			return;
+			}
+		   } 
+
+  
+	
+	 function totalmoney(){
+ var len=$("input[name='subBox']:checked").length;
+   if(len==0){
+   $('.yf').find('span').html("￥0.00元");
+  $('.zx').find('span .hs').html("￥0.00元");
+$('.yixuansh').html("已选商品<b>"+len+"</b>件");
+   }else{
+  var all_money=0.00;   
+  for(i=0;i<len;i++){
+  var ids=$("input[name='subBox']:checked").eq(i).val();
+  var price=$('#input_item_'+ids).attr('price');
+  var num=$('#input_item_'+ids).val();
+  var all_money =parseFloat(price*num)+ parseFloat(all_money);
+
+   }
+
+  $('.zx').find('.hs').html("￥"+(all_money).toFixed(2)+"元");
+
+  $('.yixuansh').html("已选商品<b>"+len+"</b>件");
+
+  }
+ }
+	
+	
+	
+	 function accounts(){
+		   var num=$("input[name='subBox']").length;
+		   if(num!=0){
+		   var lt=$("input[name='subBox']:checked");
+		    var leng=lt.length;
+			  if(leng!=0){
+			  var str="";
+			   for(var i=0;i<leng;i++){
+			     str+=lt.eq(i).val()+"-"+$("#input_item_"+lt.eq(i).val()).val()+",";
+			    
+			   }
+    
+			   window.location.href="{:U('Order/order')}?id="+str;
+			  }else{
+			  layer.alert('请选择要结算的商品！');
+			  }
+			 }else{
+			 layer.alert('您还没有购买任何商品！');
+			 window.location.href="{:U('Index/index')}";
+			 //return false;
+			 }
+		   }
+	
+</script>
+<include file="Public:footer"/>

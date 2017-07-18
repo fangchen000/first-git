@@ -1,0 +1,256 @@
+<link rel="stylesheet" href="__PUBLIC__/mp/control/css/zyUpload.css" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/Home/js/ajaxupload.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+<js href="__PUBLIC__/ueditor/ueditor.config.js" />
+<js href="__PUBLIC__/ueditor/ueditor.all.min.js" />
+<script>
+    $(function () {
+        var ue = UE.getEditor('content');
+    })
+</script>
+
+
+
+
+<section class="rt_wrap content mCustomScrollbar">
+      <h2><strong style="color:grey;">新闻管理</strong></h2>
+      <ul class="ulColumn2">
+	   <form onsubmit="return false;">
+       <li>
+        <span class="item_name" style="width:120px;">新闻名称：</span>
+        <input type="text" class="textbox textbox_295" placeholder="新闻名称" id="title" value="{$news.title}"/>
+       </li>
+	   <li>
+           <li>
+               <span class="item_name" style="width:120px;">新闻类型：</span>
+           <select name='type' id="type" class="form-control">
+               <option
+               <if condition="$news['type'] eq 'bankajishu'">
+                   selected="selected"
+               </if>
+               value="bankajishu">办卡技术</option>
+               <option
+               <if condition="$news['type'] eq 'faren'">
+                   selected="selected"
+               </if>
+               value="faren">法人</option>
+               <option
+               <if condition="$news['type'] eq 'kaopuwangdai'">
+                   selected="selected"
+               </if>
+               value="kaopuwangdai">靠谱网贷</option>
+               <option
+               <if condition="$news['type'] eq 'pos'">
+                   selected="selected"
+               </if>
+               value="pos">pos机</option>
+               <option
+               <if condition="$news['type'] eq 'qiyedaikuan'">
+                   selected="selected"
+               </if>
+               value="qiyedaikuan">企业贷款</option>
+               <option
+               <if condition="$news['type'] eq 'fenqi'">
+                   selected="selected"
+               </if>
+               value="fenqi">分期</option>
+               <option
+               <if condition="$news['type'] eq 'tie'">
+                   selected="selected"
+               </if>
+               value="tie">提额技术</option>
+               <option
+               <if condition="$news['type'] eq 'vipcoreresourse'">
+                   selected="selected"
+               </if>
+               value="vipcoreresourse">核心资料</option>
+               <option
+               <if condition="$news['type'] eq 'wangdaijishu'">
+                   selected="selected"
+               </if>
+               value="wangdaijishu">网贷技术</option>
+               <option
+               <if condition="$news['type'] eq 'wangluodaikuan'">
+                   selected="selected"
+               </if>
+               value="wangluodaikuan">网络贷款</option>
+               <option
+               <if condition="$news['type'] eq 'xinyongkadaikuan'">
+                   selected="selected"
+               </if>
+               value="xinyongkadaikuan">信用卡贷款</option>
+               <option
+               <if condition="$news['type'] eq 'yangkajishu'">
+                   selected="selected"
+               </if>
+               value="yangkajishu">养卡技术</option>
+               <option
+               <if condition="$news['type'] eq 'yijianbanka'">
+                   selected="selected"
+               </if>
+               value="yijianbanka">一键办卡</option>
+               <option
+               <if condition="$news['type'] eq 'yijiantie'">
+                   selected="selected"
+               </if>
+               value="yijiantie">一键提额</option>
+               <option
+               <if condition="$news['type'] eq 'yinhangdaikuan'">
+                   selected="selected"
+               </if>
+               value="yinhangdaikuan">银行贷款</option>
+           </select>
+           </li>
+           <li>
+        <span class="item_name" style="width:120px;">新闻封面：</span>
+         <b style="position:relative;"><img class="vb" id="newbikephoto" src="{$news.img}" style="width: 130px;height: 100px;">
+		</b>
+		<input type="button" class="btn btn-primary" id="upload_button"  value="上传图片"/>
+       </li>
+
+
+        <li>
+        <span class="item_name" style="width:120px;">新闻描述：</span>
+        <input type="text"  class="textbox textbox_295" placeholder="新闻描述" id="describe" value="{$news.describe}"/>
+       </li>
+
+       <li>
+           <span class="item_name" style="width:120px;">新闻链接：</span>
+           <input type="text"  class="textbox textbox_295" placeholder="新闻链接" id="link_url" value="{$news.link_url}"/>
+       </li>
+
+	  <li>
+        <span class="item_name" style="width:120px;">新闻详情：</span>
+          <textarea id="content" class="textarea" name="content" style="width:700px;height:200px;">{$news.content}</textarea>
+       </li>
+
+       <li style="margin-bottom:100px;">
+        <input type="submit" class="link_btn" id="but"/>
+       </li>
+       </form>
+      </ul>
+     </section>
+
+	 <input type="hidden" id="idd" value="{$news.id}"/>
+
+<script>
+    $(function(){
+        $("#but").click(function(){
+            var id=$("#idd").val();
+            var title=$("#title").val();
+            var type=$("#type").val();
+            var type=$("#link_url").val();
+            var img=$("#newbikephoto").attr("src");
+            var content = UE.getEditor('content').getContent();
+            var describe=$("#describe").val();
+            if(title==""){
+                toastr.error("新闻名称不能为空",'操作失败',toastr.options);
+                return false;
+            }else if(img==""){
+                toastr.error("新闻封面不能为空",'操作失败',toastr.options);
+                return false;
+            }
+
+            $.post("{:U('News/addnotice')}",{id:id,title:title,type:type,img:img,link_url:link_url,content:content,describe:describe},function(sb){
+                if (sb.status==1) {
+                    layer.msg('操作成功',{icon:6});
+                    setTimeout(function () {
+                        window.location.href="{:U('News/index')}";
+                    }, 1500);
+                }else{
+                    layer.msg("操作失败",{icon:2,time:2000});return false;
+                }
+            });
+        });
+    })
+</script>
+<script type="text/javascript">
+$(function(){
+	var button = $('#upload_button'), interval;
+//	var button1 = $('#upload_button1'), interval;
+	var confirmdiv = $('#uploadphotoconfirm');
+
+    var fileType = "pic",fileNum = "one";
+    new AjaxUpload(button,{
+        action: "{:U('Admin/Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;
+                }
+            }
+
+           confirmdiv.text('文件上传中');
+
+            if(fileNum == 'one')
+                this.disable();
+
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');
+                } else {
+                    confirmdiv.text('文件上传中');
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+
+			if(response != "success"){
+				if(response =='2'){
+					confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+				}else{
+					if(response.length>20){
+						confirmdiv.text("文件上传失败请重新上传"+response);
+					}else{
+						confirmdiv.text("上传完成");
+
+					 	$("#newbikephotoName").val("__ROOT__/Upload/images/"+response);
+						$("#newbikephoto").attr("src","__ROOT__/Upload/images/"+response);
+					}
+				}
+
+			}
+
+            window.clearInterval(interval);
+
+            this.enable();
+
+            if(response == "success")
+            confirmdiv.text('上传成功');
+        }
+    });
+
+
+
+});
+
+
+
+</script>
+
+
+                           
+                                    
+                             
+                                    
+                               
+                      
+
+   
+
+
+
+
+            
+    
+
+
+

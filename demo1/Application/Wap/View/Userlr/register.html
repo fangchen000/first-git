@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<include file="Public:seo"/>
+<style>
+*{font-family:"microsoft yahei";padding:0;margin:0;}
+li{list-style:none;}
+.topbox{width:600px;margin:0 auto; overflow:hidden;}
+.logo{width:260px;height:70px;float:left;margin-top:20px;}
+.zc{float:left;margin-left:30px;font-size:26px;font-weight:normal;margin-top:40px;}
+.kf{float:right;margin-top:50px;}
+.zcbox{width:800px;margin:0 auto;padding-left:200px;margin-top:30px;}
+.bqbox{ overflow:hidden;}
+.bq{float:left; text-align:right;}
+.bq li{line-height:30px;margin-top:26px;}
+.srk{float:left;margin-left:10px;}
+.srk li{margin-top:20px;}
+.srk li p{float:left;margin-top:12px;}
+.srk li input{height:36px;}
+.cha{margin-left:10px;}
+.dh{width:61px;height:36px;float:left;border:1px solid #e5e5e5; background-color:#e5e5e5;line-height:36px; text-align:center;margin-left:20px;}
+.phone{width:220px;height:36px;border:1px solid #e5e5e5;padding-left:4px;color:#999;font-size:12px;}
+.fuwu{margin-top:20px;margin-left:80px;}
+.yzm{border:1px solid #e5e5e5;}
+.wcbox{width:282px;height:35px; background-color:#f47a11;color:#fff;border:none; border-radius:4px;margin-left:80px;margin-top:20px;cursor:pointer; text-align:center;}
+.wcbox:hover{background-color:#ff4200;}
+.sjbox{margin-left:10px;width:128px;height:28px; background-color:#ccc; border:none;color:#666; border-radius:4px;font-size:12px; cursor:pointer;}
+.xybt{margin-top:10px;margin-left:20px;}
+.fwtkbox{width:580px;overflow:auto;padding:40px;}
+
+</style>
+
+
+<script src="__PUBLIC__/home/assets/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/home/assets/layer/layer.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/base.css">
+</head>
+
+<body>
+<div class="topbox">
+	<div class="logo"><a href="{:U('Home/Index/index')}"><img src="__ROOT__/Uploads{$conf.logo}"></a></div>
+    <h3 class="zc">欢迎注册</h3>
+    <p class="kf">客服热线：400-008-8688</p>
+</div>
+<div class="zcbox">
+	<form action=""method="post">
+    	<div class="bqbox">
+            <ul class="srk">
+            	<li><p>手机号码</p><div class="dh">+86</div><input type="text" placeholder="请输入有效的手机号码" class="phone" id="phone" maxlength="11" onkeyup="checkphone()"><span id="phone1"></span></li>
+                <li style=" overflow:hidden;"><p>验证码</p>
+				<div style="float:left; overflow:hidden;">
+					<input type="text" value="" class="yzm" disabled='disabled' id="visibility" style="float:left;margin-left:32px;" onkeyup="checkverify()">  
+					<img src="__URL__/verify" style="width:116px;height:50px;float:left;margin-left:10px;" onClick="this.src=this.src+'?'+Math.random()" alt="点击更换验证码" title="点击更换验证码" /></div>
+				<span id="infoverify" style="color:red" class="cha"></span></li>
+                <li><p>手机验证码</p><input type="text" value="" class="yzm" id="phonecode"style="margin-left:10px;" disabled="disabled"><input type="button" class="sjbox" value="点击获取手机验证码" disabled="disabled"/></li>
+                <li><p>密码</p><input type="password" placeholder="请输入6-16位包含数字和字母"  style="margin-left:46px; width:200px;" id="pwd" ><span id="pwds"></span></li>
+                <li><p>确认密码</p><input type="password" placeholder="再次输入您的登录密码" id="checkpwd"  style="margin-left:22px;width:200px;"></li>
+            </ul>
+        </div>
+        <label style="font-size:12px;"><input name="tk" type="checkbox" value="1" class="fuwu" /> <a class="fk"   onclick="sell()">我已阅读并同意《中国惠农网服务条款》 </a></label> <br>
+        <input   type="button" class="wcbox" value="注册">
+    </form>
+    
+</div>
+<script>
+var quanju='__PUBLIC__';
+</script>
+
+<script>
+		function checkphone(){
+		var a=$("#phone").val().length;
+		var t = $("#phone");
+	   var phoneValue = t.val();
+	   $("#visibility").attr("disabled","disabled");
+	//替换非数字
+	phoneValue = phoneValue.replace(/[^0-9]/g,"");
+	t.val(phoneValue); 
+	if(phoneValue && phoneValue.length >= 2){
+		var regPartton=/^((13|14|15|17|18)\d{0,9})$/;
+		if(!regPartton.test(phoneValue)){
+			$("#phone1").html('<img src="/Public/home/assets/images/error.png" class="cha"> 请输入13/14/15/17/18开头的11位数字手机号码');
+		   }else{
+		   $("#phone1").html('');
+		   }
+	
+       }
+		
+		if(a==11){
+
+		 $("#phone").live("keyup",phoneValide);
+		}
+}
+		function phoneValide(){
+		var bool = true ;
+		var phone=$("#phone").val();
+		if(!phone.match(/^1((3[2-9])||(7[4-9])||(5[0-9])||(5[0-9])||(8[0-9])||(82))\d{8}$/g)){
+		 $('#phone1').html('<img src="/Public/home/assets/images/error.png" class="cha">电话号码非法！');
+		  return false;
+		 }else{
+				$.ajax({
+				type : "post",
+				async : false,
+				 'url':"{:U('Userlr/phones')}",
+				data :{
+					phone : phone
+				},
+				dataType : "json",
+				success : function(result) {
+					if(result.status==1){
+					$("#phone1").html('<img src="/Public/home/assets/images/reg-ok2.png" class="cha">');
+						bool=true;
+					}
+					if(result.status==0){				
+						$("#phone1").html('<img src="/Public/home/assets/images/error.png" class="cha"> 该帐号已被注册');
+						bool = false;
+					}
+					
+				}
+			});
+			
+			if(bool){
+			 $("#visibility").removeAttr("disabled");
+		   
+	
+		  }
+			
+		 
+		 }
+           
+		}
+		
+		
+
+//确认验证码
+function checkverify(){
+
+var verify=$('#visibility').val();
+// alert(code);return;
+if(verify==""){
+$('#infoverify').html('验证码不能为空！');
+$('#verify').focus();return false;
+}else{
+   $.ajax({
+ 'type':'post',
+ 'url':"{:U('Userlr/code')}",
+ 'data':{code:verify},
+ 'dataType':'json',
+ 'success':function(msg){
+    if(msg.status==1){
+	 $(".sjbox").removeAttr("disabled"); 
+	 $(".sjbox").val("发送验证码");
+ $("#infoverify").html('<img src="/Public/home/assets/images/reg-ok2.png" class="cha">');
+    //$('#repwd').focus();
+    }else{
+	 $(".sjbox").attr("disabled","disabled");
+    $('#infoverify').html('验证码错误！');
+    return false;
+    }
+   }
+ });
+}
+
+}
+
+$(".sjbox").click(function(){
+
+var phone=$("#phone").val();
+var visibility=$("#visibility").val();
+var sjbox=$(".sjbox").val();
+if(sjbox!="发送验证码"){
+
+alert("请完善以上信息");
+
+}else{
+   $.ajax({
+ 'type':'post',
+ 'url':"{:U('Userlr/codephone')}",
+ 'data':{phone:phone},
+ 'dataType':'json',
+ 'success':function(dat){
+   if(dat.status==1){
+   var countdown=60;
+   gettime();
+   }else{
+    $('#infocode').html('验证码输入错误！');
+    return false;
+    //$('#email').focus();
+   }
+  }
+ });
+
+
+}
+
+})
+
+
+//倒计时的显示
+var countdown=60;
+function gettime() {
+if (countdown == 0) {
+
+
+$('.sjbox').val('发送验证码');
+countdown=60;
+return; 
+} else {  
+$("#phonecode").removeAttr("disabled");   
+$('.sjbox').val("剩余(" + countdown + ")s");
+$('.sjbox').attr("disabled",true); 
+countdown--; 
+} 
+ setTimeout(function() { 
+    gettime();
+    },990) 
+}
+
+
+//密码验证
+$('#pwd').blur(function(){
+  var pwd=$('#pwd').val();
+  if(pwd==""|| pwd.length<6||pwd.length>16){
+  $('#pwds').html('<img src="/Public/home/assets/images/error.png" class="cha">密码不能为空！');
+
+  return false;
+  }else if(pwd.match(/^[0-9_!@#$%^&*()~+|]{6,16}$/i)){
+  $('#pwds').html('<img src="/Public/home/assets/images/error.png" class="cha">密码格式非法');
+
+  }else if(pwd.match(/^[a-z_!@#$%^&*()~+|]{6,16}$/i)){
+  $('#pwds').html('<img src="/Public/home/assets/images/error.png" class="cha">密码格式非法');
+  
+  }else if(!pwd.match(/^[0-9a-z_!@#$%^&*()~+|]{6,16}$/i)){
+  $('#pwds').html('<img src="/Public/home/assets/images/error.png" class="cha">密码格式非法');
+  return false; 
+  }else{
+    $(".wcbox").removeAttr("disabled");
+  $('#pwds').html('<img src="/Public/home/assets/images/reg-ok2.png" class="cha">');
+  }
+})
+
+
+		
+$(".wcbox").click(function(){
+var fuwu=[];
+$("input[name='tk']:checked").each(function(){
+fuwu.push($(this).val());
+})
+
+
+var phone=$("#phone").val();
+var visibility=$("#visibility").val();
+var sjbox=$(".sjbox").val();
+var phonecode=$("#phonecode").val();
+var password=$("#pwd").val();
+var checkpwd=$("#checkpwd").val();
+  if(fuwu!=1){
+  alert("请先阅读并同意服务条款");
+  }else if(phone==""){
+    alert("手机号不能为空");
+  }else if(!phone.match(/^1((3[2-9])||(7[4-9])||(5[0-9])||(5[0-9])||(8[0-9])||(82))\d{8}$/g)){
+  alert("您所填写的不是手机号");
+  }else if(visibility==""){
+  alert("验证码错误");
+  }else if(phonecode==""){
+  
+  alert("手机验证码不能为空");
+  }else if(password==""){
+  alert("密码不能为空");
+  }else if(password!=checkpwd){
+    alert("确认密码与设置密码不相同");
+  
+  }else{
+  
+    
+          $.ajax({
+        'type':'post',
+        'url':"{:U('Userlr/addzc')}",
+        'data':{phone:phone,password:password,code:visibility,phonecode:phonecode},
+        'dataType':'json',
+        'success':function(msg){
+                       if(msg.status==1){
+                         alert("注册成功,立即登录");
+						 window.location.href="/index.php/Home/Userlr/login.html";
+                       }else{
+                           alert(msg.info);
+                       }
+ 
+            }
+                });
+  
+  
+  
+  }
+
+})		
+		
+</script>
+
+
+<include file="Public:footer"/>
+
+<div class="sell" id="sell" style="display:none;">
+    <div class="fwtkbox">
+    	<P class="tkbox"><h3 style="font-size:18px;font-weight:bold; text-align:center;">惠农网服务条款</h3><br>
+
+马铃薯种薯交易平台（以下简称）依据以下条件和条款为您提供所享有的服务，请仔细阅读并遵守。 <br>
+欢迎阅读惠农网服务条款协议(下称“本协议”)。本协议阐述之条款和条件适用于您使用惠农网、手机惠农网及关联产品所提供的各种工具和平台提供的所有服务。<br>
+
+一、接受条款 <br>
+1、本协议内容包括协议正文及所有惠农网已经发布或将来可能发布的各类规则。所有规则为协议不可分割的一部分，与协议正文具有同等法律效力。<br>
+2、以任何方式进入惠农网并使用服务即表示您已充分阅读、理解并同意接受本协议以及惠农网的一切“条款”， 不得以未仔细阅读为由进行抗辩。<br>
+3、惠农网有权根据业务需要酌情修订“条款”，并以网站公告的形式进行更新，不再单独通知予您。如您继续使用“服务”，则视为已接受经修订的“条款”；如您不同意相关修订，请您立即停止使用“服务”。当您与惠农网发生争议时，应以最新的“条款”为准。<br>
+
+二、注册须知<br>
+1、使用惠农网服务的用户必须是具备完全民事权利能力和与所从事的民事行为相适应的行为能力的自然人、法人或其他组织。<br>
+2、在惠农网填写的任何信息不得侵犯或涉嫌侵犯他人合法权益。如设置的信息涉嫌侵犯他人合法权益，惠农网进行相应处理，直至终止向您提供服务。<br>
+3、完成注册可以直接成为买家，但获得卖家资格必须要先完成个人/企业实名认证；免费卖家不享受店铺功能，只能发布产品供应信息；开通店铺功能必须申请成为付费卖家。<br>
+4、账户安全:您须自行负责对您的登陆账号、支付账号信息、密码等信息保密，且须对该登录名和密码下发生的所有活动担责任。<br>
+
+三、服务使用规则 <br>
+1、关于信息 <br>
+惠农网不对产品描述的准确性或内容负责。您保证发布的资料信息不会违反任何法律、法规、条例、规章，不侵害任何第三者的权益，并且不含有惠农网认为应禁止或限制发布的信息。
+<br>
+2、交易规则 <br>
+不得操纵交易或使用任何装置、软件或例行程序干扰交易系统。如惠农网发现任何破坏交易规则的行为，有权根据情节轻重对会员予以帐号限权直至帐号关闭等处罚。
+<br>
+3、关于处理交易争议 <br>
+3.1.惠农网不涉及买卖双方因交易而产生的买卖纠纷及法律纠纷，不会牵涉交易过程。倘若您与平台上的其他供应商、采购商或为惠农网提供支持服务的其他第三方供应商发生争议，您免除惠农网(及惠农网代理人和雇员)在因该等争议而引起的，或在任何方面与该等争议有关的不同种类和性质的任何(实际和后果性的)权利主张、要求和损害赔偿等方面的责任。<br>
+3.2.买卖双方在交易履行过程中产生交易争议，双方自行协商解决，若双方无法协商或协商不能达成一致意见，一方或双方可申请提交惠农网进行斡旋处理。因惠农网非司法机构，对证据的鉴别能力及对纠纷的处理能力有限，故不对争议处理结果承担任何责任。<br>
+3.3.惠农网有权受理并调解您与其他用户因交易或利益产生的争议，同时有权单方面独立判断其他会员对您的投诉及(或)索偿是否成立，若惠农网判断投诉（或）索偿成立，有权终止您在惠农网的一切账号和关联服务，同时惠农网有权扣减您交纳的会员费、其他服务费及保证金（如有），惠农网保留追究法律责任的权利。<br>
+
+4、其他服务 <br>
+关于惠农网提供的农业行情、政策、展会服务等资讯信息，以及对部分付费会员推送买家信息、精准营销，惠农网不对以上信息真实性、准确性、及时性、全面性负责及由此带来的损失不承担任何责任。
+<br>
+5、违反规则的后果 <br>
+用户违反网站规则或其与惠农网签订的任何合同的行为，网站有权按照相应规则进行处理。
+<br>
+四、惠农网平台服务和地位<br>
+1、通过惠农网提供的平台服务，您可在惠农网网站上发布交易信息、查询商品和服务信息、达成交易意向、参加惠农网组织的活动、使用其它信息服务及部分商家在线交易服务。<br>
+2、惠农网仅提供交易平台，不参与交易过程，交易风险由买卖双方自行承担，您须谨慎交易。同时，惠农网不涉及买卖双方因交易而产生的法律关系及法律纠纷，不会且不能牵涉进交易各方的交易当中。敬请注意，惠农网不能控制或保证商贸信息的真实性、合法性、准确性，亦不能控制或保证交易所涉及的物品的质量、安全或合法性，以及相关交易各方履行在贸易协议项下的各项义务的能力。惠农网不能也不会控制交易各方能否履行协议义务。此外，您应注意到，与以欺诈手段行事的人进行交易的风险是客观存在的。惠农网希望您在使用惠农网网站时，小心谨慎并运用常识。  </P>
+    </div>
+</div>
+
+

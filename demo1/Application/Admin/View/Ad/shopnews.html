@@ -1,0 +1,217 @@
+<script type="text/javascript">
+ function quandel(obj,cName){
+    var checkall=document.getElementsByName(cName);
+	for(var $i=0;$i<checkall.length;$i++){
+	      checkall[$i].checked=obj.checked;
+	}
+ }
+   
+</script>
+<div class="panel panel-default">
+				<div class="panel-heading" style="padding:0px;">
+				<h3 class="panel-title" style="color:#7c38bc;font-weight:bold;"> <a href="#">商品管理</a></h3>
+				<br/>
+				商品查找：
+				<a href="{:U('Admin/Goods/index')}" class="btn btn-secondary btn-sm btn-icon icon-left">全部</a>
+				<a href="{:U('Admin/Goods/index',array('status'=>0))}" class="btn btn-secondary btn-sm btn-icon icon-left">未审核</a>
+				<a href="{:U('Admin/Goods/index',array('status'=>1))}" class="btn btn-secondary btn-sm btn-icon icon-left">已审核</a>
+				<a href="{:U('Admin/Goods/index',array('status'=>-1))}" class="btn btn-secondary btn-sm btn-icon icon-left">审核未通过</a>
+				<a href="{:U('Admin/Goods/index',array('status'=>2))}" class="btn btn-secondary btn-sm btn-icon icon-left">已下架</a>
+<div class="row" style="margin-left:90%;">
+	
+			</div>
+				</div>
+				
+				<form id="form1" onsubmit="return false">
+				<div class="panel-body">
+			
+			<button class="btn btn-secondary btn-sm btn-icon icon-left" type="buton" id="open">审核通过</button>
+			<button class="btn btn-secondary btn-sm btn-icon icon-left" type="button" id="ban">审核不通过</button>
+			<button class="btn btn-secondary btn-sm btn-icon icon-left" type="button" id="xin">定为可信农产品</button>
+					<table class="table table-bordered table-striped" id="example-2">
+						<thead>
+							<tr>
+								<th ><input type="checkbox" >ID</th>
+								<th >新闻标题</th>
+								<th>发布会员</th>
+								<th>缩略图</th>
+								<th>简介</th>
+								<th>发布时间</th>
+								<th>点击量</th>							
+								<th>状态</th>
+								<th>详情</th> 
+							</tr>
+						</thead>
+						
+						<tbody class="middle-align">		
+				
+							<volist name="newsInfo" id="v">
+							<tr>
+							<td><input type="checkbox" name="ids" value="{$v.id}"></td>
+						   <td>{$v.title}</td>
+							<td>{$v.user_id|getusername}</td>
+							<td>
+							   <volist name="v['o']" id="vv" offset="0" length="1">
+								<img  src="/Uploads/{$vv['g_photo']}" style="width:100px;">
+								</volist>
+							</td>
+							<td>{$v.content|htmlspecialchars_decode|mb_substr=0,80,'utf-8'}</td>
+							<td>{$v.create_time|date="Y-d-m",###}</td>
+							<td>{$v.click}</td>
+							
+							<td><if condition="$v['status'] eq 0"><span style='color:red;font-weight:bolder'>未审核</span>
+							<elseif condition="$v['status'] eq 1"/><span style='color:green;font-weight:bolder'>已审核</span>
+							<elseif condition="$v['status'] eq -1"/><span style='color:red;font-weight:bolder'>审核不通过</span>
+							
+		
+							</if>
+							
+							</td>
+							
+								<td>
+									
+									<a href="{:U('Admin/Ad/editor',array('id'=>$v['id']))}" class="btn btn-secondary btn-sm btn-icon icon-left">
+										查看详情
+									</a>
+									
+									
+								</td> 
+							</tr>
+                            </volist>
+							<tr>
+							  <td colspan="9">{$page}</td>
+							</tr>
+						</tbody>
+					</table>
+				<!-- <div class="pagination"></div> -->
+				</div>
+				
+	   
+		</form>
+			</div>
+
+<link href="__PUBLIC__/Admin/css/toastr.css" rel="stylesheet"/>
+
+<script src="__PUBLIC__/Admin/js/toastr.js"></script> 
+<script type="text/javascript">
+
+
+     $(function(){
+	
+	            toastr.options = {
+				"closeButton": false,
+				  "debug": false,
+				  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "990",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "990",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+            };
+				
+					
+					
+				});	
+				
+				
+						
+					
+			
+				$("#open").click(function(){
+					
+					var ids =[]; 
+				$('input[name="ids"]:checked').each(function(){ 
+				ids.push($(this).val()); 
+				});
+					
+					
+					
+					$.ajax({
+								type:'post',
+								url:"{:U('Admin/Goods/settongguo')}",
+								data:{ids:ids,status:1},
+								success:function(msg){
+							
+									if(msg.status==1){
+										toastr.error(msg.info,'审核成功',toastr.options);
+									 setTimeout(function () {
+                        window.location.href = "/index.php/Admin/Goods/index";
+                    }, 1500);
+									}else{
+										toastr.error(msg.info,'操作失败',toastr.options);
+										
+									}
+								}
+							});
+					
+					
+					})	
+					
+					$("#ban").click(function(){
+					
+					var ids =[]; 
+				$('input[name="ids"]:checked').each(function(){ 
+				ids.push($(this).val()); 
+				});
+					
+					
+					
+					$.ajax({
+								type:'post',
+								url:"{:U('Admin/Goods/setnotongguo')}",
+								data:{ids:ids},
+								success:function(msg){
+							
+									if(msg.status==1){
+										toastr.error(msg.info,'审核不通过',toastr.options);
+									 setTimeout(function () {
+                        window.location.href = "/index.php/Admin/Goods/index";
+                    }, 1500);
+									}else{
+										toastr.error(msg.info,'操作失败',toastr.options);
+										
+									}
+								}
+							});
+					
+					
+					})	
+					
+					
+					
+					$("#xin").click(function(){
+					
+					var ids =[]; 
+				$('input[name="ids"]:checked').each(function(){ 
+				ids.push($(this).val()); 
+				});
+					
+					
+					
+					$.ajax({
+								type:'post',
+								url:"{:U('Admin/Goods/setxin')}",
+								data:{ids:ids},
+								success:function(msg){
+							
+									if(msg.status==1){
+										toastr.error(msg.info,'可信农产品设置成功',toastr.options);
+									 setTimeout(function () {
+                        window.location.href = "/index.php/Admin/Goods/index";
+                    }, 1500);
+									}else{
+										toastr.error(msg.info,'操作失败',toastr.options);
+										
+									}
+								}
+							});
+					
+					
+					})	
+					 
+					
+				</script>

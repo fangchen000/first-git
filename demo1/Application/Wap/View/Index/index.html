@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+ </html>
+ <head>
+     <meta charset="utf-8">
+     <?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+  
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+     <meta name="format-detection" content="telephone=no" /> 
+     <meta content="email=no" name="format-detection">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/swiper-3.2.7.min.css">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/base.css"/>
+     <link rel="stylesheet" href="__PUBLIC__/Wap/assets/css/index.css">
+     <script type="text/javascript" src="__PUBLIC__/Wap/assets/js/jquery-1.8.1.min.js"></script>
+     <script type="text/javascript" src="__PUBLIC__/Wap/assets/js/swiper-3.2.7.jquery.min.js"></script>
+ 
+ </head>
+ <body style="padding:0;">
+ <?php 
+
+$theusagt = $_SERVER["HTTP_USER_AGENT"];
+$is_mobile = false;
+
+
+if(stripos($theusagt , "iPhone") !== false || stripos($theusagt , "iPod") !== false){    
+    $is_mobile = true;	
+}
+else if(stripos($theusagt , "Mac OS") !== false){   
+    $is_mobile = false;
+}
+else if(stripos($theusagt , "Mobile") !== false){
+    $is_mobile = true;
+}
+else if(stripos($theusagt , "Android") !== false){   
+   $is_mobile = false;
+}
+else if(stripos($theusagt , "Windows Phone") !== false){
+  $is_mobile = true;
+}
+else {
+    $is_mobile = false;
+} 
+?> 
+<input type="hidden" id="is_mobile" value="{$is_mobile}"/>
+<!-- <script>
+var is_mobile=$("#is_mobile").val(); 
+if(is_mobile){
+}else{
+window.location.href="/index.php/Home/Index/index.html";
+}
+</script> -->
+ 	<!--头部-->
+	<div class="header">
+        <div class="logo"><img src="__PUBLIC__/Wap/assets/images/logo.png" alt=""></div>
+	</div>
+    
+	<!--视频-->
+	<div class="shipin"><video poster="__PUBLIC__/Wap/assets/images/feng.jpg" width="100%" controls muted loop><source src="video/sp.mp4" type="video/mp4" style="width:100%;"></video></div>
+	
+    <!--搜索-->
+	<section class="search">
+    	<input type="text" placeholder="输入您想搜索的内容"><input type="submit" value="搜索">
+    </section>
+    
+    
+    <!--注册登录-->
+    <section class="login">
+    	<a href="{:U('Wap/User/login')}"><b>会员登录</b></a>
+        <a href="{:U('Wap/User/register')}"><b>会员注册</b></a>
+    </section>
+	
+	<section class="list">
+		<h2>原创精品视频</h2>
+        
+		<div class="con">
+			<div class="swiper-container swiper1">
+				<div class="swiper-wrapper">
+				<volist name="vimeo" id="v" offset="0" length="10">
+				    <a class="swiper-slide" href="{:U('Wap/Vimeo/index',array('id'=>$v['id']))}">
+				    	<h3><img src="{$v.image}" alt=""></h3>
+				    	<p>我们相爱吧</p>
+                        <b>立即观看</b>
+				    </a>
+				</volist>     
+				</div>
+			</div>
+			<div class="swiper-pagination s_p1"></div>
+		</div>
+	</section>
+	<script type="text/javascript">
+	    var swiper2 = new Swiper('.swiper1', {
+	        pagination: '.s_p1',
+	        slidesPerView: 2,
+	        paginationClickable: true,
+	        spaceBetween:11
+	    });
+	</script>
+    
+    <section class="list">
+		<h2>社区经典视频</h2>
+        
+		<div class="con">
+			<div class="swiper-container swiper2">
+				<div class="swiper-wrapper">
+				    <volist name="jingdian_vimeo" id="v" offset="0" length="10">
+				    <a class="swiper-slide" href="{:U('Wap/Vimeo/index',array('id'=>$v['id']))}">
+				    	<h3><img src="{$v.image}" alt=""></h3>
+				    	<p>我们相爱吧</p>
+                        <b>立即观看</b>
+				    </a>
+				</volist> 
+				</div>
+			</div>
+			<div class="swiper-pagination s_p2"></div>
+		</div>
+	</section>
+	<script type="text/javascript">
+	    var swiper2 = new Swiper('.swiper2', {
+	        pagination: '.s_p2',
+	        slidesPerView: 2,
+	        paginationClickable: true,
+	        spaceBetween:11
+	    });
+	</script>
+
+	<section class="tishi" style="background-image:url(__PUBLIC__/Wap/assets/images/backimg.jpg);">
+        <div class="fill"></div>
+    	<p>这是一个神奇的网站，一键注册成会员高清视频随时观看畅聊沟通随时随地还在等什么？
+快来加入我们吧!</p>
+		<b><a href="{:U('Wap/User/register')}">注册</a><a href="{:U('Wap/User/login')}">登录</a></b>
+    </section>
+	
+ </body>
+ </html>
+
+
+
+
+
+
+
+
+
+
+
+

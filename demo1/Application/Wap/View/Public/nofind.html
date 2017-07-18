@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+?>
+
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/404.css">
+</head>
+
+<body style="background-color:#f4f3ef;">
+<div class="error">
+    <div class="box">
+        <h2>很抱歉！您访问的页面不存在......</h2>
+        <img src="__PUBLIC__/home/assets/images/404_data.png" alt="">
+    	<p>您还可以：<a href="{:U('home/Index/index')}">访问网站</a></p>
+        <strong>免费客服热线：{$conf.tel}</strong>
+    </div>
+</div>
+</body>
+</html>

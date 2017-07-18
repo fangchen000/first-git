@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="shortcut icon" type="image/x-icon" href="__PUBLIC__/home/assets/images/ico.ico" media="screen" />
+   <?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+	
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+    <!--公共css-->
+	
+</head>
+
+<body>
+
+<!--顶部开始-->
+<header>
+
+	<div class="head_center">
+        <div class="logo"><a href="{:U('Home/Index/index')}"><img src="{$conf['logo']}" alt=""></a></div>
+        <if condition="$us_id neq null">
+        <div class="upload" onclick="document.location='/index.php/Home/User/myvimeo.html'">上传视频</div>
+        <div class="headimg"><a href="{:U('Home/User/index')}"><if condition="$us_id['photo'] eq null"><img src="__PUBLIC__/home/assets/images/headimg.png" alt="" style="width:100%;height:100%;border-radius:50%;"><else/> <img src="{$us_id['photo']}" alt="" style="width:100%;border-radius:50%;"></if></a>
+        	<ul>
+            	<li class="person"><a href="{:U('Home/User/index')}"><h3>{$us_id.username}</h3><span>进入个人中心>></span></a></li>
+                <li class="jifen">当前积分：<b>{$us_id['score']}</b></li>
+                <li class="shangchuan"><a href="{:U('Home/User/myvimeo')}">我的上传</a></li>
+                <li class="pindao"><a href="{:U('Home/User/creat_channel')}">我的频道</a></li>
+                <li class="biaoqian"><a href="{:U('Home/User/tag')}">我的标签</a></li>
+                <li class="shoucang"><a href="{:U('Home/User/mycollect')}">我的收藏</a></li>
+                <li class="out"><a href="{:U('Home/User/logionout')}">注销</a></li>
+                <i></i>
+            </ul>
+        </div>
+       <else/>
+<div class="login"><a href="{:U('Home/Index/index')}">登录</a><a href="{:U('Home/Index/index')}">注册</a></div>
+
+    </if>
+        <form action="{:U('Home/Search/index')}" method="post" onsubmit="return  check()">
+        <div class="search"><input type="text" name="keywords" placeholder="请输入您要搜索的内容" value="{$keywords}" id="keywords"/><button type="submit"></button></div>
+       </form> 
+
+
+<script type="text/javascript">
+function  check(){
+    var keywords=$("#keywords").val();
+    if(keywords==""){
+        alert("关键字不能为空");
+        return false;
+    }
+}
+
+</script>
+
+    </div>
+</header>
+ <link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+
+<script src="__PUBLIC__/home/js/toastr.js"></script>
+<script>
+
+          
+         $(function(){
+	            toastr.options = {
+				"closeButton": false,
+				  "debug": false,
+				  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "990",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "990",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+            };	
+				});	
+				
+				</script> 

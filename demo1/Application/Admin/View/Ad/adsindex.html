@@ -1,0 +1,255 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+	<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+
+	<!--   <section>
+          <h2><strong style="color:grey;">常用按钮（水平块元素，无区域限制）</strong></h2>
+          <a class="link_btn" id="loading">点击加载</a>
+
+          <input type="button" value="按钮input" class="link_btn"/>
+         </section> -->
+
+
+
+	<div class="rt_content">
+		<section>
+
+			<div class="page_title">
+				<h2 class="fl">广告位管理</h2>
+				<section>
+					<form method="post" action="{:U('Admin/Ad/adsindex')}">
+						<!--  <h2><strong style="color:grey;">搜索查询</strong></h2> -->
+						<input type="text" class="textbox" placeholder="广告位名称" name="cad_name" value="{$cad_name}"/>
+						<!--<input type="text" class="textbox textbox_295" placeholder="广告位地区" name="content" value="{$content}"/>-->
+
+						<input type="submit" value="搜索" class="group_btn"/>
+					</form>
+				</section>
+				<if condition="$_SESSION.adminjurisdiction eq 0">
+					<a class="fr top_rt_btn link_btn" href="{:U('Ad/position')}">添加广告位</a>
+				</if>
+
+			</div>
+
+
+
+			<table class="table">
+				<tr>
+					<th>选择</th>
+					<th>ID</th>
+
+					<th>广告位置</th>
+					<th>广告尺寸</th>
+
+					<th>操作</th>
+				</tr>
+				<tbody class="middle-align table table-bordered table-striped">
+				<volist name="position" id="v">
+					<tr>
+						<td><input type="checkbox" value="{$v.id}" name="ids"></td>
+						<td>{$v.id}</td>
+						<td>{$v.cad_name}</td>
+						<td>{$v.size_name}</td>
+
+						<td>
+							<a href="{:U('Admin/Ad/position',array('id'=>$v['id']))}"><img src="__PUBLIC__/admin/assets/images/icon_edit.gif" alt="编辑" title="编辑"></a>&nbsp;&nbsp;
+							<img src="__PUBLIC__/admin/assets/images/icon_trash.gif" onclick="setdel({$v['id']})" alt="删除" title="删除">
+						</td>
+					</tr>
+				</volist>
+				<tr>
+					<td colspan="13">{$link}</td>
+				</tr>
+				</tbody>
+			</table>
+
+		</section>
+
+
+		<style>
+			.table .video{ position:relative;}
+			.table .hover { position:absolute; left:50%;top:50%; margin-left:}
+
+
+		</style>
+
+	</div>
+</section>
+
+
+
+
+
+
+<script type="text/javascript">
+
+	$("#del").click(function(){
+		var ids =[];
+		$('input[name="ids"]:checked').each(function(){
+			ids.push($(this).val());
+		});
+		$.ajax({
+			type:'post',
+			url:"{:U('Admin/Ad/delviemostatus')}",
+			data:{ids:ids},
+			success:function(msg){
+				if(msg.status==1){
+					toastr.success(msg.info,'设置成功',toastr.options);
+					setTimeout(function () {
+						location.reload();
+					}, 1500);
+				}else{
+					toastr.error(msg.info,'设置失败',toastr.options);
+
+				}
+			}
+		});
+
+
+	})
+
+
+	//推荐
+	$("#is_commend").click(function(){
+		var ids =[];
+		$('input[name="ids"]:checked').each(function(){
+			ids.push($(this).val());
+		});
+		$.ajax({
+			type:'post',
+			url:"{:U('Admin/Vimeo/delviemocommend')}",
+			data:{ids:ids,status:1},
+			success:function(msg){
+				if(msg.status==1){
+					toastr.success(msg.info,'设置成功',toastr.options);
+					setTimeout(function () {
+						location.reload();
+					}, 1500);
+				}else{
+					toastr.error(msg.info,'设置失败',toastr.options);
+
+				}
+			}
+		});
+
+
+	})
+
+
+	//取消推荐
+	$("#no_commend").click(function(){
+		var ids =[];
+		$('input[name="ids"]:checked').each(function(){
+			ids.push($(this).val());
+		});
+		$.ajax({
+			type:'post',
+			url:"{:U('Admin/Vimeo/delviemocommend')}",
+			data:{ids:ids,status:-1},
+			success:function(msg){
+				if(msg.status==1){
+					toastr.success(msg.info,'设置成功',toastr.options);
+					setTimeout(function () {
+						location.reload();
+					}, 1500);
+				}else{
+					toastr.error(msg.info,'设置失败',toastr.options);
+
+				}
+			}
+		});
+
+
+	})
+	//单独修改视频状态
+	function  setvimeooncestatus(e){
+		$.ajax({
+			type:'post',
+			url:"{:U('Admin/Vimeo/setvimeooncestatus')}",
+			data:{id:e},
+			success:function(msg){
+				if(msg.status==1){
+					toastr.success(msg.info,'设置成功',toastr.options);
+					setTimeout(function () {
+						location.reload();
+					}, 1500);
+				}else{
+					toastr.error(msg.info,'设置失败',toastr.options);
+
+				}
+			}
+		});
+	}
+
+	//单独修改视频推荐状态
+	function  setvimeoonceis_commend(e){
+		$.ajax({
+			type:'post',
+			url:"{:U('Admin/Vimeo/setvimeoonceis_commend')}",
+			data:{id:e},
+			success:function(msg){
+				if(msg.status==1){
+					toastr.success(msg.info,'设置成功',toastr.options);
+					setTimeout(function () {
+						location.reload();
+					}, 1500);
+				}else{
+					toastr.error(msg.info,'设置失败',toastr.options);
+
+				}
+			}
+		});
+	}
+
+	//单条删除视频
+	function  setdel(e){
+		if(confirm("您确定将该分类删除吗？？")){
+			$.ajax({
+				type:'post',
+				url:"{:U('Admin/Ad/ad_delete')}",
+				data:{id:e},
+				success:function(msg){
+
+					if(msg.status==1){
+						toastr.success(msg.info,'删除成功',toastr.options);
+						setTimeout(function () {
+							location.reload();
+						}, 1500);
+					}else{
+						toastr.error(msg.info,'删除失败',toastr.options);
+
+					}
+				}
+			});
+
+		}
+	}
+
+
+
+	$(".deluser").click(function(){
+		var id=$(this).attr("id");
+		if(confirm("您确定删除该商品？？")){
+			$.ajax({
+				type:'post',
+				url:"{:U('Admin/Goods/delgoods')}",
+				data:{id:id},
+				success:function(msg){
+					if(msg.status==1){
+						toastr.success(msg.info,'删除成功',toastr.options);
+						setTimeout(function () {
+							window.location.href = "/index.php/Admin/Goods/index.html";
+						}, 1500);
+					}else{
+						toastr.error(msg.info,'删除失败',toastr.options);
+
+					}
+				}
+			});
+		}
+	})
+
+
+
+
+</script>

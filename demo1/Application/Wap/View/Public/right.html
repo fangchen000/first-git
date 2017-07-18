@@ -1,0 +1,35 @@
+<div class="rightnav">
+      <div class="rlink">
+          <a class="r1" href="{:U('Home/User/creat_channel')}">进入个人主页</a>
+            <a class="r2" href="{:U('Home/Goods/index')}">查看视频分类</a>
+            <a class="r3"  href="{:U('Home/Vimeo/all_channel')}">查看所有频道</a>
+        </div>
+        <div class="rinfo green">
+          <h2>账户设置</h2>
+            <p>这是你所有重要的Vimeo信息家，包括你的密码，喜好，什么出现在你的轮廓。你可以改变它，任何时候你想要的。</p>
+        </div>
+        <div class="rinfo violet">
+          <h2>用户管理</h2>
+            <p>这是你所有重要的Vimeo信息家，包括你的密码，喜好，什么出现在你的轮廓。你可以改变它，任何时候你想要的。</p>
+        </div>
+        <div class="rinfo blue">
+          <h2>信息统计</h2>
+            <div class="sum">
+              <dl>
+                  <dt><img src="__PUBLIC__/home/assets/images/pol_icon05.png" alt=""></dt>
+                    <dd>我的收藏</dd>
+                    <dd>{$mycollectcount}</dd>
+                </dl>
+                <dl>
+                  <dt><img src="__PUBLIC__/home/assets/images/pol_icon06.png" alt=""></dt>
+                    <dd>观看历史</dd>
+                    <dd>{$historycount}</dd>
+                </dl>
+                <dl>
+                  <dt><img src="__PUBLIC__/home/assets/images/pol_icon07.png" alt=""></dt>
+                    <dd>我的标签</dd>
+                    <dd>{$mytagcount}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>

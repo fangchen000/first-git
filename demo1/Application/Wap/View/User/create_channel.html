@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+ </html>
+ <head>
+     <meta charset="utf-8">
+    <?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+  
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+
+     <meta name="format-detection" content="telephone=no" /> 
+     <meta content="email=no" name="format-detection">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/base.css"/>
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/pol.css">
+     <script src="__PUBLIC__/Wap/assets/js/jquery-1.8.1.min.js"></script>
+	  <script src="__PUBLIC__/Wap/assets/layer/layer.js"></script>
+     <script>
+		$(function(){
+		$(".checkclass").removeAttr('checked','checked');
+			$(".delete_icon").click(function(){
+				$(".piaochecked").toggle();
+				$(".fixed").toggle();
+				$(this).children("b").toggle();
+				$(".pindao_list dl").toggleClass("margin");
+			})
+			
+		    $(".xuzhong").click(function(){
+				$(".checkclass").attr('checked','checked');
+				$(".piaochecked").addClass("on_check")
+				$(this).siblings(".quxiao").show();
+			});
+			$(".quxiao").click(function(){
+				$(".checkclass").removeAttr('checked','checked');
+				$(".piaochecked").removeClass("on_check")
+				$(this).hide();
+			});
+		})
+		
+		$(function(){
+			$(".piaochecked").on("click",function(){
+				$(this).hasClass("on_check")? $(this).removeClass("on_check"):$(this).addClass("on_check");
+			   //或者这么写
+			  // $(this).toggleClass( "on_check" );
+			})
+		})
+	 </script>
+ </head>
+ <body>
+ 	<!--头部-->
+    <header>
+        <a class="back" onclick="history.go(-1)"></a>
+        <h2>我的频道</h2>
+        <a class="delete_icon"><b>取消</b></a>
+    </header>
+    
+	<section class="pindao_list">
+	 <volist name="channel" id="v">
+    	<dl><a href="{:U('Wap/Vimeo/vimeolist',array('id'=>$v['id']))}">
+		<if condition="$v['status'] eq 2">
+				<div class="state1" style="position:absolute; width:100px; height:30px; line-height:30px; color:#FFF; z-index:999; background:url(__PUBLIC__/home/assets/images/ing.png) 5px center no-repeat #000; background-size:20px; padding-left:35px;">审核中</div>
+			<elseif condition="$v['status'] eq 1"/>
+			 <div class="state2" style="position:absolute; width:100px; height:30px; line-height:30px; color:#FFF; z-index:999; background:url(__PUBLIC__/home/assets/images/yes.png) 5px center no-repeat #000; background-size:20px; padding-left:35px;">审核通过</div>
+			 <elseif condition="$v['status'] eq -1"/>
+			 <div class="state2" style="position:absolute; width:100px; height:30px; line-height:30px; color:#FFF; z-index:999; background:url(__PUBLIC__/home/assets/images/no.png) 5px center no-repeat #000; background-size:20px; padding-left:35px;">审核拒绝</div>
+			 </if>
+			 
+        	<dt><img src="{$v['image']}" alt=""></dt>
+            <dd><h3>{$v['title']}</h3>
+                <b>上传时间：{$v.create_time|date="Y-m-d",###}</b>
+                <p>频道简介：{$v.content}</p>
+            </dd></a>
+            <div class="piaochecked">
+                <input name="need_inv" type="checkbox" value="{$v['id']}" style="height:20px;width:20px;" class="checkclass">
+            </div>
+        </dl>
+	</volist>
+    </section>    
+    
+    <div class="fixed">
+    	<a class="check_all"><b class="xuzhong">全部选中</b><b class="quxiao">全部取消</b></a>
+        <a class="delete_all">删除</a>
+    </div>
+    
+    <!--分页-->
+   <script>
+   $(".delete_all").click(function(){
+	
+	var need_inv =[]; 
+	$("input[name=need_inv]:checked").each(function(){ 
+	need_inv.push($(this).val()); 
+	}); 
+	if(need_inv==""){
+	layer.msg("请选择要删除的频道");
+	}else{
+		   $.ajax({
+				type : "post",
+				async : false,
+				 'url':"/index.php/Wap/User/delmoremychannel",
+				data :{
+				  ids:need_inv
+				},
+				dataType : "json",
+				success : function(result) {
+				  if(result.status==1){
+				 layer.msg(result.info);
+				// location.reload();
+		   setTimeout(function () {
+				location.reload();
+			}, 1500);
+
+				  }
+				  if(result.status==0){       
+					layer.msg(result.info);
+				  }  
+				}
+			  });
+	}
+	})
+   
+   </script>
+    
+    <!--页脚-->
+	<include file="Public:footer"/>
+    
+    <div class="chuangjian"><a href="{:U('Wap/User/create')}">创建频道</a></div>
+	
+ </body>
+ </html>

@@ -1,0 +1,67 @@
+<include file="Public:header"/>
+    <!--公共css-->
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/base.css">
+    <!--本页css-->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/second_more.css">
+    <script src="__PUBLIC__/home/assets/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/home/assets/js/base.js" type="text/javascript"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/assets/layer/layer.js"></script>
+    
+</head>
+
+<body>
+
+
+
+
+<div class="topnav" style="margin-bottom:20px;">
+    <h1 style="font-size:16px;">共搜到“{$keywords}”相关记录<span style="color:#f00;font-size:16px;">{$count}条</span></h1>
+</div>
+
+<style>
+.left{width:1000px;}
+.searchlist dl dt{width:190px;height:120px;}
+.searchlist dl dd{width:800px;}
+.auter{float:left; margin-right:20px;}
+.fold{clear:both;}
+</style>
+
+<div class="more_list">
+	<div class="left">
+        <div class="qiebox">
+        	
+            <div class="list list2 searchlist">
+                <volist name="vimeo" id="v">
+                <dl>
+                    <dt onclick="document.location='/index.php/Home/Vimeo/index/id/{$v.id}.html'"><img src="{$v.image}" alt=""></dt>
+                    <dd><h2 onclick="document.location='/index.php/Home/Vimeo/index/id/{$v.id}.html'">{$v.title}<!-- <i>时长:{}</i> --></h2>
+                    <h3 class="auter">来自：{$v.user_id|getusername}<b>{$v.click}次</b><b>{$v.like}</b><b>{$v.ping}</b></h3>
+                    <h3 class="auter">上传时间：{$v.create_time|date="Y-m-d H:i",###}</h3>
+                    <h3 class="fold text">作品简介：
+                        {$v.content}</h3>
+                    <a class="more"><b>+展开全部</b><b>—收起全部</b></a></dd>
+                </dl>
+                </volist>
+                
+                   
+            </div>
+
+            <!--分页开始-->
+
+            <div class="fenye">
+                <ul>
+            	{$page}
+            </ul>
+            </div>
+            <!--分页结束-->
+        </div>
+    </div>
+    
+    
+</div>
+
+
+<!--页脚开始-->
+<include file="Public:footer"/>
+</body>
+</html>

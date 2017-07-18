@@ -1,0 +1,78 @@
+<section class="rt_wrap content mCustomScrollbar">
+    <script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+    <div class="rt_content">
+        <section>
+            <if condition="empty($info)">
+                <h1>{$_info}</h1>
+                <else/>
+                <button onclick="endReward();">本轮抽奖完成，点击开始下一轮抽奖</button>
+            </if>
+
+            <table class="table">
+                <tr>
+                    <!--<th>选择</th>-->
+                    <th>用户名</th>
+                    <th>订单号</th>
+                    <th>商品名</th>
+                    <th>抽奖号</th>
+                    <!--<th>收获地址</th>-->
+                </tr>
+                <tbody class="middle-align table table-bordered table-striped">
+                <volist name="vimeo" id="v">
+                    <tr>
+                        <!--<td><input type="checkbox" value="{$v.id}" name="ids"></td>-->
+                        <!--{$_SESSION['uid']|getuserrealname}-->
+                        <td>{$v.user_id|getuserrealname}</td>
+                        <td>{$v.order_num}</td>
+                        <td>{$v.good_id|getgoodname}</td>
+                        <td>{$v.reward_num}</td>
+                        <!--<td>-->
+                        <!--<if condition="$v['status'] eq 0">-->
+                        <!--未付款-->
+                        <!--<elseif condition="$v['status'] eq 1"/>-->
+                        <!--已付款-->
+                        <!--</if>-->
+                        <!--</td>-->
+                        <!--<td>{$v.address}</td>-->
+                    </tr>
+                </volist>
+                <tr>
+                    <td colspan="10">{$page}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    //抽奖完成，点击开始下一轮抽奖
+    function  endReward(){
+        if(confirm("您确定开始下一轮抽奖吗？？")){
+// 	alert(e);
+            $.ajax({
+                type:'get',
+                url:"{:U('Admin/Reward/endReward')}",
+                data:{id:6},
+                success:function(msg){
+//                    alert(msg);
+                    if(msg.status==1){
+                        toastr.success(msg.info,'开启成功，可以进行下一轮抽奖',toastr.options);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }else{
+                        toastr.error(msg.info,'系统繁忙，请重试',toastr.options);
+
+                    }
+                }
+            });
+
+        }
+    }
+
+
+</script>

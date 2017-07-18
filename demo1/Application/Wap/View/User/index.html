@@ -1,0 +1,231 @@
+<script type="text/javascript" src="__PUBLIC__/home/js/ajaxupload.js"></script>
+ <script type="text/javascript" src="__PUBLIC__/home/assets/layer/layer.js"></script> 
+   
+<include file="Public:header"/>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/base.css">
+    <!--本页css-->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/pol.css">
+    <script src="__PUBLIC__/home/assets/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/home/assets/js/base.js" type="text/javascript"></script>
+	
+<script type="text/javascript" src="__PUBLIC__/home/assets/layer/layer.js"></script> 
+<div class="polbox">
+  <h1>欢迎您，<i>{$us_id.username}</i><p>终于等到你，您的加入会给{$conf.title}带来无限的激情和灵感，赶快分享你的代表作吧！</p></h1>
+    <div class="clear"></div>
+  <!--左侧信息-->
+  <div class="pol_info">
+
+<div class="topnav">
+       <a  href="{:U('Home/User/myvimeo')}">我的上传</a>
+            <a  href="{:U('Home/User/creat_channel')}">我的频道</a>
+            <a href="{:U('Home/User/tag')}">我的标签</a>
+            <a href="{:U('Home/User/mycollect')}">我的收藏</a>
+            <a   href="{:U('Home/User/history')}">观看历史</a>
+      
+       </div>
+
+        <div class="baseinfo">
+          <h2><img src="{$us_id.photo|default='__PUBLIC__/home/assets/images/headimg.png'}" alt="" style="border-radius:50%;width:129px;"></h2>
+            <dl>
+              <dt>{$us_id.username}</dt>
+                <dd>积分：<b>{$us_id['score']}</b></dd>
+                <dd>email：<b>{$us_id.email}</b></dd>
+                <dd>注册时间：<b>{$us_id.create_time|date="Y-m-d H:i",###}</b></dd>
+            </dl>
+        </div>
+        <!--头像上传-->
+        <div class="bombar uphead">
+          <h2>头像上传</h2>
+            <h3>您可以选在上传您喜欢的图片作为您的头像，头像尺寸大小建议：150px*150px</h3>
+            <div class="upup">
+              <h4><img id="newbikephoto"  src="{$us_id.photo|default='__PUBLIC__/home/assets/images/headimg.png'}" style="width:80px;border-radius:50%"></h4>
+                <h5>
+                      <input type="button" class="btn btn-primary" id="upload_button"  value="上传图片"/><p>上传头像</p>
+                </h5>
+
+    
+
+            </div>
+        </div>
+        <!--头像上传-->
+        <div class="bombar username">
+          <h2>用户名</h2>
+            <h3>这是你的名字吧。很多人用自己的真实姓名，但你的选择可能会是“user47709826。”</h3>
+            <input type="" value="{$us_id.username}" id="username" onchange="check()">
+        </div>
+        <!--邮箱地址-->
+        <div class="bombar email">
+          <h2>邮箱地址</h2>
+            <h3>使用此登录到您的帐户，您收到一条我们发的邮件，点击邮件内的链接，即可完成邮箱的验证。</h3>
+            <h4>您的邮箱地址：<span>{$us_id['email']}</span></h4>
+            <h5><a class="change">修改邮箱地址</a><a>验证邮箱</a></h5>
+            <div class="new_email">
+              <h6>请输入旧密码，并设置新密码。修改好之后请牢记新密码</h6>
+                <form>
+                  <p><label>新邮箱地址：</label><input type="text" id="email"  value="{$us_id.email}" onchange="check()"></p>
+                    <p><button>确认修改</button><a class="concel">取消</a></p>
+                </form>
+                <i></i>
+            </div>
+        </div>
+        <!--修改密码-->
+        <div class="bombar email">
+          <h2>密码修改</h2>
+            <h3>你可以在此处修改登录密码。修改好之后请牢记登录密码</h3>
+            <h5><a class="change">更改密码</a></h5>
+            <div class="new_email">
+              <h6>若您的更换了邮箱地址，请在此处添加新的邮箱地址，点击最下方的保存即可。</h6>
+                <form>
+                  <p><label>旧密码：</label><input type="password" id="oldpwd" onchange="check()"></p>
+                    <p><label>设置新密码：</label><input type="password" id="newpwd" onchange="check()"></p>
+                    <p><label>确认新密码：</label><input type="password" id="checkpwd" onchange="check()"></p>
+
+                    <p><button>确认修改</button><a class="concel">取消</a></p>
+                </form>
+                <i></i>
+            </div>
+        </div>
+        <div class="savebtn"><button id="useredit" style=" cursor:pointer">保存修改</button><a href="{:U('Home/User/index')}">>>返回个人中心</a></div>
+
+        <script type="text/javascript" src="__PUBLIC__/home/assets/js/center.js"></script>
+        
+    </div>
+    
+    <!--右侧导航-->
+    <include file="Public:right"/>
+
+</div>
+
+<script type="text/javascript">
+$(function(){
+  var button = $('#upload_button'), interval;
+  var button1 = $('#upload_button1'), interval;
+  var confirmdiv = $('#uploadphotoconfirm');
+
+    var fileType = "pic",fileNum = "one"; 
+    new AjaxUpload(button,{
+        action: "{:U('Home/Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;               
+                }
+            }
+                        
+           confirmdiv.text('文件上传中');
+            
+            if(fileNum == 'one')
+                this.disable();
+            
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');                    
+                } else {
+                    confirmdiv.text('文件上传中');             
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+    
+      if(response != "success"){
+        if(response =='2'){
+          confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+        }else{
+          if(response.length>20){
+            confirmdiv.text("文件上传失败请重新上传"+response);      
+          }else{
+            confirmdiv.text("上传完成");
+            
+            $("#newbikephotoName").val("/Upload/images/"+response);
+            $("#newbikephoto").attr("src","/Upload/images/"+response);      
+          }
+        }
+        
+      }
+                                  
+            window.clearInterval(interval);
+                        
+            this.enable();
+            
+            if(response == "success")
+            confirmdiv.text('上传成功');              
+        }
+    });
+   new AjaxUpload(button1,{
+        action: "{:U('Home/Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;               
+                }
+            }
+                        
+           confirmdiv.text('文件上传中');
+            
+            if(fileNum == 'one')
+                this.disable();
+            
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');                    
+                } else {
+                    confirmdiv.text('文件上传中');             
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+    
+      if(response != "success"){
+        if(response =='2'){
+          confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+        }else{
+          if(response.length>20){
+            confirmdiv.text("文件上传失败请重新上传"+response);      
+          }else{
+            confirmdiv.text("上传完成");
+            
+            $("#newbikephotoName1").val("/Upload/images/"+response);
+            $("#newbikephoto1").attr("src","/Upload/images/"+response);     
+          }
+        }
+        
+      }
+                                  
+            window.clearInterval(interval);
+                        
+            this.enable();
+            
+            if(response == "success")
+            confirmdiv.text('上传成功');              
+        }
+    });
+    
+  
+});
+
+
+ function  check(){
+$(".savebtn button").css("backgroundColor","red");   
+    }
+
+</script>
+<include file="Public:footer"/>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+*{margin: 0;padding: 0;font-family: "微软雅黑";font-size: 14px;font-weight: normal;font-style: normal;list-style: none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;border:none;}
+img{border: 0;}
+a{text-decoration: none;cursor: pointer;color: inherit;outline: none;}
+.btn{cursor: pointer;}
+.clear{clear: both;}
+.hide{display: none;}
+html,body{max-width: 640px; min-width:320px;margin:0 auto;}
+body{padding-top:45px; background-color:#f7f7f7;}
+
+/*顶部*/
+a.back1{position: absolute;top:12px;left:10px;display: block;width:20px;height: 22px;background: url(../images/return01.png) no-repeat center center;background-size: auto 100%;z-index: 99999;}
+a.back{position: absolute;top:12px;left:10px;display: block;width:20px;height: 22px;background: url(../images/return02.png) no-repeat center center;background-size: auto 100%;z-index: 99;}
+a.snav{position: absolute;top:12px;right:10px;display: block;width:30px;height: 22px;background:url(../images/secondnav.png) no-repeat center center;background-size: auto 100%;z-index: 99;}
+a.delete_icon{position: absolute;top:12px;right:10px;display: block;width:30px;height: 22px;background:url(../images/delete.png) no-repeat center center;background-size: auto 100%;z-index: 99;}
+a.delete_icon b{ display:none;width:30px; height:22px;background: #71bf9b; color:#FFF; text-align:center; line-height:22px; padding:2px 0; border:1px solid #71bf9b;}
+header{background: #71bf9b;position: fixed;top:0;left: 0;width: 100%;z-index: 999;}
+header h2{color: #fff;line-height:45px;text-align: center;font-size: 18px;}
+.header{background: #71bf9b;width:100%; padding:4px 0;}
+.header .logo{ width:36%; max-width:120px; min-width:60px; margin:4px auto;}
+.header .logo img{ width:100%;}
+.header h2{color: #fff;line-height:45px;text-align: center;font-size: 18px;}
+.header a.back1{position: absolute;top:12px;left:10px;display: block;width:20px;height: 22px;background: url(../images/return02.png) no-repeat center center;background-size: auto 100%;z-index: 99999;}
+.warning{font-size:14px; color:#FFF; text-align:center; background:url(../images/topbar.png) top center no-repeat #333; background-size:auto 3px; line-height:30px; padding-top:4px}
+
+
+.leftspacing{ left:-160px;}
+
+
+/*二级导航*/
+nav{ display:none;position:fixed; right:0; top:0; width:160px;background-color:#595959; height:100%; padding-top:50px; z-index:9999;}
+nav dl a{ display:block;}
+nav dl dt{ background-color:#444444;width:90%;border-top-right-radius:20px;border-bottom-right-radius:20px;}
+nav dl dt a{ color:#fff;font-size:18px; padding:10px 0 10px 20px; }
+nav dl dd{ padding:0 10px;}
+nav dl dd a{ border-bottom:1px solid #6b6b6b; padding:10px 0 10px 10px; color:#FFF;}
+
+
+/*页脚*/
+footer .logo_bar{margin:20px 0 60px;overflow: hidden;padding:0px 10px;}
+footer .logo_bar p{ text-align:center;line-height:20px; color:#999; font-size:12px;}
+footer .foot_nav{position: fixed;left: 0;bottom: 0;width: 100%;overflow: hidden;background: #71bf9b;padding:6px 5px 3px;z-index: 99;}
+footer .foot_nav a{float: left;width:33%;color: #fff;padding-top:30px;text-align: center;}
+footer .foot_nav a:nth-child(1){background:url(../images/footer01.png) no-repeat top center;background-size: auto 24px;}
+footer .foot_nav a:nth-child(2){background:url(../images/footer02.png) no-repeat top center;background-size: auto 24px;}
+footer .foot_nav a:nth-child(3){background:url(../images/footer04.png) no-repeat top center;background-size: auto 24px;}
+footer .foot_nav a:nth-child(4){background:url(../images/footer03.png) no-repeat top center;background-size: auto 24px;}
+
+/*搜索*/
+.search{ width:96%;overflow:hidden; margin:15px auto; position:relative;}
+.search input:nth-child(1){width:90%; height:40px; line-height:40px; border:1px solid #CCC; background:url(../images/search.png) 10px center no-repeat #FFF; background-size:20px; padding-left:40px; padding-right:22%; border-radius:10px;}
+.search input[type="submit"]{ position:absolute; right:0; top:0;width:20%; height:40px; border:1px solid #71bf9b; background-color:#71bf9b; color:#FFF; font-size:16px; border-radius:10px;}
+
+/*分页*/
+.page{overflow: hidden;padding:20px 12px;text-align: center;}
+.page a{display: inline-block;border:1px solid #ddd;color: #666;width: 80px;line-height: 30px;border-radius: 4px;}
+.page span{display: inline-block;width: 80px;color: #666;}
+.page span i{color: #666;padding:0 5px;}

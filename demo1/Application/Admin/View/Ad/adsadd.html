@@ -1,0 +1,487 @@
+<link rel="stylesheet" href="__PUBLIC__/mp/control/css/zyUpload.css" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/home/js/ajaxupload.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+<js href="__PUBLIC__/mp/core/zyFile.js"/>
+<js href="__PUBLIC__/mp/control/js/zyUpload.js" />
+<script>
+	$(function(){
+		// 初始化插件
+		$("#demo").zyUpload({
+			width            :   "85%",                 // 宽度
+			height           :   "",                 // 宽度
+			itemWidth        :   "120px",                 // 文件项的宽度
+			itemHeight       :   "120px",                 // 文件项的高度
+			url              :   "{:U('Admin/Index/created')}",  // 上传文件的路径
+			multiple         :   true,                    // 是否可以多个文件上传
+			dragDrop         :   false,                    // 是否可以拖动上传文件
+			del              :   true,                    // 是否可以删除文件
+			finishDel        :   false,  				  // 是否在上传文件完成后删除预览
+			/* 外部获得的回调接口 */
+
+		});
+	});
+</script>
+<section class="rt_wrap content mCustomScrollbar">
+	<h2><strong style="color:grey;">广告管理</strong></h2>
+	<ul class="ulColumn2">
+		<li>
+			<span class="item_name" style="width:120px;">广告标题：</span>
+			<input type="text" class="textbox textbox_295" placeholder="广告标题" id="title" value="{$vimeo.title}"/>
+			<input type="hidden" id="idd" value="{$vimeo.id}"/>
+			<if condition="$vimeo.zn eq 1">
+				<input type="hidden" id="zn" value="{$vimeo['zn']}"/>
+				<else/>
+				<input type="hidden" id="zn" value="{$zn}"/>
+			</if>
+
+			<!--站内-->
+		</li>
+<if condition="$zn eq '' && $vimeo.zn neq 1">
+	<li>
+		<span class="item_name" style="width:120px;">展示地区:</span>
+		<select style="width:100px; " id="province">
+			<if condition="$vimeo.province eq ''">
+				<option value="">请选择省份</option>
+				<else/>
+				<option value="{$vimeo['province']}">{$vimeo['province']|get_cityname}</option>
+			</if>
+			<volist name="provinces" id="pro">
+				<option value="{$pro['code']}">{$pro['name']}</option>
+			</volist>
+		</select>
+		<select  id="city">
+			<if condition="$vimeo.city eq ''">
+				<option value="">请选择市..</option>
+				<else/>
+				<option value="{$vimeo['city']}">{$vimeo['city']|get_cityname}</option>
+			</if>
+		</select>
+		<script>
+			$("#province").change(function(){
+				var code=$(this).val();
+				$.post("{:U('Home/Student/get_city')}",{p_code:code}, function(data){
+					var str = "<option value=0 >请选择市..</option>";
+					for(var i=0; i< data.length; i++){
+						str = str + '<option value="' + data[i].code + '">' + data[i].name + '</option>';
+					}
+					//alert(str);
+					document.getElementById("city").innerHTML = str;
+				})
+			})
+		</script>
+	</li>
+</if>
+
+		<li>
+			<span class="item_name" style="width:120px;">广告封面：</span>
+			<b style="position:relative;"><img style="height: 100px;width: 130px;" id="newbikephoto" class="vb" src="{$vimeo.image}">
+			</b>
+			<input type="button" class="btn btn-primary" id="upload_button"  value="上传图片"/>
+		</li>
+		<li>
+			<span class="item_name" style="width:120px;">广告位：</span>
+			<select name="cat_id" class="select" id="cad_id">
+				<if condition="$vimeo.id eq ''"> <else/> <option value="{$vimeo.cad_id}">{$vimeo.cad_id|get_parent}</option></if>
+
+				<volist name="nav" id="v">
+					<option value="{$v.id}">{$v.cad_name}</option>
+				</volist>
+			</select>
+		</li>
+		<li>
+			<span class="item_name" style="width:120px;">广告链接：</span>
+			<input type="text"  class="textbox textbox_295" placeholder="广告链接" id="url" value="{$vimeo.url}"/>
+		</li>
+		<li>
+			<span class="item_name" style="width:120px;">广告排序：</span>
+			<input type="text"  class="textbox textbox_295" placeholder="广告排序" id="sort" value="{$vimeo.sort}"/>
+		</li>
+		<li>
+			<span class="item_name" style="width:120px;">广告简介：</span>
+			<textarea id="content" class="textarea" name="content" style="width:300px;height:200px;">{$vimeo.content}</textarea>
+		</li>
+		<li style="margin-bottom:100px;">
+			<input type="submit" class="link_btn"/>
+		</li>
+	</ul>
+</section>
+<script type="text/javascript" >
+	function  change(){
+		var cat_id=$("#cat_id").val();
+		$.ajax({
+			type:'post',
+			url:"{:U('Home/User/getcate')}",
+			data:{cat_id:cat_id},
+			success:function(msg){
+				if(msg.status==1){
+					$("#type_id").html(msg.info);
+				}else{
+					toastr.error(msg.info,'操作失败',toastr.options);
+
+				}
+			}
+		});
+
+
+	}
+	$(function(){
+		var formID="uploadVideoForm";
+
+
+		/*正式*/
+		var userName="2563957754@qq.com";
+		var password="65dc1ae1980953afd7e81728c34f08fe";
+		var randomStr="112233";
+		var url="http://upload.wsview.com:8090/iWSViewFileUpload";
+		$("#"+formID+" #userName").val(userName);
+		$("#"+formID+" #password").val(password);
+		$("#"+formID+" #randomStr").val(randomStr);
+		$("#"+formID).attr('action',url);
+		$("#"+formID+" #url").val(url);
+
+		$("#"+formID).submit(function(){
+			var formData = new FormData($("#"+formID)[0]);
+			$("#check").html("视频上传处理中...");
+			$.ajax({
+				url: $("#"+formID+" #url").val(),
+				type: 'post',
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					var json=eval("("+data+")");
+					//alert("返回码="+json.resultCode);
+					if(json.resultCode==01){
+						$("#check").html("您所上传的视频名已存在，请更换视频名重新上传");
+					}else if(json.resultCode==00){
+						$("#check").html("上传成功");
+						$("#vid").val(json.videoID);
+
+					}else{
+						$("#check").html("上传成功");
+					}
+
+					// alert("视频ID="+json.videoID);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert(XMLHttpRequest.status);
+					alert(XMLHttpRequest.readyState);
+					alert(textStatus);
+				}
+			});
+			return false;
+		});
+
+
+
+
+		var userName="2563957754@qq.com";
+		var password="65dc1ae1980953afd7e81728c34f08fe";
+		var randomStr="112233";
+		var formID1="uploadVideoForm1";
+
+		var url1="http://upload.wsview.com:8090/iWSViewFileUpload";
+		var a= $("#"+formID1+" #userName1").val(userName);
+		var b=  $("#"+formID1+" #password1").val(password);
+		var c=  $("#"+formID1+" #randomStr1").val(randomStr);
+		var d= $("#"+formID1).attr('action1',url1);
+		var e= $("#"+formID1+" #url1").val(url1);
+
+
+		$("#"+formID1).submit(function(){
+			var formData1 = new FormData($("#"+formID1)[0]);
+			$("#check1").html("视频上传处理中...");
+			$.ajax({
+				url: $("#"+formID1+" #url1").val(),
+				type: 'post',
+				data: formData1,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					var json=eval("("+data+")");
+					//alert("返回码="+json.resultCode);
+					if(json.resultCode==01){
+						$("#check1").html("您所上传的视频名已存在，请更换视频名重新上传");
+					}else if(json.resultCode==00){
+						$("#check1").html("上传成功");
+						$("#bgurl").val(json.videoID);
+					}else{
+						$("#check").html("上传成功");
+					}
+
+					// alert("视频ID="+json.videoID);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert(XMLHttpRequest.status);
+					alert(XMLHttpRequest.readyState);
+					alert(textStatus);
+					alert("返回码="+json.resultCode);
+					alert("提示信息="+json.resultMsg);
+					alert("视频ID="+json.videoID);
+				}
+			});
+			return false;
+		});
+
+	});
+</script>
+<input type="hidden" id="id" value="{$vimeo.id}"/>
+<link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+<script src="__PUBLIC__/home/js/toastr.js"></script>
+<script>
+	$(function(){
+
+
+		toastr.options = {
+			"closeButton": false,
+			"debug": false,
+			"positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "1000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+
+	});
+
+</script>
+
+<script>
+	$(".link_btn").click(function(){
+		var id=$("#idd").val();
+		var zn=$("#zn").val();
+		var title=$("#title").val();
+		var image=$("#newbikephoto").attr("src");
+		if(zn==1){
+			var content='1';
+			var province='1';
+		}else{
+			var content=$("#content").val();
+			var province=$("#province").val();
+		}
+
+		var city=$("#city").val();
+		var cad_id=$("#cad_id").val();
+		var url=$("#url").val();
+		var sort=$("#sort").val();
+
+		if(title==""){
+			toastr.error("请填写广告标题",'操作失败',toastr.options);
+			return false;}
+//		}else if(content==""){
+//			toastr.error("请填写广告简介",'操作失败',toastr.options);
+//			return false;
+//		}
+       else if(image==""){
+			toastr.error("广告封面不能为空",'操作失败',toastr.options);
+			return false;
+		}else{
+			$.ajax({
+				type:'post',
+				url:"{:U('Admin/Ad/adsadd')}",
+				data:{id:id,url:url,zn:zn,title:title,image:image,province:province,city:city,content:content,cad_id:cad_id,sort:sort},
+				success:function(msg){
+					if(msg.status==1){
+						toastr.success(msg.info,'操作成功',toastr.options);
+						window.location.href="{:U('Ad/zylist')}";
+
+					}else{
+						toastr.error(msg.info,'操作失败',toastr.options);
+
+					}
+				}
+			});
+		}
+
+
+
+
+
+
+	})
+
+</script>
+<script type="text/javascript">
+	$(function(){
+		var button = $('#upload_button'), interval;
+		var button1 = $('#upload_button1'), interval;
+		var confirmdiv = $('#uploadphotoconfirm');
+
+		var fileType = "pic",fileNum = "one";
+		new AjaxUpload(button,{
+			action: "{:U('Home/Up/uppic')}",
+			name: 'userfile',
+			onSubmit : function(file, ext){
+				if(fileType == "pic")
+				{
+					if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+						this.setData({
+							'info': '文件类型为图片'
+						});
+					} else {
+						confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+						return false;
+					}
+				}
+
+				confirmdiv.text('文件上传中');
+
+				if(fileNum == 'one')
+					this.disable();
+
+				interval = window.setInterval(function(){
+					var text = confirmdiv.text();
+					if (text.length < 14){
+						confirmdiv.text(text + '.');
+					} else {
+						confirmdiv.text('文件上传中');
+					}
+				}, 200);
+			},
+			onComplete: function(file, response){
+
+				if(response != "success"){
+					if(response =='2'){
+						confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+					}else{
+						if(response.length>20){
+							confirmdiv.text("文件上传失败请重新上传"+response);
+						}else{
+							confirmdiv.text("上传完成");
+
+							$("#newbikephotoName").val("/Upload/images/"+response);
+							$("#newbikephoto").attr("src","/Upload/images/"+response);
+						}
+					}
+
+				}
+
+				window.clearInterval(interval);
+
+				this.enable();
+
+				if(response == "success")
+					confirmdiv.text('上传成功');
+			}
+		});
+		new AjaxUpload(button1,{
+			action: "{:U('Home/Up/uppic')}",
+			name: 'userfile',
+			onSubmit : function(file, ext){
+				if(fileType == "pic")
+				{
+					if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+						this.setData({
+							'info': '文件类型为图片'
+						});
+					} else {
+						confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+						return false;
+					}
+				}
+
+				confirmdiv.text('文件上传中');
+
+				if(fileNum == 'one')
+					this.disable();
+
+				interval = window.setInterval(function(){
+					var text = confirmdiv.text();
+					if (text.length < 14){
+						confirmdiv.text(text + '.');
+					} else {
+						confirmdiv.text('文件上传中');
+					}
+				}, 200);
+			},
+			onComplete: function(file, response){
+
+				if(response != "success"){
+					if(response =='2'){
+						confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+					}else{
+						if(response.length>20){
+							confirmdiv.text("文件上传失败请重新上传"+response);
+						}else{
+							confirmdiv.text("上传完成");
+
+							$("#newbikephotoName1").val("/Upload/images/"+response);
+							$("#newbikephoto1").attr("src","/Upload/images/"+response);
+						}
+					}
+
+				}
+
+				window.clearInterval(interval);
+
+				this.enable();
+
+				if(response == "success")
+					confirmdiv.text('上传成功');
+			}
+		});
+
+
+	});
+
+
+
+
+	$(".vb").click(function(){
+		var src=$(this).attr("title");
+		layer.open({
+			type: 2,
+			title: false,
+			closeBtn: 0, //不显示关闭按钮
+			shade: [0],
+			area: ['340px', '215px'],
+			offset: 'rb', //右下角弹出
+			time: 2000, //2秒后自动关闭
+			shift: 2,
+			content: ['http://layer.layui.com/test/guodu.html', 'no'], //iframe的url，no代表不显示滚动条
+			end: function(){ //此处用于演示
+				layer.open({
+					type: 2,
+					title: '视频预览',
+					shadeClose: true,
+					shade: false,
+					maxmin: true, //开启最大化最小化按钮
+					area: ['893px', '600px'],
+					content: src
+				});
+			}
+		});
+
+
+	})
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

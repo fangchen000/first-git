@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+ </html>
+ <head>
+     <meta charset="utf-8">
+<?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+  
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+
+     <meta name="format-detection" content="telephone=no" /> 
+     <meta content="email=no" name="format-detection">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/base.css"/>
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/pol.css">
+	 <script src="__PUBLIC__/home/assets/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/js/ajaxupload.js"></script>
+	 <script type="text/javascript" src="__PUBLIC__/home/assets/layer/layer.js"></script>
+ </head>
+ <body>
+ 	<!--头部-->
+    <header>
+        <a class="back" onclick="history.go(-1)"></a>
+        <h2>上传头像</h2>
+    </header>
+    
+	<section class="pol_pass">
+		<div style="width:50%;margin:10px auto; min-width:100px;border-radius:50%;overflow:hidden;">
+			<if condition="$us_id['photo'] eq null">
+			
+			<img  id="newbikephoto" src="__PUBLIC__/Wap/assets/images/pol_head.png" style="width:100%;border-radius:50%;height:100%">
+			<else/>
+			<img  id="newbikephoto" src="{$us_id['photo']}" style="width:100%;border-radius:50%;height:100%">
+			</if>
+		</div>
+	
+		<form>
+			<h3 style="text-align:center"><button  type="button"  id="upload_button">点击上传</button></h3>
+            <p class="loginbtn"><input type="button" value="保存"></p>
+		</form>
+	</section>
+	
+	<script type="text/javascript">
+	
+$(function(){
+    var button = $('#upload_button'), interval;
+    
+    var confirmdiv = $('#uploadphotoconfirm');
+
+    var fileType = "pic",fileNum = "one"; 
+    new AjaxUpload(button,{
+        action: "{:U('Home/Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;               
+                }
+            }
+                        
+           layer.msg('文件上传中,请稍等...');
+            
+            if(fileNum == 'one')
+                this.disable();
+            
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');                    
+                } else {
+                    confirmdiv.text('文件上传中');             
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+        
+            if(response != "success"){
+                if(response =='2'){
+                    confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+                }else{
+                    if(response.length>20){
+                        confirmdiv.text("文件上传失败请重新上传"+response);            
+                    }else{
+                        confirmdiv.text("上传完成");
+                        
+                        $("#newbikephotoName").val("/upload/images/"+response);
+                        $("#newbikephoto").attr("src","/upload/images/"+response);          
+                    }
+                }
+                
+            }
+                                  
+            window.clearInterval(interval);
+                        
+            this.enable();
+            
+            if(response == "success")
+            confirmdiv.text('上传成功');              
+        }
+    });
+        
+    
+});
+
+		$(".loginbtn").click(function(){
+		  var photo=$("#newbikephoto").attr("src");
+		  $.ajax({
+				type : "post",
+				async : false,
+				 'url':"/index.php/Wap/User/setphoto",
+				data :{
+				  photo : photo
+				},
+				dataType : "json",
+				success : function(result) {
+				  if(result.status==1){
+				 layer.msg(result.info);
+				 location.reload();
+				  }
+				  if(result.status==0){       
+					layer.msg(result.info);
+				  }  
+				}
+			  });
+
+		  })
+		  
+		  var width1=document.body.clientWidth;
+	width1=width1*0.5;
+	$("#newbikephoto").css("height",width1);
+</script>	
+    
+    <!--页脚-->
+<include file="Public:footer"/>
+	
+ </body>
+ </html>

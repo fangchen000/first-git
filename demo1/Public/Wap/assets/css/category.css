@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* CSS Document */
+
+section{ width:96%;margin:20px auto;}
+.item{ position:relative; background-color:#FFF; box-shadow:0px 2px 3px #ccc;}
+.title{ width:100%; padding:15px 0;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover; position:relative;}
+.title a{ display:block;overflow:hidden; position:relative; z-index:90; background:url(../images/enter.png) right center no-repeat;background-size:14px;background-position: right 15px center;}
+.title img{ float:left; width:35px; margin:0 15px 0 20px;}
+.title b{ font-size:20px; color:#FFF; line-height:35px;}
+.title .up_black{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #000; /* Set to black, can be changed via colors.css */
+    opacity: 0.3;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+    left: 0;
+    top: 0;
+    z-index:1;}
+.second_nav{ padding:15px 10px; overflow:hidden;}
+.second_nav a{ border:1px solid #CCC; border-radius:4px; float:left; padding:0 10px; height:30px; line-height:30px;background-color:#f7f7f7; margin:5px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

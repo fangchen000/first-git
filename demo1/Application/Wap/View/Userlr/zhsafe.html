@@ -1,0 +1,219 @@
+<include file="Public:header"/>
+
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/grcenter.css">
+<script src="__PUBLIC__/home/assets/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/home/assets/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/home/assets/js/common.js"></script>
+<script src="__PUBLIC__/home/layer/layer.js"></script>
+<!--导航-->
+<div class="header-nav" style="*z-index:9;">
+  <div class="w1190 mtauto f-pr clearfix" style="*z-index:10;"> 
+    <!--  **  li的类名为has-erji时，表示在对应页面有二级导航-->
+   <include file="Public:nav"/>
+    <div class="navBtn f-oh"> <a class="gy-btn" onclick="member_new_sell()">发布供应</a> <a class="cg-btn" href="">发布采购</a> </div>
+    <!-- *** 此按钮首页不应显示，其他页均应显示 -->
+    <div class="vertical-navgation">
+    <include file="Public:left1"/>
+  </div>
+</div>
+<div class="mainbox">
+  <div class="nav-left">
+    <div class="side-nav side-line">
+       <include file="Public:dp"/>
+      
+      <!--//客户服务及投诉-->
+     
+    </div>
+  </div>
+  <div class="nav-right" >
+    <div class="content">
+        <div id="updatePassword" class="popbox">
+            <div class="popcont">
+                <form action="" method="post" id="iforms">
+                <input type="hidden" id="hnUserId" name="hnUserId" value="558651">
+                
+                
+                
+                <table width="99%" cellspacing="0" cellpadding="0" border="0" class="zh_table">
+                  <tbody>
+                  <tr>
+                    <td class="t_r" width="20%">原始密码:</td>
+                    <td width="72%"><input type="password" id="password" class="inpt w150"><span style="color: red;font-size:12px;"  id="oldPwdv"></span></td>
+                  </tr>
+                  <tr>
+                    <td class="t_r">新密码:</td>
+                    <td><input type="password" id="newpwd" placeholder="请输入6-16位密码,需包含数字和字母" class="inpt w150"><span style="color: red;font-size:12px;"  id="passwordv"></span></td>
+                  </tr>
+                  <tr>
+                    <td class="t_r">确认新密码:</td>
+                    <td><input type="password" id="repwd" class="inpt w150"><span style="color: red;font-size:12px;"  id="newPwd1v"></span></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td> <input type="button" id="updatePasswordBtn" value="确定" class="btn_org" onclick="uppwd()"></td>
+                  </tr>
+                </tbody></table>
+                </form>
+            </div>
+        </div>
+        
+        
+    </div>
+  </div>
+</div>
+
+
+ <link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+
+<script src="__PUBLIC__/home/js/toastr.js"></script>
+<script>
+
+          
+        $(function(){
+		
+	
+	            toastr.options = {
+				"closeButton": false,
+				  "debug": false,
+				  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "990",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "990",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+            };
+				
+					
+					
+				});	
+				
+				</script> 
+	 
+	 
+	 
+	 
+
+
+<script type="text/javascript">
+
+function uppwd(){
+var password=$('#password').val();
+if(password==''){
+  $("#oldPwdv").html('原密码不能为空!');
+   $('#password').focus();
+   return false;
+}else{
+  $.ajax({
+            type: "post",
+            url: "{:U('Userlr/yzpwd')}",
+            data: {
+                password: password
+            },
+            dataType: 'json',
+            success: function (msg) {
+            if (msg.info == 1) {
+			 $("#oldPwdv").html('');
+                 setTimeout( step(), 1500);
+                } else {
+           $("#oldPwdv").html('原密码不正确!');
+            $("#password").focus();
+                }
+            }
+
+
+        }); 
+}
+
+
+
+
+}
+
+
+
+function step(){
+
+
+var repwd=$('#repwd').val();
+var newpwd=$('#newpwd').val();
+
+if(newpwd==''){
+   $("#passwordv").html('新密码不能为空!');
+   $('#newpwd').focus();
+   return false;
+}else if(newpwd==""|| newpwd.length<6||newpwd.length>16){
+   $("#passwordv").html('请填写6-16位的密码!');
+   $('#newpwd').focus();
+   return false;
+  }else if(newpwd.match(/^[0-9_!@#$%^&*()~+|]{6,16}$/i)){
+  $("#passwordv").html('新密码格式非法!');
+   $('#newpwd').focus();
+   return false;
+
+  }else if(newpwd.match(/^[a-z_!@#$%^&*()~+|]{6,16}$/i)){
+  $("#passwordv").html('新密码格式非法!');
+   $('#newpwd').focus();
+   return false;
+  }else if(!newpwd.match(/^[0-9a-z_!@#$%^&*()~+|]{6,16}$/i)){
+   $("#passwordv").html('新密码格式非法!');
+   $('#newpwd').focus();
+   return false;
+  }else if(repwd==''){
+   $("#passwordv").html('');
+   $("#newPwd1v").html('确认密码不能为空!','修改密码', toastr.options);
+   $('#repwd').focus();
+   return false;
+}else if(repwd!=newpwd){
+$("#passwordv").html('');
+    $("#newPwd1v").html('两次密码不一致!');
+   $('#repwd').focus();
+   return false;
+ }else{
+ 
+ $.ajax({
+            type: "post",
+            url: "{:U('Userlr/updatepwd')}",
+            data: {
+                newpwd: newpwd
+            },
+            dataType: 'json',
+            success: function (msg) {
+                if (msg.info == 1) {
+         toastr.success('密码修改成功','修改密码', toastr.options);
+  setTimeout(function () {
+                        window.location.href = "/index.php/Home/Userlr/index";
+                    }, 1500);
+                       }else{
+                           toastr.error('密码修改失败','修改密码', toastr.options);
+                       } 
+                
+            }
+
+
+        });
+ 
+ 
+ }
+
+
+ 
+
+
+}
+
+ 
+
+
+
+
+</script>
+
+
+<!-- 底部 -->
+<include file="Public:footer"/>

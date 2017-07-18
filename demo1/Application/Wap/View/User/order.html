@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="__PUBLIC__/home/assets/images/ico.ico" media="screen" />
+	
+	 <?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+    
+?>
+
+
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/base.css">
+	<script src="__PUBLIC__/home//assets/js/jquery-1.8.0.min.js"></script>
+	<link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+    <script src="__PUBLIC__/home//assets/js/jquery-1.8.0.min.js"></script>
+         <script src="__PUBLIC__/home/js/toastr.js"></script>
+          <script>     
+             $(function(){
+                toastr.options = {
+                "closeButton": false,
+                  "debug": false,
+                  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+                  "onclick": null,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+            };   
+                    
+                }); 
+        </script> 
+</head>
+<body>
+<section class="outbox">
+<div class="mainbox">
+	<div class="sidenav">
+    	<div class="side_logo"><img src="{$conf.logo}" alt=""></div>
+       	<ul>
+        	<li><a href="{:U('Home/User/index')}" ><img src="__PUBLIC__/home/assets/images/sicon01.png" alt="">平台项目</a></li>
+            <li><a href="{:U('Home/User/center')}" ><img src="__PUBLIC__/home/assets/images/sicon02.png" alt="">用户中心</a></li>
+            <li><a href="{:U('Home/User/recharge')}"><img src="__PUBLIC__/home/assets/images/sicon03.png" alt="">账号充值</a></li>
+            <li><a href="{:U('Home/User/myman')}"><img src="__PUBLIC__/home/assets/images/sicon04.png" alt="">我的下线</a></li>
+            <li><a href="{:U('Home/User/myzhang')}"><img src="__PUBLIC__/home/assets/images/sicon05.png" alt="">我的账本</a></li>
+            <li><a href="{:U('Home/User/order')}" class="navon"><img src="__PUBLIC__/home/assets/images/sicon06.png" alt="">我的订单</a></li>
+        </ul>
+    </div>
+  	<div class="rightbox">
+    	<div class="topbar">
+        	<p>{$userinfo['username']}，{$gonggao.gonggao}</p>
+            <ul>
+                <li class="l1">乔币：{$userinfo['money']}</li>
+                <li class="l2">佣金：{$userinfo['profit']}</li>
+                <li class="l3">用户：{$userinfo['username']}</li>
+                <li class="l4"><if condition="$userinfo['leve'] eq 1">普通会员<elseif condition="$userinfo['leve'] eq 2"/>铜牌会员<elseif condition="$userinfo['leve'] eq 3"/>银牌会员<elseif condition="$userinfo['leve'] eq 4"/>金牌会员</if></li>
+                <a href="{:U('User/logionout')}">退出</a>
+            </ul>
+        </div>
+        <div class="gonggao"><b>系统公告</b><p>{$gonggao.xi}</p></div>
+        
+        <div class="program">
+        	<h1>我的订单</h1>
+			
+			<div style="overflow:hidden; margin:0 0 20px 10px;">
+			<form action="{:U('Home/User/order')}"  method="post">
+            	<input style=" float:left; width:250px; height:30px; padding:0 10px; border:1px solid #CCC;border-radius:4px;" type="text" placeholder="请输入要搜索的订单号" id="order_sn" name="order_sn" value="{$order_sn}"><input style=" float:left; width:250px; height:30px; padding:0 10px; border:1px solid #CCC;border-radius:4px;" type="text" placeholder="请输入要搜索的需求地址" id="remark" name="remark" value="{$remark}"><button style=" float:left; width:80px; height:32px; background-color:#c6244a; color:#FFF; border-radius:4px; margin-left:10px; cursor:pointer;" type="submit">搜索</button>
+			</form>
+			
+            </div>
+			<script>
+			
+			function checkform(){
+			   var order_sn=$("#order_sn").val();
+			  
+			   if(order_sn==""){
+			   alert("搜索订单号不能为空");
+			   return false;
+			   }
+			}
+			</script>
+			
+            <table border="1" bordercolor="#dddddd" style="border-collapse:collapse; margin:0 auto; text-align:center;    table-layout: fixed" width="860">
+            	<tr>
+                    <th>订单号</th>
+                    <th>消费项目</th>
+                    <th>采购价格</th>
+                    <th>采购数量</th>
+                    <th>采购乔币</th> 
+                    <th>需求地址</th>
+                    <th>备注</th>
+                    
+                    <th>更新时间</th>
+                   <!--  <th>完成时间</th> -->
+                    <th>状态</th>
+					<th>操作</th>
+                </tr>
+            	 <volist  name="kuangji" id="v">
+                <tr>
+                    <td style="word-wrap: break-word;max-width:100px;">{$v.order_sn}</td>
+                    <td style="word-wrap: break-word;max-width:100px;" >{$v.goods_id|getgoodstitle}</td>
+                    <td style="word-wrap: break-word;max-width:100px;" >{$v.price}</td>
+                    <td style="word-wrap: break-word;">{$v.num}</td>
+                    <td style="word-wrap: break-word;">{$v.money}</td>
+                    <td style="word-wrap: break-word;max-width:100px;">{$v.remark}</td>
+                    <td style="word-wrap: break-word;max-width:100px;">{$v.admin_remark}</td>
+					<td><if condition="$v['status'] eq 0">
+                        {$v.create_time|date="m-d",###}
+                        <elseif condition="$v['status'] eq 1"/>
+                         {$v.start_time|date="m-d",###}
+                        <elseif condition="$v['status'] eq 2"/>
+                       {$v.end_time|date="m-d",###}
+                        <elseif condition="$v['status'] eq -1"/>
+                       {$v.start_time|date="m-d",###}
+                        </if></td>
+                    <td><if condition="$v['status'] eq 0">
+                        排队中
+                        <elseif condition="$v['status'] eq 1"/>
+                          进行中
+                        <elseif condition="$v['status'] eq 2"/>
+                        已完成
+                        <elseif condition="$v['status'] eq -1"/>
+                        已退单
+                        </if></td>
+
+                    
+                   
+				 <th><if condition="$v['status'] eq 0">
+                       <!--  <span onclick="quxaio({$v.id})">取消订单</span> -->
+						<button onclick="quxaio({$v.id})" style=" float:left;  height:32px; background-color:#c6244a; color:#FFF; border-radius:4px; cursor:pointer;" type="button">取消订单</button>
+                        <elseif condition="$v['status'] eq 1"/>
+                          进行中
+                        <elseif condition="$v['status'] eq 2"/>
+                        已完成
+                        <elseif condition="$v['status'] eq -1"/>
+                        已退单
+                        </if></th>
+                </tr>
+               </volist>
+                 <td colspan="9">{$page}</td>
+            </table>
+        </div>
+     	
+        
+        
+    </div>
+
+
+</div>
+</section>
+
+<script>
+function quxaio(e){
+                 $.ajax({
+                        type : "post",
+                        async : false,
+                         'url':"/index.php/Home/User/quxiao",
+                        data :{
+                          id : e
+                        },
+                        dataType : "json",
+                        success : function(result) {
+                          if(result.status==1){
+                          toastr.success(result.info,'操作成功', toastr.options);
+                          }
+                          if(result.status==0){       
+                           toastr.error(result.info,'操作失败', toastr.options);
+                          }  
+                        }
+                      });
+}
+
+</script>
+
+</body>
+</html>

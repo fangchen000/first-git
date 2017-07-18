@@ -1,0 +1,208 @@
+<include file="Public:header1" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/product_list.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/Css.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/base.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/shuma.css">
+<script src="__PUBLIC__/Home/assets/js/jquery-1.8.3.min.js" type="text/jscript"></script>
+<script src="__PUBLIC__/Home/assets/js/jquery.SuperSlide.2.1.1.js" type="text/jscript"></script>
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/sorry.css">
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/index.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/style.css">
+<script src="__PUBLIC__/home/layer/layer.js" type="text/jscript"></script>
+
+<script src="__PUBLIC__/Home/assets/js/PCASClass.js"></script>
+
+
+<div class="ab-line"></div>
+<div class="shop-box">
+    <div class="container">
+        <div class="or-info">
+            <h3>选择收货地址</h3>
+			
+			
+			<volist name="addrs" id="v"> 
+            <div class="or-ads on2" id="{$v.id}">
+                <img class="or-line" src="__PUBLIC__/Home/assets/images/p_line.png" alt="">
+                <p class="p-name">{$v.username}<img class="p-default" src="__PUBLIC__/Home/assets/images/p_ads.png" alt=""></p>
+				<input type="hidden" value="{$v['address_id']}" class="kk"/>
+                <p class="p-phone">{$v.phone}</p>
+                <p class="p-adre"><span class="p-province">{$v.province}</span><span class="p-city">{$v.city}</span><span class="p-area">{$v.area}</span></p>
+                <p class="p-place">{$v.address}</p>
+            </div>
+			</volist>
+			
+			
+            <div class="or-ads1">
+               <img class="p-add" src="__PUBLIC__/Home/assets/images/p_add.png" alt="">
+               <b>添加收货地址</b>
+            </div>
+            <div class="clearfix"></div>
+            <a class="ads-btn" href="#">管理收货地址</a>
+            <div class="clearfix"></div>
+        </div>
+
+		
+		<script>
+		$(function(){
+		$(".or-ads").click(function(){
+		$(".or-ads").removeClass("on2");
+		$(this).addClass("on2")
+		})
+		})
+		</script>
+        <!-- 添加收货地址框 -->
+        <div class="add-box">
+            <h3>添加收货地址</h3>
+            <div class="ads-group">
+                <label>选择地区：</label>
+                <select name="country"></select>
+                <select name="province"></select>
+                <select name="city"></select>
+                <select name="area"></select>
+            </div>
+            <div class="ads-group">
+                <label style="vertical-align:top;">收货地址：</label><textarea placeholder="填写详细地址"></textarea>
+            </div>
+            <div class="ads-group">
+                <label>收货人：</label><input type="text">
+                <p><img src="images/p_tan.png" alt="">收货人请使用真实姓名，方便收货！</p>
+            </div>
+            <div class="ads-group">
+                <label>收货人手机号：</label><input type="text" placeholder="填写联系电话">
+            </div>
+            <input type="submit" value="保存">
+            <input class="ads-cancel" type="button" value="取消">
+            <input type="checkbox"><span>设置成默认地址</span>
+        </div>
+        <div class="or-info">
+            <h3>确认商品信息</h3>
+            <dl class="or-pro">
+                <dt><span class="or-long">商品信息</span><span>单价（元）</span><span>数量</span><span>金额（元）</span></dt>
+              <volist name="info" id="v">
+                <dd>  <input type="checkbox" name="subBox" value='{$v.id}' class="xz" onclick="oneupdate(this)" style="display:none" checked> 
+				<span class="or-pic"> <a href="{:U('Home/Goods/detail',array('id'=>$v['goods_id']))}" ><img src="__ROOT__/Uploads/{$v.goods_thumb}"></a></span><span class="or-text"><p>{$v.goods_name}<b>规格:补水款 10片/盒</b></p></span><span class="or-price">{$v.goods_price}</span><span class="or-count">{$v.goods_num}</span><span class="or-sum">{$v.all_money}</span></dd>
+                </volist>           
+		   </dl>
+        </div>
+        <div class="or-point">
+            <input type="checkbox"><label>使用积分:</label><input type="text" id="score" onkeyup="jifen()"><span>点</span><em>-￥0.00</em><b>（可用{$us_id.score}点）</b>
+            <p>本次订单最多可用<i class="points">{$sore}</i>积分抵扣
+			
+			</p>
+        </div>
+        <div class="or-pay">
+         
+            <p>运费：<span class="or-yun">+￥0</span></p>
+            <p class="or-point1">积分抵扣：<span class="or-point2">-￥0</span></p>
+            <p><a href="{:U('Home/Order/car')}">返回购物车修改</a>总价：￥<span class="or-money">{$goods_count}</span></p>
+            <a class="or-btn  tjbtn" href="javascript: ;"  onclick="submit_order()">去结算</a>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        new PCAS("province","city","area");
+
+        $(".or-ads1").click(function(){
+            $(".add-box").slideDown(500);
+        });
+        $(".ads-cancel").click(function(){
+            $(".add-box").slideUp(300);
+        })
+    })
+</script>
+
+
+  <script>
+  function  jifen(){
+  var val=$("#score").val();
+
+  var mixsore={$minsore};
+
+  var all_money={$goods_count};
+  if(val>=mixsore){
+  $("#score").val(mixsore);
+   var last=all_money-mixsore;
+   all_money=$(".or-money").html(last);
+   
+  }else{
+    var last=all_money-val;
+   all_money=$(".or-money").html(last);
+  }
+  
+  }
+  function submit_order(){
+  var nums=$("input[name='subBox']").length;
+  if(nums!=0){
+  var lt=$("input[name='subBox']:checked");
+  var leng=lt.length;
+  var url="{$Think.get.cid}";
+  var add_id=$(".on2 .kk").attr('value');
+    if(add_id==""){
+	layer.alert('请填写收货地址！');  
+	}
+  if(leng!=0){
+    var str="";
+	for(var i=0;i<leng;i++){
+	  str+=lt.eq(i).val()+",";
+	}
+	$.ajax({
+	type:'post',
+	data:{id:str,add_id:add_id},
+	url:"{:U('Order/sumorder')}",
+	dataType:'json',
+	success:function(d){
+	    if(d.status==1){
+		window.location.href="{:U('Order/pay')}?order_sn="+d.order;
+		}else if(d.status==2){
+		layer.alert('请填写收货地址！');
+		localhost.reload();
+		}else if(d.status==0){
+		 layer.alert('请稍后，系统有点忙');
+		}
+	  }
+	})
+   }else{
+   layer.alert('请选择要结算的商品！');
+   return;
+   }
+ }else{
+ layer.alert('您目前没有购买任何商品！');
+ return;
+ }  
+  }
+  function rightNow(){
+  var lt=$("input[name='subBox']:checked");
+  var leng=lt.length;
+  if(leng!=0){
+    var str="";
+	for(var i=0;i<leng;i++){
+	  str=lt.eq(i).val()+"-"+lt.eq(i).parent().next('td').next('td').next('td').find('input').val()+"-"+lt.eq(i).parent().next('td').next('td').next('td').find('input').attr('price')+"-"+lt.eq(i).parent().next('td').next('td').next('td').find('input').attr('goods-attr')+'-'+$('#goods_id').val();
+	}
+	//alert(str);return;
+	$.ajax({
+	type:'post',
+	data:{id:str},
+	url:"{:U('Order/rightpay')}",
+	dataType:'json',
+	success:function(d){
+	    if(d.status==1){
+		var order=d.order;
+		//alert(order);return;
+		window.location.href="{:U('Order/pay')}?order_sn="+order;
+		}else if(d.status==2){
+		layer.alert('请填写收货地址！');
+		}else if(d.status==0){
+		 layer.alert('请稍后，系统有点忙');
+		}
+	  }
+	})
+   }else{
+   layer.alert('请选择要结算的商品！');
+   }
+  }
+  </script> 
+
+<include file="Public:footer"/>

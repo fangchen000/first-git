@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+ </html>
+ <head>
+     <meta charset="utf-8">
+    <?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+  
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+
+     <meta name="format-detection" content="telephone=no" /> 
+     <meta content="email=no" name="format-detection">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/base.css"/>
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/pol.css">
+	 	 	 <script src="__PUBLIC__/home/assets/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/js/ajaxupload.js"></script>
+	 <script type="text/javascript" src="__PUBLIC__/home/assets/layer/layer.js"></script>
+ </head>
+ <body>
+ 	<!--头部-->
+    <header>
+        <a class="back" onclick="history.go(-1)"></a>
+        <h2>修改密码</h2>
+    </header>
+    
+	<section class="pol_pass">
+		<form>
+			<p><label>旧密码：</label><input type="password" placeholder="请输入旧密码" id="oldpwd"></p>
+			<p><label>新密码：</label><input type="password" placeholder="请输入新密码" id="newpwd"></p>
+            <p><label>新密码：</label><input type="password" placeholder="请再次输入密码" id="check"></p>
+            <p class="loginbtn"><input type="button" value="确认修改"></p>
+		</form>
+	</section>
+	<script>
+	
+	$("#oldpwd").blur(function(){
+    var oldpwd=$(this).val();
+   if(oldpwd==""){
+layer.msg("初始密码不能为空！");
+return false;
+   }else{
+       $.ajax({
+              type : "post",
+              async : false,
+               'url':"/index.php/Wap/User/checkpwd",
+              data :{
+                oldpwd:oldpwd
+              },
+              dataType : "json",
+              success : function(result) {
+                if(result.status==1){
+               layer.msg(result.info);
+                }else{
+				layer.msg(result.info);
+				}  
+              }
+            });
+   }
+
+})
+
+$("#newpwd").blur(function(){
+var newpwd=$(this).val();
+if(newpwd==""){
+  layer.msg("密码不能为为空");
+ // layer.msg("密码不能为为空");
+}else if(newpwd.match(/^[0-9_!@#$%^&*()~+|]{6,16}$/i)){
+ //layer.msg("密码格式非法,请输入6-16位密码需包含数字和字母");
+ layer.msg("请输入6-16位密码需包含数字和字母");
+
+}else if(newpwd.match(/^[a-z_!@#$%^&*()~+|]{6,16}$/i)){
+   layer.msg("请输入6-16位密码需包含数字和字母");
+
+}else if(!newpwd.match(/^[0-9a-z_!@#$%^&*()~+|]{6,16}$/i)){
+layer.msg("请输入6-16位密码需包含数字和字母");
+
+}
+})
+
+$("#check").blur(function(){
+var check=$(this).val();
+var password=$("#newpwd").val();
+if(password!=check){
+  layer.msg("确认密码与密码不相同");
+}else{
+   
+}
+
+})
+		$(".loginbtn").click(function(){
+		  var oldpwd=$("#oldpwd").val();
+		   var newpwd=$("#newpwd").val();
+		    var check=$("#check").val();
+			if(newpwd!=check){
+			   layer.msg("确认密码与设置密码不相同");
+			   return false;
+			}else if(newpwd.match(/^[0-9_!@#$%^&*()~+|]{6,16}$/i)){
+			layer.msg("请输入6-16位密码需包含数字和字母");
+			$("#newpwd").focus();
+			 return false;
+			}else if(newpwd.match(/^[a-z_!@#$%^&*()~+|]{6,16}$/i)){
+			layer.msg("请输入6-16位密码需包含数字和字母");
+			$("#newpwd").focus();
+			 return false;
+			}else if(!newpwd.match(/^[0-9a-z_!@#$%^&*()~+|]{6,16}$/i)){
+			layer.msg("请输入6-16位密码需包含数字和字母");
+			return false; 
+			}else{
+			$.ajax({
+				type : "post",
+				async : false,
+				 'url':"/index.php/Wap/User/setuserpwd",
+				data :{
+				  newpwd:newpwd,
+				  oldpwd:oldpwd
+				},
+				dataType : "json",
+				success : function(result) {
+				  if(result.status==1){
+				 layer.msg(result.info);
+				 location.reload();
+				  }else if(result.status==0){       
+					layer.msg(result.info);
+				  }  
+				}
+			  });
+			}
+		  
+
+		  })
+</script>
+    
+    <!--页脚-->
+	<include file="public:footer"/>
+	
+ </body>
+ </html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+ </html>
+ <head>
+ <meta charset="utf-8">
+     <?php
+$oneplus_seo_meta = get_seo_meta($vars,$seo);
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+     <meta name="format-detection" content="telephone=no" /> 
+     <meta content="email=no" name="format-detection">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/base.css"/>
+     <link rel="stylesheet" href="__PUBLIC__/Wap/assets/css/second.css">
+     <script src="__PUBLIC__/Wap/assets/js/jquery-1.8.1.min.js"></script>
+     <script src="__PUBLIC__/Wap/assets/layer/layer.js"></script>
+     <script>
+	 	$(function(){
+			$(".main .qiehuan").eq(0).show();
+			$(".caozuo a").click(function(){
+				var n= $(this).index();
+				$(".caozuo a").removeClass("con");
+				$(this).addClass("con");
+				$(".main .qiehuan").hide();
+				$(".main .qiehuan").eq(n).show();	
+			})
+			$(".arrow").click(function(){
+				$(this).toggleClass("arrowdown");
+				$(".text").toggleClass("text1",200);
+				})
+			
+			$(".sc02").click(function(){
+				layer.msg('收藏已取消',{time:600});
+				$(this).hide();
+				$(".sc01").show();
+			})
+		})
+	 </script>
+ </head>
+ <body style="padding:0;">
+
+ 	<!--头部-->
+    <div class="header">
+        <a class="back" onclick="history.go(-1)"></a>
+        <div class="logo"><img src="{$conf['logo']}" alt=""></div>
+    </div>
+
+    <!--视频-->
+	<div class="shipin">
+      
+		<if condition="$pan eq null">
+        <embed src="http://img.simope.net/yzplayer/yzplayer.swf?album=false&autoPlay=false&userVideoID={$vimeo['url']}" allowFullScreen="true" quality="high" width="100%" height="auto" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+		<iframe poster="{$v.image}" width="100%" height="auto" src="http://img.simope.net/yzplayer/yzplayer.swf?album=false&autoPlay=false&userVideoID={$vimeo['url']}" frameborder=0 allowfullscreen></iframe>
+        <else/>
+		<iframe poster="{$v.image}" width="100%" height="auto" src="http://img.simope.net/yzplayer/yzplayer.swf?album=false&autoPlay=false&userVideoID={$vimeo['bgurl']}" frameborder=0 allowfullscreen></iframe>
+ 
+    </if>
+         
+    </div>
+    
+    <div class="caozuo"><a class="con"><b>播放列表</b></a><a><b>评论</b></a></div>
+        
+    <div class="main">
+    	<!--播放列表-->
+    	<div class="xq qiehuan">
+        	<div class="info">
+            	<h2>{$vimeo.title}</h2>
+                <h3>来自：{$vimeo.user_id|getusername}    上传时间：{$vimeo.create_time|date="Y-m-d H:i:s",###}</h3>
+                <div class="text text1">简介：{$vimeo['content']}</div><i class="arrow"></i>
+                <h4>
+                	<a><b style=" background:url(__PUBLIC__/Wap/assets/images/xq_icon01.png) left center no-repeat; background-size:auto 24px;">{$vimeo.click}</b></a>
+                    <a><b style=" background:url(__PUBLIC__/Wap/assets/images/xq_icon02.png) left center no-repeat; background-size:auto 24px;">{$vimeo.ping|default="0"}</b></a>
+                    <a class="sc">
+					<if condition="$collect eq null">
+					<img class="sc01" src="__PUBLIC__/Wap/assets/images/xq_icon03.png" alt="">
+					<else/>
+					<img class="sc03" src="__PUBLIC__/Wap/assets/images/xq_icon033.png" alt="">
+					</if>
+					</a>
+                    <a href="http://www.jiathis.com/share/" class="jiathis jiathis_txt jtico jtico_jiathis"><img src="__PUBLIC__/Wap/assets/images/xq_icon04.png" alt=""></a>
+                </h4>
+            </div>
+            <div class="tuijian">
+            	<h2>热门推荐</h2>
+                <div class="tj_list">
+				<volist name="recommend" id="v" offset="0" length="6">
+                	<dl><a href="{:U('Wap/Vimeo/index',array('id'=>$v['id']))}">
+                        <dt><img src="{$v.image}" alt=""><!-- <i>时长 02:08</i> --></dt>
+                        <dd><p>{$v.title}</p></dd></a>
+                    </dl>
+			    </volist>
+                   
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!--评论-->
+    	<div class="pl qiehuan">
+            <h2>评论</h2>
+            <div class="pl_list">
+			<volist name="ping" id="v">
+				<dl>
+                	<dt><img src="{$v.user_id|getuserphoto}" alt=""></dt>
+                    <dd>
+                    	<h3>{$v.user_id|getusername}</h3>
+                        <p>{$v.content}</p>
+                        <b>{$v.create_time|date="Y-m-d H:i:s",###}</b>
+                    </dd>
+                </dl>
+				</volist>
+               
+            </div>
+            <div class="mypl">
+            	<input type="text" placeholder="我也说点什么吧..." id="content">
+                <input type="button" value="发送" id="ping">
+            </div>    
+        </div>
+    </div>
+	
+	<script>
+	$("#ping").click(function(){
+        var v_id={$vimeo.id};
+		var content=$("#content").val();
+			    $.ajax({
+ 'type':'post',
+ 'url':"{:U('Wap/Vimeo/addping')}",
+ 'data':{v_id:v_id,content:content},
+ 'dataType':'json',
+ 'success':function(msg){
+   if(msg.status==1){
+		layer.msg(msg.info);
+		setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+		   }else{
+	 layer.msg(msg.info);
+				  
+						
+		   }   
+   }
+  });
+		
+		})
+		
+		
+		
+		$(".sc01").click(function(){
+			var v_id={$vimeo.id};
+				    $.ajax({
+						 'type':'post',
+						 'url':"{:U('Wap/Vimeo/addcollect')}",
+						 'data':{v_id:v_id},
+						 'dataType':'json',
+						 'success':function(msg){
+						   if(msg.status==1){
+								 layer.msg('收藏成功',{time:6000});
+								 //location.reload();
+								  setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+								   }else{
+							       layer.msg("收藏失败,"+msg.info,{time:6000});
+									setTimeout(function () {
+                        location.reload();
+                    }, 1500);	  
+												
+								   }   
+						   }
+						  });	
+			})
+			$(".sc03").click(function(){
+			var v_id={$vimeo.id};
+				alert(v_id);
+				    $.ajax({
+						 'type':'post',
+						 'url':"{:U('Wap/User/delmycollect')}",
+						 'data':{id:v_id},
+						 'dataType':'json',
+						 'success':function(msg){
+						   if(msg.status==1){
+								 layer.msg('取消收藏成功',{time:6000});
+								setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+								   }else{
+							       layer.msg("取消收藏失败,"+msg.info,{time:6000});
+									setTimeout(function () {
+                        location.reload();
+                    }, 1500);	  
+												
+								   }   
+						   }
+						  });	
+			})
+			
+	
+	
+	</script>
+
+    <!--页脚-->
+	<include file="Public:footer"/>
+	
+ </body>
+ </html>

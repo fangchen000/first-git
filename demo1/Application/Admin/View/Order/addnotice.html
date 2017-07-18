@@ -1,0 +1,259 @@
+<link rel="stylesheet" href="__PUBLIC__/mp/control/css/zyUpload.css" type="text/css"> 
+<script type="text/javascript" src="__PUBLIC__/Home/js/ajaxupload.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+
+<js href="__PUBLIC__/ueditor/ueditor.config.js" />
+<js href="__PUBLIC__/ueditor/ueditor.all.min.js" />
+<script>
+    $(function () {
+        var ue = UE.getEditor('content');
+    })
+</script>
+				
+<section class="rt_wrap content mCustomScrollbar">
+      <h2><strong style="color:grey;">商品管理</strong></h2>
+      <ul class="ulColumn2">
+	   
+       <li>
+        <span class="item_name" style="width:120px;">订单状态：</span>
+           <select name='status' id="status" class="form-control">
+               <option
+               <if condition="$orders['status'] eq 0">
+                   selected="selected"
+               </if>
+               value="0">未付款</option>
+               <option
+               <if condition="$orders['status'] eq 1">
+                   selected="selected"
+               </if>
+               value="1">已付款</option>
+           </select>
+       </li>
+      <li>
+          <span class="item_name" style="width:120px;">收货人：</span>
+          <input type="text" id="consignee" class="textbox textbox_295" value="{$orders.consignee}"/>
+      </li>
+      <li>
+          <span class="item_name" style="width:120px;">收货地址：</span>
+          <input type="text" id="address" class="textbox textbox_295" value="{$orders.address}"/>
+      </li>
+
+
+
+
+
+
+       <li style="margin-bottom:100px;">
+          <input type="submit" class="link_btn" id="but"/>
+      </li>
+      </ul>
+         <input type="hidden" id="idd" value="{$orders.id}"/>
+     </section>
+
+
+
+<script>
+    $(function(){
+        $("#but").click(function(){
+            var id=$("#idd").val();
+            var status =$('#status').val();
+            var consignee =$('#consignee').val();
+            var address = $('#address').val();
+            $.post("{:U('Order/addnotice')}",{address:address,consignee:consignee,status:status,id:id},function(sb){
+                if (sb.status==1) {
+                    layer.msg('操作成功',{icon:6});
+                    setTimeout(function () {
+                        window.location.href="{:U('Order/index')}";
+                    }, 1500);
+                }else{
+                    layer.msg("操作失败",{icon:2,time:2000});return false;
+                }
+            });
+        });
+    })
+</script>
+<script type="text/javascript">
+$(function(){
+	var button = $('#upload_button'), interval;
+//	var button1 = $('#upload_button1'), interval;
+	var confirmdiv = $('#uploadphotoconfirm');
+
+    var fileType = "pic",fileNum = "one"; 
+    new AjaxUpload(button,{
+        action: "{:U('Admin/Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;               
+                }
+            }
+                        
+           confirmdiv.text('文件上传中');
+            
+            if(fileNum == 'one')
+                this.disable();
+            
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');                    
+                } else {
+                    confirmdiv.text('文件上传中');             
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+		
+			if(response != "success"){
+				if(response =='2'){
+					confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+				}else{
+					if(response.length>20){
+						confirmdiv.text("文件上传失败请重新上传"+response);			
+					}else{
+						confirmdiv.text("上传完成");
+						
+					 	$("#newbikephotoName").val("/Upload/images/"+response);
+						$("#newbikephoto").attr("src","/Upload/images/"+response);			
+					}
+				}
+				
+			}
+                                  
+            window.clearInterval(interval);
+                        
+            this.enable();
+            
+            if(response == "success")
+            confirmdiv.text('上传成功');              
+        }
+    });
+
+		
+	
+});
+
+
+
+</script>
+
+<script type="text/javascript">
+    $(function(){
+        var button = $('#upload_button'), interval;
+
+        var confirmdiv = $('#uploadphotoconfirm');
+
+        var fileType = "pic",fileNum = "one";
+        new AjaxUpload(button,{
+            action: "{:U('Home/Up/uppic')}",
+            name: 'userfile',
+            onSubmit : function(file, ext){
+                if(fileType == "pic")
+                {
+                    if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                        this.setData({
+                            'info': '文件类型为图片'
+                        });
+                    } else {
+                        confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                        return false;
+                    }
+                }
+
+                confirmdiv.text('文件上传中');
+
+                if(fileNum == 'one')
+                    this.disable();
+
+                interval = window.setInterval(function(){
+                    var text = confirmdiv.text();
+                    if (text.length < 14){
+                        confirmdiv.text(text + '.');
+                    } else {
+                        confirmdiv.text('文件上传中');
+                    }
+                }, 200);
+            },
+            onComplete: function(file, response){
+
+                if(response != "success"){
+                    if(response =='2'){
+                        confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+                    }else{
+                        if(response.length>20){
+                            confirmdiv.text("文件上传失败请重新上传"+response);
+                        }else{
+                            confirmdiv.text("上传完成");
+
+                            $("#newbikephotoName").val("/Upload/images/"+response);
+                            $("#newbikephoto").attr("src","/Upload/images/"+response);
+                        }
+                    }
+
+                }
+
+                window.clearInterval(interval);
+
+                this.enable();
+
+                if(response == "success")
+                    confirmdiv.text('上传成功');
+            }
+        });
+
+
+
+    $(".vb").click(function(){
+        var src=$(this).attr("title");
+        layer.open({
+            type: 2,
+            title: false,
+            closeBtn: 0, //不显示关闭按钮
+            shade: [0],
+            area: ['340px', '215px'],
+            offset: 'rb', //右下角弹出
+            time: 2000, //2秒后自动关闭
+            shift: 2,
+            content: ['http://layer.layui.com/test/guodu.html', 'no'], //iframe的url，no代表不显示滚动条
+            end: function(){ //此处用于演示
+                layer.open({
+                    type: 2,
+                    title: '视频预览',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['893px', '600px'],
+                    content: src
+                });
+            }
+        });
+
+
+    })
+
+
+</script>
+                           
+                                    
+                             
+                                    
+                               
+                      
+
+   
+
+
+
+
+            
+    
+
+
+

@@ -1,0 +1,249 @@
+<include file="Public:header"/>
+
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/grcenter.css">
+<script src="__PUBLIC__/home/assets/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/home/assets/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/home/assets/js/common.js"></script>
+
+<!--导航-->
+<div class="header-nav" style="*z-index:9;">
+  <div class="w1190 mtauto f-pr clearfix" style="*z-index:10;"> 
+    <!--  **  li的类名为has-erji时，表示在对应页面有二级导航-->
+   <include file="Public:nav"/>
+    <div class="navBtn f-oh"> <a class="gy-btn" onclick="member_new_sell()">发布供应</a> <a class="cg-btn" href="">发布采购</a> </div>
+    <!-- *** 此按钮首页不应显示，其他页均应显示 -->
+    <div class="vertical-navgation">
+    <include file="Public:left1"/>
+  </div>
+</div>
+
+
+
+<div class="mainbox">
+	<div class="nav-left">
+    	<div class="side-nav side-line">
+               <include file="Public:dp"/>
+				
+				
+				
+    
+                
+            </div>
+    </div>
+     <form>
+    <div class="nav-right">
+    	<div class="content">
+            <div class="tab-main">
+                <input type="hidden" name="hnUserId" id="hnUserId" value="557983">
+                <div class="fieldline">
+                    <div class="c1">登录名：</div>
+                    <div class="c2">
+                        <input type="text"  readonly value="{$_SESSION['USERNAME']}" class="txt">&nbsp;&nbsp;<em class="star">*</em>
+                    </div>
+                    <span class="reg-hint">
+                            <i class="reg-ico-1" style="display: none;">&nbsp;</i>
+                            <i class="reg-ico-2" style="display: none;">&nbsp;</i>
+                            <span class="red" id="userAccountv"></span>
+                    </span>
+                </div>
+                <div class="fieldline">
+                    <div class="c1">姓名：</div>
+                    <div class="c2">
+                        <input type="text" maxlength="32" value="{$user.realname}" id="realname" name="realname" class="txt">&nbsp;&nbsp;<em class="star">*<span id="checkrealname"></span></em>
+                    </div>
+                    <span class="reg-hint">
+                            <i class="reg-ico-1" style="display: none;">&nbsp;</i>
+                            <i class="reg-ico-2" style="display: none;">&nbsp;</i>
+                            <span class="red" id="linkManv"></span>
+                    </span>
+                </div>
+                <div class="fieldline">
+                    <div class="c1">QQ帐号：</div>
+                    <div class="c2">
+                        <input type="text" maxlength="32"id="qq" value="{$user.qq}"name="qq" class="txt">&nbsp;&nbsp;<em class="star" id="checkqq"></em>
+                    </div>
+                    <span class="reg-hint">
+                            <i class="reg-ico-1" style="display: none;">&nbsp;</i>
+                            <i class="reg-ico-2" style="display: none;">&nbsp;</i>
+                            <span class="red" id="qqv"></span>
+                    </span>
+                </div>
+                <div class="fieldline">
+                    <div class="c1">固定电话：</div>
+                    <div class="c2">
+                        <input type="text" maxlength="4" value="86" class="pguodai txt" readonly><em class="gang">-</em>
+                       
+                        <input type="text" placeholder="电话号码" id="tel" name="tel" value="{$user.tel}" class="pphone txt">&nbsp;&nbsp;<em class="star" id="checktel"></em>
+                    </div>
+                    <span class="reg-hint">
+                            <i class="reg-ico-1" style="display: none;">&nbsp;</i>
+                            <i class="reg-ico-2" style="display: none;">&nbsp;</i>
+                            <span class="red" id="areav"></span>
+                    </span>
+                </div>
+              <!--   <div class="fieldline">
+                    <div class="c1">传真：</div>
+                    <div class="c2">
+                        <input type="text" vg="1" maxlength="4" value="86" class="cguodai txt" readonly><em class="gang">-</em>
+                        <input type="text" placeholder="区号" maxlength="4" id="faxArea" name="faxArea" value="" class="cquhao txt"><em class="gang">-</em>
+                        <input type="text" placeholder="传真号码" id="fax" name="fax" value="" class="cphone txt">
+                    </div>
+                     <span class="reg-hint">
+                            <i class="reg-ico-1" style="display: none;">&nbsp;</i>
+                            <i class="reg-ico-2" style="display: none;">&nbsp;</i>
+                            <span class="red" id="faxv"></span>
+                    </span>
+                </div> -->
+                
+                <div class="fieldline fd-clr" id="mem-add">
+                    <div class="c1 cradio">
+                        联系地址：
+                    </div>
+                    <div class="controls">
+                        <select name="location_p" id="location_p">
+                        </select>
+                        <select name="location_c" id="location_c">
+                        </select>
+                        <select name="location_a" id="location_a">
+                        </select>
+                        <script src="__PUBLIC__/home/assets/js/region_select.js"></script>
+                        <script type="text/javascript">
+                            new PCAS('location_p', 'location_c', 'location_a', '北京市', '', '');
+                        </script>
+ 				 </div>
+                    <span class="reg-hint">
+                            <i class="reg-ico-1" style="display: none;">&nbsp;</i>
+                            <i class="reg-ico-2" style="display: none;">&nbsp;</i>
+                            <span class="red" id="proviceIdv"></span>
+                    </span>
+                </div>
+                <div class="fieldline">
+                    <div class="c1">详细地址:</div>
+                    <div class="c2"><textarea  style="border:1px solid #ccc; width:280px;height:48px;" id="addrss_desc" name="addrss_desc">{$user.addrss_desc}</textarea></div>
+                    
+                </div>
+                <div class="fieldline fd-clr" style="margin-top:20px;">
+                    <div class="c1">邮政编码：</div>
+                    
+                    <div class="c2"><input type="text" maxlength="6" id="zipcode" name="zipcode" minlength="6" value="{$user.zipcode}" class="txt noime"></div>                
+                    <span class="reg-hint">
+                            <i class="reg-ico-1" style="display: none;">&nbsp;</i>
+                            <i class="reg-ico-2" style="display: none;">&nbsp;</i>
+                    </span>
+                </div>
+                <div class="submit-wrapper fd-clr">
+                    <div class="c1">&nbsp;</div>
+                    <div class="c2"><button class="submit" name="submit" type="button">保存</button></div>
+                </div> 
+            </div>
+            
+            
+            
+        </div>
+    </div>
+	 </form>
+	 
+	 
+	  <link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+
+<script src="__PUBLIC__/home/js/toastr.js"></script>
+<script>
+
+          
+        $(function(){
+		
+	
+	            toastr.options = {
+				"closeButton": false,
+				  "debug": false,
+				  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "990",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "990",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+            };
+				
+					
+					
+				});	
+				
+				</script> 
+	 
+	 
+	 
+	 
+	 <script>
+	 
+	 
+	 
+	
+	    $(".submit").click(function(){
+
+var realname=$('#realname').val();
+
+var tel=$('#tel').val();
+var qq=$('#qq').val();
+var province=$('#location_p').val();
+var city=$('#location_c').val();
+var distract=$('#location_a').val();
+var addrss_desc=$('#addrss_desc').val();
+var zipcode=$("#zipcode").val();
+
+  if(realname==''){
+  
+   $("#checkrealname").html("姓名不能为空");
+   return false;
+  }
+
+
+  if(tel!=''){
+    if(!tel.match(/^([0-9]{3,4}-)?[0-9]{7,8}$/)){
+ 
+  $("#checktel").html("*固话格式不正确");
+   return false;
+  }
+ }
+
+  if(qq!=""){
+ if(!qq.match(/^[1-9]\d{5,12}$/)){
+ $("#checkqq").html("*QQ非法");
+  
+   return false;
+  }
+  }
+   $.ajax({
+ 'type':'post',
+ 'url':"{:U('Userlr/addxinxi')}",
+ 'data':{realname:realname,qq:qq,tel:tel,province:province,city:city,distract:distract,addrss_desc: addrss_desc,zipcode:zipcode},
+ 'dataType':'json',
+ 'success':function(msg){
+   if(msg.status==1){
+  toastr.success(msg.info,'信息修改成功', toastr.options);
+  setTimeout(function () {
+                        window.location.href = "/index.php/Home/Userlr/index";
+                    }, 1500);
+                       }else{
+                           toastr.error(msg.info,'信息完善', toastr.options);
+                       }   
+   }
+  });
+
+
+		  
+		
+		})
+	 
+	 
+	 </script>
+</div>
+
+
+
+<include file="Public:footer"/>

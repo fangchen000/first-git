@@ -1,0 +1,35 @@
+*{margin: 0; padding: 0; text-decoration: none;list-style: none;outline:none;border:none;background:none;vertical-align:top;}
+dl,ul,ol,li,dt,dd,p,h1,h2,h3,h4,h5,h6,img,section{ margin: 0 ; padding: 0; font-weight: normal;}
+body{font-family: "新宋体"; background: #fff;min-width: 1000px}
+dt,b,i{font-style: normal; font-weight: normal;}
+ul,ol,li{list-style: none;}
+em{font-style: normal;}
+.fl{float: left;}
+.fr{float: right;}
+.clearfix{clear: both;}
+a{ text-decoration:none;}
+.maxwidth{width: 100%;}
+.middle{width:1200px; margin: 0 auto;}
+a:hover{ color:#333; text-decoration:none}
+.clear:after{content:".";height:0;display:block;visibility:hidden;clear:both;}
+.clear{*zoom:1}
+header, section, footer, aside, nav, main, article, figure {display: block;}
+.tr{-webkit-transition:  0.5s;-moz-transition:  0.5s;-ms-transition:  0.5s;
+	-o-transition:  0.5s;transition:  0.5s;}
+.tr8{-webkit-transition:  0.8s;-moz-transition:  0.8s;-ms-transition:  0.8s;
+	-o-transition:  0.8s;transition:  0.8s;}
+.xiasanjiao{
+	border-top: 8px solid #999;border-right:4px solid transparent;border-bottom:0px solid red;border-left:4px solid transparent;display: inline-block;vertical-align: middle;
+}
+.shangsanjiao{
+	border-top: 0px solid transparent;border-right:4px solid transparent;border-bottom:8px solid #999;border-left:4px solid transparent;display: inline-block;vertical-align: middle;
+}
+input{font-family: "微软雅黑" !important;}
+/*公共头部*/
+.iconfont {
+    font-family:"iconfont" !important;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}

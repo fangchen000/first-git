@@ -1,0 +1,169 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+ <div class="rt_content">
+     <section>
+
+		 <div class="btm_btn" style="margin:15px 0;">
+			 <!-- <h2><strong style="color:grey;"></strong></h2> -->
+			 <span>&nbsp;&nbsp;&nbsp;</span>
+			 <!--<span>批量操作:</span>-->
+			 <!--<a href="{:U('Goods/addnotice')}" class="link_btn" id="del"style="background-color:red">添加商品</a>-->
+			 <span>状态（已付款<img src="__PUBLIC__/admin/assets/images/yes.gif"/>未付款<img src="__PUBLIC__/admin/assets/images/no.gif"/>）</span>
+		 </div>
+
+
+      <table class="table">
+       <tr>
+     <th>选择</th>
+    	<th>用户名</th>
+    	<th>订单号</th>
+    	<th>商品名称</th>
+		<th>订单金额</th>
+		<th>购买数量</th>
+		<th>收货人</th>
+		<th>状态</th>
+		<th>添加时间</th>
+
+		<th>收获地址</th>
+        <th>操作</th>
+       </tr>
+	   <tbody class="middle-align table table-bordered table-striped">
+	   <volist name="vimeo" id="v">
+       <tr>
+        <td><input type="checkbox" value="{$v.id}" name="ids"></td>
+		   <!--{$_SESSION['uid']|getuserrealname}-->
+        <td>{$v.user_id|getuserrealname}</td>
+        <td>{$v.order_number}</td>
+    	<td>{$v.g_name}</td>
+    	<td>{$v.total}</td>
+    	<td>{$v.buy_num}</td>
+    	<td>{$v.consignee}</td>
+		   <td>
+			   <if condition="$v['status'] eq 0">
+
+				   <img src="__PUBLIC__/admin/assets/images/no.gif" onclick="setvimeoonceis_commend({$v['id']})" style="cursor:pointer">
+				   <elseif condition="$v['status'] eq 1"/>
+				   <img  style="cursor:pointer" onclick="setvimeoonceis_commend({$v['id']})" src="__PUBLIC__/admin/assets/images/yes.gif">
+			   </if>
+		   </td>
+		   <td>{$v.add_time}</td>
+		   <td>{$v.address}</td>
+
+        <td>
+		<a href="{:U('Order/addnotice',array('id'=>$v['id']))}"><img src="__PUBLIC__/admin/assets/images/icon_edit.gif" alt="编辑" title="编辑"></a>&nbsp;&nbsp;
+		<img src="__PUBLIC__/admin/assets/images/icon_trash.gif" onclick="setdel({$v['id']})" alt="删除" title="删除">
+        </td> 
+       </tr>
+	   </volist>   
+       <tr>
+	    <td colspan="10">{$page}</td>
+	   </tr>
+	   </tbody>
+      </table>
+     
+     </section>
+   
+ </div>
+</section>
+    
+<script type="text/javascript">
+//公告批量删除
+  $("#del").click(function(){
+		var ids =[];
+		$('input[name="ids"]:checked').each(function(){
+		ids.push($(this).val());
+		});
+	   $.ajax({
+						type:'post',
+						url:"{:U('Admin/Order/delviemostatus')}",
+						data:{ids:ids},
+						success:function(msg){
+							if(msg.status==1){
+								toastr.success(msg.info,'删除成功',toastr.options);
+							 setTimeout(function () {
+			   location.reload();
+			}, 1500);
+							}else{
+								toastr.error(msg.info,'删除失败',toastr.options);
+
+							}
+						}
+					});
+			   
+			   
+			   });
+
+
+//单独修改学校推荐状态
+function  setvimeoonceis_commend(e){
+	$.ajax({
+		type:'post',
+		url:"{:U('Admin/Order/setvimeoonceis_commend')}",
+		data:{id:e},
+		success:function(msg){
+			if(msg.status==1){
+				toastr.success(msg.info,toastr.options);
+				setTimeout(function () {
+					location.reload();
+				}, 1500);
+			}else{
+				toastr.error(msg.info,toastr.options);
+
+			}
+		}
+	});
+};
+//单条删除公告
+function  setdel(e){
+ if(confirm("您确定将该内容删除吗？？")){
+// 	alert(e);
+			         $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/Order/setvimeodel')}",
+                                data:{id:e},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'删除成功',toastr.options);
+                                     setTimeout(function () {
+                       location.reload();
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'删除失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+							
+						}
+			   }
+			   
+					
+			
+				$(".deluser").click(function(){
+				  var id=$(this).attr("id");
+				   if(confirm("您确定删除该商品？？")){
+                    $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/Order/delorder')}",
+                                data:{id:id},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'删除成功',toastr.options);
+                                     setTimeout(function () {
+//                        window.location.href = "/index.php/Admin/Order/index.html";
+                        window.location.href = "{:U('Admin/Order/index.html')}";
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'删除失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+               }
+				})
+			
+				
+			
+
+</script>

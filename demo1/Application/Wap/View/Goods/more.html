@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="shortcut icon" type="image/x-icon" href="__PUBLIC__/home/assets/images/ico.ico" media="screen" />
+      <?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+    
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+    <!--公共css-->
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/base.css">
+    <!--本页css-->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/second_more.css">
+    <script src="__PUBLIC__/home/assets/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/home/assets/js/base.js" type="text/javascript"></script>
+    <script type="text/javascript" src="__PUBLIC__/home/assets/layer/layer.js"></script>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/Css.css">
+    <script type="text/javascript" src="__PUBLIC__/home/assets/js/jquery.kkPages.js"></script>
+    <script>
+	$(function(){
+		//收藏
+		$(".video ul .shoucang").click(function(){
+			//加载层-默认风格
+             var id=$(this).attr("id");
+			layer.load();
+			setTimeout(function(){
+			 
+              collect(id);
+			}, 1000);
+			$(this).toggleClass("shoucangon");
+		})
+		//稍后观看
+		$(".video ul .after").click(function(){
+			//加载层-默认风格
+			layer.load();
+			setTimeout(function(){
+			  layer.closeAll('loading');
+			}, 1000);
+			$(this).toggleClass("afteron");
+		})
+		
+	})
+
+    $(function(){
+    $('.qiebox .list1').kkPages({
+        PagesClass:'.li', //需要分页的元素
+        PagesMth:8, //每页显示个数        
+        PagesNavMth:5 //显示导航个数
+        });
+});
+
+    $(function(){
+    $('.qiebox .list2').kkPages({
+        PagesClass:'.li', //需要分页的元素
+        PagesMth:8, //每页显示个数        
+        PagesNavMth:5 //显示导航个数
+        });
+});
+
+
+    function  collect(e){
+            $.ajax({
+ 'type':'post',
+ 'url':"{:U('Home/Vimeo/addcollect')}",
+ 'data':{v_id:e},
+ 'dataType':'json',
+ 'success':function(msg){
+   if(msg.status==1){
+        alert(msg.info);
+        location.reload();
+           }else{
+     alert(msg.info);
+                  
+                        
+           }   
+   }
+  });
+        }
+
+	</script>
+</head>
+
+<body>
+
+<!--顶部开始-->
+<header>
+	<div class="head_center">
+        <div class="logo"><a href="index.html"><img src="__PUBLIC__/home/assets/images/logo.png" alt=""></a></div>
+
+        <div class="login">
+            <if condition="$us_id eq null">
+            <a href="{:U('Home/Index/index')}">登录</a>
+            <a href="{:U('Home/Index/index')}">注册</a>
+            <else/>
+            <a href="{:U('Home/User/index')}">{$us_id['username']}</a>
+            <a href="{:U('Home/User/logionout')}">退出</a>
+        </if>
+            </div>
+
+         <form action="{:U('Home/Search/index')}" method="post" onsubmit="return  check()">
+        <div class="search"><input type="text" name="keywords" placeholder="请输入您要搜索的内容" value="{$keywords}" id="keywords"/><button type="submit"></button></div>
+       </form>
+
+
+<script type="text/javascript">
+function  check(){
+    var keywords=$("#keywords").val();
+    if(keywords==""){
+        alert("关键字不能为空");
+        return false;
+    }
+}
+
+</script>
+    </div>
+</header>
+
+
+<div class="topnav">
+   <h1><a href="{:U('Home/Goods/index')}">所有视频</a>/
+     <if condition="$parent_id neq 0">
+    <a href="{:U('Home/Goods/more',array('id'=>$cate['cat_id']))}">{$cate['cat_name']}</a> /
+    </if>
+   <a href="{:U('Home/Goods/more',array('id'=>$id))}">{$id|getprotypename}</a></h1>
+    <div class="mark">
+
+        <if condition="$parent_id eq 0">
+
+ <volist name="second" id="v">
+
+        
+             <a href="{:U('Home/Goods/details',array('id'=>$v['cat_id']))}">{$v['cat_name']}</a>
+       
+    </volist>
+            <else/>
+<volist name="second" id="v">
+
+        
+             <a href="{:U('Home/Goods/second',array('id'=>$v['cat_id']))}">{$v['cat_name']}</a>
+       
+    </volist>
+        </if>
+    </div>
+</div>
+
+
+<div class="more_list">
+	<div class="left">
+    	<p class="choose"><a class="aaon"><b><img src="__PUBLIC__/home/assets/images/a1.png" alt=""></b></a><a><b><img src="images/b1.png" alt=""></b></a></p>
+        <div class="clear"></div>
+        <div class="qiebox">
+        	<div class="list list1">
+
+               <volist name="vimeo" id="v">
+                <div class="li">
+                    <h2 onclick="document.location='/index.php/Home/Vimeo/index/id/{$v.id}.html'"><img src="{$v.user_id|getuserphoto}" alt="">{$v.user_id|getusername}</h2>
+                    <div class="video">
+                        <h3><img src="{$v.image}" alt="">
+                            <ul>
+                            <if condition="$v['u_collect'] eq null">
+                                <li class="shoucang" id="{$v.id}" >
+                                <else/>
+                                <li class="shoucangon" id="{$v.id}">
+                                </if>
+                                <b>收藏</b></li>
+                                <li class="after"><b>稍后观看</b></li>
+                                <li><img src="__PUBLIC__/home/assets/images/ic03.png" alt=""><div class="bdsharebuttonbox" id="hide_icon"><a href="#" class="bds_more" data-cmd="more"></a></div><b>分享</b></li>
+                            </ul>
+                            <p onclick="document.location='/index.php/Home/Vimeo/index/id/{$v.id}.html'"><img src="__PUBLIC__/home/assets/images/bofang.png" onMouseOver="this.src='__PUBLIC__/home/assets/images/bofang1.png'" onMouseOut="this.src='__PUBLIC__/home/assets/images/bofang.png'" alt=""></p>
+                        </h3>
+                        <h4 onclick="document.location='/index.php/Home/Vimeo/index/id/{$v.id}.html'">标题：{$v.title}</h4>
+                        <h5>上传时间：{$v.create_time|date="Y-m-d H:i:s",###}</h5>
+                        <p class="folde texte">作品简介：{$v.content}</p>
+                        <a class="moree"><b>+展开全部</b><b>—收起全部</b></a></dd>
+                        <a class="link" href="{:U('Home/Vimeo/index',array('id'=>$v['id']))}">查看详情>></a>
+                    </div>
+                </div>
+               </volist>
+
+              </div> 
+            <div class="list list2">
+                <volist name="vimeo" id="v">
+                <dl class="li" onclick="document.location='/index.php/Home/Vimeo/index/id/{$v.id}.html'">
+                    <dt><img src="{$v.image}" alt=""></dt>
+                    <dd><h2>{$v.title}<!-- <i>时长:02:02</i> --></h2>
+                    <h3>来自：{$v.user_id|getusername}<b>{$v.click}次</b><b>{$v.like}</b><b>{$v.ping}</b></h3>
+                    <h3>上传时间：{$v.create_time|date="Y-m-d H:i:s",###}</h3>
+                    <h3 class="fold text">作品简介：{$v.content}</h3>
+                    <a class="more"><b>+展开全部</b><b>—收起全部</b></a></dd>
+                </dl>
+                </volist>
+                
+            </div>
+            <!--分页开始-->
+            
+            <!--分页结束-->
+        </div>
+    </div>
+    
+    <div class="right">
+    	<h2>相关推荐</h2>
+        <volist name="commend" id="v" offset="0" lenght="6">
+        <dl onclick="document.location='/index.php/Home/Vimeo/index/id/{$v.id}.html'"><dt><img src="{$v.image}" alt=""></dt><dd><h3>{$v.title|mb_substr=0,9,'utf8'}</h3><h4>来自：{$v.user_id|getusername}<br>发布时间：{$v.create_time|date="Y-m-d",###}</h4></dd></dl>
+        </volist>
+         
+    </div>
+</div>
+
+
+<!--页脚开始-->
+<include file="Public:footer"/>
+
+</body>
+</html>

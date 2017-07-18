@@ -1,0 +1,361 @@
+<include file="Public:header"/>
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/grcenter.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/center.css">
+<script src="__PUBLIC__/home/assets/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/home/assets/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/home/assets/js/common.js"></script>
+<script src="__PUBLIC__/home/assets/layer/layer.js"></script>
+
+<script src="__PUBLIC__/home/assets/js/punlic_qita.js" type="text/javascript"></script>
+
+<!--导航-->
+<div class="header-nav" style="*z-index:9;">
+  <div class="w1190 mtauto f-pr clearfix" style="*z-index:10;"> 
+    <!--  **  li的类名为has-erji时，表示在对应页面有二级导航-->
+   <include file="Public:nav"/>
+    <div class="navBtn f-oh"> <a class="gy-btn" onclick="member_new_sell()">发布供应</a> <a class="cg-btn" href="">发布采购</a> </div>
+    <!-- *** 此按钮首页不应显示，其他页均应显示 -->
+    <div class="vertical-navgation">
+    <include file="Public:left1"/>
+  </div>
+</div>
+</div>
+
+<div class="mainbox">
+	<div class="nav-left">
+    	<div class="side-nav side-line">
+               <include file="Public:dp"/>
+            </div>
+    </div>
+  <div class="nav-right">
+    <div class="content" style="padding-bottom:20px;">
+      <div class="main-tips user-iteam red lh_24"> 审核须知：<br>
+        1.身份证必须上传正反两面，不能重复上传且正反必须为同一证件。<br>
+        2.证件可以是清晰扫描件或手机拍摄图片，照片必须看清证件号、姓名且证件完整。<br>
+        3.所填姓名与身份证上的姓名必须保持一致，且必须为第二代身份证，临时身份证、第一代身份证、过期身份证将无法通过审核。 </div>
+      <form action="{:U('Home/Userlr/renzgr')}" method="post" id="ifroms" enctype="multipart/form-data">
+        <input type="hidden" id="hnUserId" name="hnUserId" value="">
+        <div style="display:none;" id="picContainer"> </div>
+        <div class="user-con">
+          <div class="user-iteam"> <span class="user-label label-left">请提交以下认证材料：</span> </div>
+          <div class="user-iteam"> <span class="user-label">姓名：</span>
+            <input type="text" placeholder="请填写身份证上的姓名" value="{$user.username}" class="user-txt" name="username" id="username" maxlength="20">
+            <p id="name"> <p></div>
+          <div class="user-iteam"> <span class="user-label">身份证号码：</span>
+            <input type="text" placeholder="请保证所填号码与证件一致" value="{$user.code}" class="user-txt" id="code" maxlength="18" name="code">
+            <p id="checkcode"> </p></div>
+			
+			
+			
+          <div class="user-iteam h_35">
+
+			<span class="user-label">请上传身份证正面：</span>
+			
+			<div class="ren_list">
+			  <div class="tutu" style="width:520px;">
+			  <div class="t0">
+			 <!--  <div id="localImag1">
+			  
+			  <if condition="$user['ye_card'] neq null">
+		  <img id="preview1" style="width:129px; height:81px" src="/Uploads/{$user['ye_card']}"/>
+		  <else/>
+		  
+		  </if>
+			  </div> -->
+			 <!--  <input type="file" name="ye_card" id="doc1" onchange="javascript:setImagePreview1();"> -->
+			  <if condition="$user['ye_card'] eq null">
+			  <img id="newbikephoto"  src="__PUBLIC__/home/assets/images/center_08.jpg" style="float:none;display:black;padding:0;background-image:none;margin-top:5px;">
+			  <else/>
+			  <img  id="newbikephoto" src="{$user['ye_card']}" style="max-height:100px; display:black;float:none;" />
+			  </if>
+		  <input type="button" class="btn btn-primary" id="upload_button"  value="上传图片"  style="float:none;display:black;padding:0;background-image:none;margin-top:5px;"/>
+			  </div>
+			  <p id="zheng"></p>
+			  </div>
+			</div>
+			</div>
+			
+			
+			<div class="user-iteam h_35">
+
+			<span class="user-label" style="clear:both;">请上传身份证反面：</span>
+			
+			<div class="ren_list">
+			  <div class="tutu" style="width:520px;">
+			  <div class="t0">
+			 <!--  <div id="localImag1">
+			  
+			  <if condition="$user['ye_card'] neq null">
+		  <img id="preview1" style="width:129px; height:81px" src="/Uploads/{$user['ye_card']}"/>
+		  <else/>
+		  <img id="preview1" style="width:129px; height:81px" src="__PUBLIC__/home/assets/images/center_08.jpg">
+		  </if>
+			  </div> -->
+			 <!--  <input type="file" name="ye_card" id="doc1" onchange="javascript:setImagePreview1();"> -->
+			  <if condition="$user['zu_card'] eq null">
+			  <img id="newbikephoto1" src="__PUBLIC__/home/assets/images/center_08.jpg" style="max-height:100px; display:black;float:none;">
+			  <else/>
+			  <img  id="newbikephoto1" src="{$user['zu_card']}" style="max-height:100px; display:black;float:none;" />
+			  </if>
+			  
+		  <input type="button" class="btn btn-primary" id="upload_button1"  value="上传图片"  style="float:none;display:black;padding:0;background-image:none;margin-top:5px;"/>
+			  </div>
+			  <p id="zheng"></p>
+			  </div>
+			</div>
+			</div>
+          <div class="user-iteam h_35" style="width:600px;margin:0 auto; ">
+            <button type="button" onclick="checkForm()" class="btn-2"> 提交 </button>
+          </div>
+
+        </div>
+      </form>
+	   <link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+
+<script src="__PUBLIC__/home/js/toastr.js"></script>
+<script>
+
+          
+        $(function(){
+		
+	
+	            toastr.options = {
+				"closeButton": false,
+				  "debug": false,
+				  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "990",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "990",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+            };
+				
+					
+					
+				});	
+				
+				</script> 
+	  
+	  
+	<script type="text/javascript" src="__PUBLIC__/home/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/home/js/ajaxupload.js"></script>
+<script type="text/javascript">
+$(function(){
+	var button = $('#upload_button'), interval;
+	var button1 = $('#upload_button1'), interval;
+	var confirmdiv = $('#uploadphotoconfirm');
+	var confirmdiv1 = $('#uploadphotoconfirm1');
+    var fileType = "pic",fileNum = "one"; 
+    new AjaxUpload(button,{
+        action: "{:U('Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;               
+                }
+            }
+                        
+            confirmdiv.text('文件上传中');
+            
+            if(fileNum == 'one')
+                this.disable();
+            
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');                    
+                } else {
+                    confirmdiv.text('文件上传中');             
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+			if(response != "success"){
+				if(response =='2'){
+					confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+				}else{
+					if(response.length>20){
+						confirmdiv.text("文件上传失败请重新上传"+response);			
+					}else{
+						confirmdiv.text("上传完成");
+					 	$("#newbikephotoName").val("/upload/images/"+response);
+						$("#newbikephoto").attr("src","/upload/images/"+response);			
+					}
+				}
+				
+			}
+                                  
+            window.clearInterval(interval);
+                        
+            this.enable();
+            
+            if(response == "success")
+            alert('上传成功');              
+        }
+    });
+	
+	
+	
+	 new AjaxUpload(button1,{
+        action: "{:U('Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;               
+                }
+            }
+                        
+            confirmdiv.text('文件上传中');
+            
+            if(fileNum == 'one')
+                this.disable();
+            
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');                    
+                } else {
+                    confirmdiv.text('文件上传中');             
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+			if(response != "success"){
+				if(response =='2'){
+					confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+				}else{
+					if(response.length>20){
+						confirmdiv.text("文件上传失败请重新上传"+response);			
+					}else{
+						confirmdiv.text("上传完成");
+					 	$("#newbikephotoName").val("/upload/images/"+response);
+						$("#newbikephoto1").attr("src","/upload/images/"+response);			
+					}
+				}
+				
+			}
+                                  
+            window.clearInterval(interval);
+                        
+            this.enable();
+            
+            if(response == "success")
+            alert('上传成功');              
+        }
+    });
+	
+	
+	
+	
+});
+
+
+</script>
+	  
+	  <script>
+	  
+	  function checkForm(){
+	  var username=$("#username").val();
+      var code=$("#code").val();
+	  var   zu_card=$("#newbikephoto1").attr("src");
+	   var   ye_card=$("#newbikephoto").attr("src");
+	 var isIdCard2 = /^[1-9]\d{5}(19\d{2}|[2-9]\d{3})((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])(\d{4}|\d{3}X)$/i;
+	 
+	   if(username==""){
+	    $("#name").html("<em class='star'>*</em> <span class='reg-hint' style='color:red'>请填写身份证上的姓名 </span>");
+		$("#username").focus();
+		return false;
+	   }else{
+	    $("#name").html("");
+	   }
+	   if(code==""){
+	   $("#checkcode").html("<em class='star'>*</em> <span class='reg-hint' style='color:red'>请填写身份证上的身份证号码 </span>");
+	   $("#code").focus();
+	   return false;
+	   }else{
+	   $("#checkcode").html("");
+	   }
+	   if(!isIdCard2.test(code)){
+	   $("#checkcode").html("<em class='star'>*</em> <span class='reg-hint' style='color:red'>请正确填写您的身份证号码 </span>");
+	   $("#code").focus();
+	   return false;
+	   }else{
+	   
+	      $.ajax({
+ 'type':'post',
+ 'url':"{:U('Userlr/renzgr')}",
+ 'data':{username:username,code:code,zu_card:zu_card,ye_card:ye_card},
+ 'dataType':'json',
+ 'success':function(msg){
+   if(msg.status==1){
+  toastr.success(msg.info,'正在跳转...', toastr.options);
+  setTimeout(function () {
+                        window.location.href = "/index.php/Home/Userlr/renzgr.html";
+                    }, 1500);
+			   }else{
+				   toastr.error(msg.info,'登录失败', toastr.options);
+			   }   
+   }
+  });
+	   
+	   
+	   }
+	 
+	
+	  }
+	  </script>
+      
+    </div>
+    </div>
+  </div>
+
+<div class="zhengjian" id="qqq" style="display:none" > 
+    	<div class="fx-s-2" style="width: 580px; height: 500px;">
+    <span class="line"></span>
+    <div class="message">
+      <div class="mode-tc mode-font">
+        <div class="title" >请参照以下形式上传您的身份证照片：</div>
+        <div class="img" style="padding-left:20px;"><img src="__PUBLIC__/home/assets/images/sfz.png" alt=""></div>
+        <div class="sxbox">注意事项：<br>
+          1.我们保证您提供的信息将被予以保护，不挪作他用。<br>
+          2.第二代身份证正面照：需要能看清姓名、地址、身份证号码等信息。<br>
+          3.第二代身份证反面照：需要能看清签发机关、有效日期等信息。</div>
+      </div>
+    </div>
+  </div>
+ </div>
+<script>
+function qqq(){
+		layer.open({
+		type: 1,
+		title:"身份证模板展示",
+    	area: ['580px', '580px'], //宽高
+		shadeClose: true,
+		skin: 'yourclass',
+		content: $('#qqq')
+	});
+}
+</script>
+
+<!-- 底部 -->
+<include file="Public:footer"/>

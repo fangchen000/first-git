@@ -1,0 +1,212 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+ <div class="rt_content">
+     <section>
+      <div class="page_title">
+       <h2 class="fl">新闻管理</h2>
+		  <section>
+			  <form method="post" action="{:U('Admin/News/index')}">
+				  <input type="text" class="textbox" placeholder="新闻标题" name="title" value="{$title}"/>
+
+
+				  <input type="submit" value="搜索" class="group_btn"/>
+			  </form>
+
+		  </section>
+        <a class="fr top_rt_btn link_btn" href="{:U('Admin/News/addnotice')}">添加新闻</a>
+      </div>
+
+	 
+	  <div class="btm_btn" style="margin:15px 0;">
+	   <!-- <h2><strong style="color:grey;"></strong></h2> -->
+	   <span>批量操作:</span>
+		 <a href="#" class="link_btn" id="del"style="background-color:red">删除</a>
+		 <a href="#" class="link_btn" id="is_commend"style="background-color:#9B30FF">推荐</a>
+		 <a href="#" class="link_btn" id="no_commend"style="background-color:#8B8B7A">取消推荐</a>
+		 <span>展示（下方<img src="__PUBLIC__/admin/assets/images/yes.gif"/>上方<img src="__PUBLIC__/admin/assets/images/no.gif"/>）</span>
+       </div><!--审核（未审核：<img src="__PUBLIC__/admin/assets/images/dengdai.png"/>已审核<img src="__PUBLIC__/admin/assets/images/yes.gif"/>拒绝<img src="__PUBLIC__/admin/assets/images/no.gif"/>）-->
+      <table class="table">
+       <tr>
+     <th>选择</th>
+    	<th>新闻标题</th>
+    	<th>新闻封面</th>
+      	<th>新闻描述</th>
+        <th>操作</th>
+       </tr>
+	   <tbody class="middle-align table table-bordered table-striped">
+	   <volist name="vimeo" id="v">
+       <tr>
+        <td><input type="checkbox" value="{$v.id}" name="ids"></td>
+        <td style="max-width:100px;">{$v.title}</td>
+        <td><img style="width: 80px;height: 60px;" src="{$v.img}"/></td>
+	    <td>{$v.describe}</td>
+        <td>
+		<a href="{:U('Admin/News/addnotice',array('id'=>$v['id']))}"><img src="__PUBLIC__/admin/assets/images/icon_edit.gif" alt="编辑" title="编辑"></a>&nbsp;&nbsp;
+		<img src="__PUBLIC__/admin/assets/images/icon_trash.gif" onclick="setdel({$v['id']})" alt="删除" title="删除">
+        </td> 
+       </tr>
+	   </volist>   
+       <tr>
+	    <td colspan="13">{$page}</td>
+	   </tr>
+	   </tbody>
+      </table>
+     
+     </section>
+   
+ </div>
+</section>
+    
+<script type="text/javascript">
+//新闻批量删除
+  $("#del").click(function(){
+		var ids =[];
+		$('input[name="ids"]:checked').each(function(){
+		ids.push($(this).val());
+		});
+	   $.ajax({
+						type:'post',
+						url:"{:U('Admin/News/delviemostatus')}",
+						data:{ids:ids},
+						success:function(msg){
+							if(msg.status==1){
+								toastr.success(msg.info,'删除成功',toastr.options);
+							 setTimeout(function () {
+			   location.reload();
+			}, 1500);
+							}else{
+								toastr.error(msg.info,'删除失败',toastr.options);
+
+							}
+						}
+					});
+			   
+			   
+			   })
+   
+   
+   //推荐
+   $("#is_commend").click(function(){
+		var ids =[];
+		$('input[name="ids"]:checked').each(function(){
+		ids.push($(this).val());
+		});
+	   $.ajax({
+				type:'post',
+				url:"{:U('Admin/News/delviemocommend')}",
+				data:{ids:ids,status:1},
+				success:function(msg){
+					if(msg.status==1){
+						toastr.success(msg.info,'推荐成功',toastr.options);
+					 setTimeout(function () {
+					   location.reload();
+					}, 1500);
+					}else{
+						toastr.error(msg.info,'推荐失败',toastr.options);
+
+					}
+				}
+			});
+			   
+			   
+   })
+   
+   
+   //取消推荐
+   $("#no_commend").click(function(){
+			   				  var ids =[]; 
+$('input[name="ids"]:checked').each(function(){ 
+ids.push($(this).val()); 
+}); 
+			   $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/News/delviemocommend')}",
+                                data:{ids:ids,status:0},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'设置成功',toastr.options);
+                                     setTimeout(function () {
+                       location.reload();
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'设置失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+			   
+			   
+			   })
+			   
+		//单独修改新闻推荐状态
+			   function  setvimeoonceis_commend(e){
+			         $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/News/setvimeoonceis_commend')}",
+                                data:{id:e},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'设置成功',toastr.options);
+                                     setTimeout(function () {
+                       location.reload();
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'设置失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+			   }
+			   
+//单条删除新闻
+function  setdel(e){
+ if(confirm("您确定将该新闻删除吗？？")){
+			         $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/News/setvimeodel')}",
+                                data:{id:e},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'设置成功',toastr.options);
+                                     setTimeout(function () {
+                       location.reload();
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'设置失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+							
+						}
+			   }
+			   
+					
+			
+				$(".deluser").click(function(){
+				  var id=$(this).attr("id");
+				   if(confirm("您确定删除该商品？？")){
+                    $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/Goods/delgoods')}",
+                                data:{id:id},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'删除成功',toastr.options);
+                                     setTimeout(function () {
+                        window.location.href = "/index.php/Admin/Goods/index.html";
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'删除失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+               }
+				})
+			
+				
+			
+
+</script>

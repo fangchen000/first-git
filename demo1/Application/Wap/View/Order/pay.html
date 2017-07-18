@@ -1,0 +1,40 @@
+<include file="Public:header1"/>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/base.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/index.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/index.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/assets/css/style.css">
+
+<div class="ab-line"></div>
+<div class="shop-box">
+    <div class="container">
+        <div class="pay-first">
+            <img src="__PUBLIC__/Home/assets/images/dui2.png" alt="">
+            <div class="first-text">
+                <h3>订单提交成功，现在只差最后一步啦！</h3>
+                <p>订单金额：<span class="pay-money">￥{$info.order_amount}</span></p>
+                <p class="p-atten">请您在提交订单后<span>2小时</span>内完成支付，否则订单会自动取消！</p>
+            </div>   
+        </div>
+        <div class="clearfix"></div>
+        <div class="way-box">
+            <h5>应付金额：<span class="or-money">￥{$info.order_amount}</span></h5>
+            <div class="pay-way">
+                <h6>推荐支付方式：</h6>
+                <div class="way-pic on3">
+                    <a href="go_pay.html"><img src="__PUBLIC__/Home/assets/images/pw1.png" alt=""></a>
+                </div>
+                <p class="p-atten">中国最大的第三方支付平台</p>
+            </div>
+           
+            <div class="pay-btn">
+                <p><a href="{:U('Home/Pay/dopay',array('order_sn'=>$info['order_sn']))}">确认支付</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>
+</body>
+</html>
+<!-- 底部 -->
+
+

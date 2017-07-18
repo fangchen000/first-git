@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+ </html>
+ <head>
+     <meta charset="utf-8">
+     <?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+     <meta name="format-detection" content="telephone=no" /> 
+     <meta content="email=no" name="format-detection">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/base.css"/>
+     <link rel="stylesheet" href="__PUBLIC__/Wap/assets/css/second.css">
+     <script src="__PUBLIC__/Wap/assets/js/jquery-1.8.1.min.js"></script>
+     <script src="__PUBLIC__/Wap/assets/layer/layer.js"></script>
+	 	  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/Css.css">
+	<script src="__PUBLIC__/Wap/assets/js/jquery.kkPages.js"></script>
+     <script>
+	 	$(function(){
+			$(".snav").click(function(){
+				$("header").toggleClass("leftspacing",200);
+				$(".mainbox").toggleClass("leftspacing",200);
+				$(".foot_nav").toggleClass("leftspacing",200);
+				$("nav").toggle();
+				})
+			})
+			
+	 </script>
+	
+ </head>
+ <body>
+ 
+ <nav>
+    <dl>
+        <dt><a href="{:U('Wap/Goods/details',array('id'=>$id))}">{$id|getprotypename}</a></dt>
+		
+        <dd>
+		<volist name="second" id="v">
+		<a href="{:U('Wap/Goods/second',array('id'=>$v['cat_id']))}">{$v.cat_name}</a>
+		</volist>
+           
+        </dd>
+    </dl>
+</nav>
+ 
+<div class="mainbox" style="position:relative;">
+ 	<!--头部-->
+	<header>
+        <a class="back" onclick="history.go(-1)"></a>
+		<h2>{$id|getprotypename}</h2>
+        <a class="snav"></a>
+	</header>
+	
+     
+	 	
+	
+    
+    <!--搜索-->
+	<section class="search">
+	<form action="{:U('Wap/Goods/details')}" method="get" onsubmit="return check()">
+	    
+    	<input type="text" name="keywords" placeholder="输入您想搜索的关键字" value="{$keywords}">
+		<input type="hidden" name="id" value="{$id}"/>
+		<input type="submit" value="搜索">
+    </form>
+	<script>
+	function check(){
+	 var keywords=$("input[name='keywords']").val();
+	 if(keywords==""){
+	   layer.msg("搜索内容不能为空");
+	   return false;
+	 }
+	}
+	
+	</script>
+    </section>
+    
+    <div class="secondon">
+	
+	<if condition="$cat['status'] eq null">
+        <b>{$id|getprotypename}<i class="no" id="{$category.cat_id}">+添加标签</i></b>
+		<elseif condition="$cat['status'] eq 1"/>
+		<b>{$id|getprotypename}<i class="no" id="{$category.cat_id}" style="background-color:red;color:#fff">取消添加</i></b>
+		<elseif condition="$cat['status'] eq 2"/>
+		<b>{$id|getprotypename}<i class="no" id="{$category.cat_id}">+添加标签</i>
+		</if>
+    </div>
+    
+	<section class="video_list">
+	 <volist name="vimeo" id="v">
+    	<dl class="li"><a href="{:U('Wap/Vimeo/index',array('id'=>$v['id']))}">
+        	<dt><img src="{$v.image}" alt=""><!-- <i>时长 02:08</i> --></dt>
+            <dd><p>{$v.title}</p><b>{$v.user_id|getusername}</b></dd></a>
+        </dl>
+	</volist>
+    </section>
+	
+	<script>
+	$(function(){
+	$(".no").click(function(){
+		   var cat_id=$(this).attr("id");
+		  
+		    $.ajax({
+                        type : "post",
+                        async : false,
+                         'url':"/index.php/Wap/User/settag",
+                        data :{
+                          cat_id:cat_id
+                        },
+                        dataType : "json",
+                        success : function(result) {
+                          if(result.status==1){
+                         layer.msg(result.info);
+                        // location.reload();
+                   setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+
+                          }
+                          if(result.status==0){       
+                            layer.msg(result.info);
+                          }  
+                        }
+                      });
+		   
+		   
+			
+	})
+	
+	
+	})
+	
+	
+	</script>
+	<include file="Public:footer"/>
+</div>	
+ </body>
+ </html>

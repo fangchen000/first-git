@@ -1,0 +1,34 @@
+<include file="./Lingshow/Home/View/Public/header.html" />
+<include file="./Lingshow/Home/View/Public/dq.html" />
+<script src="__PUBLIC__/admin/assets/js/jquery-1.11.1.min.js"></script>
+<!--登录开始-->
+<div class="denglu">
+  <div class="deng_left"><img src="__PUBLIC__/home/assets/images/login.jpg" alt=""></div> 
+  <div class="deng_right">
+      <form name="ttj" action="{:U('Qtdz/denglu')}" method="post">
+      <h2>海之澜会员登录</h2>
+      <p><input style="background-image:url('__PUBLIC__/home/assets/images/user.jpg');" name="textfield"type="text" placeholder="请输入用户名"></p>
+      <p><input style="background-image:url('__PUBLIC__/home/assets/images/login1.jpg');" name="textfield1"type="password" placeholder="请输入密码"></p>
+      <p class="aa" style="color:red;padding-left: 24px;margin-bottom: -28px;">{$ab}</p>
+      <p class="login_btn"><input type="button" value="登 录"></p>
+          <p><a href="/User/Qtdz/register">快速注册</a></p>
+      </form>
+  </div>
+</div>
+<script>
+    $(function(){
+        $('input[name=textfield]').keyup(function(){var a= $(this).val().replace(/\W/g,'');$('input[name=textfield]').val(a);})
+        $('input[name=textfield]').keyup(function(){$('.aa').hide();})
+        $('input[name=textfield1]').keyup(function(){$('.aa').hide();})
+        $('input[name=textfield]').val('');
+        $('input[name=textfield1]').val('');
+        $('.login_btn').click(function(){
+            var a= $('input[name=textfield]').val();
+            var a1= $('input[name=textfield1]').val();
+            if(!a || !a1){alert('账号密码不能为空');}else{
+                $('form[name=ttj]').submit();}
+        })
+    })
+</script>
+<!--登录结束-->
+<include file="./Lingshow/Home/View/Public/footer.html" />

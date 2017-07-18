@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0040)http://passport.cnhnb.com/myinfo/goLogin -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta http-equiv="pragma" content="no-cache">
+<include file="Public:seo"/>
+<link rel="stylesheet" type="text/css" media="screen" href="__PUBLIC__/home/assets/css/top_foot.css">
+<link rel="stylesheet" type="text/css" media="screen" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" type="text/css" media="screen" href="__PUBLIC__/home/assets/css/reset.css">
+<link rel="stylesheet" type="text/css" media="screen" href="__PUBLIC__/home/assets/css/common.css">
+<link rel="stylesheet" type="text/css" media="screen" href="__PUBLIC__/home/assets/css/login.css">
+<script type="text/javascript" src="__PUBLIC__/home/assets/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<!--//topbar-->
+<div class="logobar">
+	<div class="wrap-990">
+		<div class="logo"><a href="{:U('Home/Index/index')}"><img src="__ROOT__/Uploads/{$conf.logo}" width="259" height="51" alt="中国马铃薯种薯交易网"></a></div>
+    	<div class="logo-txt"><!--用户登录--></div>
+        <div class="logo-customer">   
+                <span class="fs_14 mt_40">客服热线：{$conf.tel}</span>    
+        </div>
+    </div>
+</div>
+<script charset="utf-8" src="__PUBLIC__/home/assets/js/v.js">
+</script><script src="__PUBLIC__/home/assets/js/hm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/home/assets/js/mobileRedirect.js"></script>
+
+
+<div class="main wrap-990">
+
+	<div class="login-ad">
+    	<a href="{:U('Home/Index/index')}"><img src="__PUBLIC__/home/assets/images/login-ad.jpg"></a>
+    </div>
+    
+    <div class="login-form" style="padding-bottom:20px;">
+    	<h1>用户登录</h1>
+        <form action="" method="post">
+      
+        <div class="usertxt">
+            <span class="reg-hint">
+                <span class="red" id="userAccountv"></span>
+            </span>
+        </div>
+        <div class="userinput">
+        	<input type="text" placeholder="手机号码" id="phone" >
+        </div>
+        <div class="passwordtxt">
+            <span class="reg-hint">
+                <span class="red" id="passwordv"></span>
+            </span>
+        </div>
+        <div class="passwordinput">
+        	<input type="password" id="pwd" placeholder="请输入密码">
+        </div>
+       <div id="liValiCode" style="margin-top:20px;">
+      	<div class="codetxt"  style="overflow:hidden;height:36px;">
+			<p style="float:left;">验证码：</p>
+			<div class="codeinput"  style="float:left;">
+				<input name="valCode" id="verify" type="text">
+				<div class="verify"><img src="__URL__/verify" style="width:60px;height:30px" onClick="this.src=this.src+'?'+Math.random()" alt="点击更换验证码" title="点击更换验证码"></div>
+			</div>
+		</div>        
+        </div>
+       <div class="forget" style=" overflow:hidden;">
+        	<input type="checkbox" style="float:left;margin-top:14px;" />
+            <span style="float:left;">下次自动登录</span>
+            
+        </div> 
+        <a href="#" class="userloginbut but denggg" id="userlogin" style="margin-bottom:10px;">会员登录</a>
+        <p class="mt_10"></p>
+        <a href="zhaohuimima01.html" class="forget-word" >忘记登录密码?</a>
+        <a href="{:U('Home/Userlr/register')}" class="regin" id="free_goReg">免费注册</a>
+        </form>
+        
+      <!--   <div class="login-qq">
+        	<div class="login-g"><b>—————</b>&nbsp;&nbsp;使用合作伙伴账号登录&nbsp;&nbsp;<b>—————</b></div>
+        	<div class="clear"></div>
+        	<div class="login-h clearfix">
+	            <a href="javascript:turn('qq')" target="_self" class="qqico" id="qqlogin"><img src="__PUBLIC__/home/assets/images/kj_dl_01.png" id="login_qq"></a>
+	            <a href="javascript:turn('wb')" target="_self" class="qqico" id="wblogin"><img src="__PUBLIC__/home/assets/images/kj_dl_04.png" id="login_wb"></a>
+	            <a href="javascript:turn('wx')" target="_self" class="qqico" id="wxlogin"><img src="__PUBLIC__/home/assets/images/kj_dl_02.png" id="login_wx"></a> 
+            </div>
+        </div> -->
+    </div>
+    
+</div>
+
+
+ <link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+
+<script src="__PUBLIC__/home/js/toastr.js"></script>
+<script>
+
+          
+        $(function(){
+		
+	
+	            toastr.options = {
+				"closeButton": false,
+				  "debug": false,
+				  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "990",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "990",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+            };
+				
+					
+					
+				});	
+				
+				</script> 
+
+<script>
+var quanju='__PUBLIC__';
+</script>
+<script type="text/javascript">
+
+$('.denggg').click(function(){
+
+var pwd=$('#pwd').val();
+var phone=$('#phone').val();
+var verify=$('#verify').val();
+if(phone==""){
+
+    toastr.error('手机号不能为空!','登录失败', toastr.options);
+   $('#infophone').focus();
+   return false;
+}else{
+   if(pwd==""){
+    toastr.error('密码不能为空！','登录失败', toastr.options);
+   $('#pwd').focus();
+   return false;
+   }else{
+
+    if(verify==''){
+  toastr.error('验证码不能为空！','登录失败', toastr.options);
+   $('#verify').focus();
+   return false;
+    }
+
+    $.ajax({
+ 'type':'post',
+ 'url':"{:U('Userlr/login')}",
+ 'data':{pwd:pwd,phone:phone,verify:verify},
+ 'dataType':'json',
+ 'success':function(msg){
+   if(msg.status==1){
+  toastr.success(msg.info,'正在跳转...', toastr.options);
+  setTimeout(function () {
+                        window.location.href = "/index.php/Home/Userlr/index";
+                    }, 1500);
+			   }else{
+				   toastr.error(msg.info,'登录失败', toastr.options);
+			   }   
+   }
+  });
+   }
+}
+})
+
+</script>
+
+
+
+
+</body></html>

@@ -1,0 +1,190 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+
+ 
+<!--   <section>
+      <h2><strong style="color:grey;">常用按钮（水平块元素，无区域限制）</strong></h2>
+      <a class="link_btn" id="loading">点击加载</a>
+      
+      <input type="button" value="按钮input" class="link_btn"/>
+     </section> -->
+	 
+	 
+
+ <div class="rt_content">
+     <section>
+ 
+      <div class="page_title">
+       <h2 class="fl">商品列表</h2>
+       <a class="fr top_rt_btn link_btn" href="{:U('Admin/Goods/addgoods')}">添加商品</a>
+      </div>
+
+	  
+	   <!-- <div class="btm_btn">
+        <a href="#" class="link_btn" id="open" >商品上架</a>
+         <a href="#" class="link_btn" id="ban">商品下架</a>
+       </div> -->
+      <table class="table">
+       <tr>
+        <th>选择</th>
+        <th>商品货号</th>
+		<th>商品名称</th>
+		<th>商品库存</th>
+		<th>商品价格</th>
+		<th>商品分类</th>
+		<th>商品品牌</th>
+		<th>商品分类</th>
+		<th>推荐</th>
+        <th>上架</th>
+        
+        <th>操作</th>
+       </tr>
+	   <tbody class="middle-align table table-bordered table-striped">
+	   <volist name="goods" id="v">
+       <tr>
+        <td><input type="checkbox" value="{$v.id}" name="ids"></td>
+        <td>{$v.goods_sn}</td>
+        <td>{$v.goods_name}</td>
+		<td>{$v.goods_count}</td>
+		<td>{$v.price}</td>
+		<td>{$v.type_id|getprotypename}</td>
+		<td>{$v.brand_id|getgoodsbrand}</td>
+		<td>{$v.hg_id|getgoodshgname}</td>
+		<td><if condition="$v['is_recommend'] eq 0"><img src="__PUBLIC__/admin/assets/images/no.gif" onclick="setrecommond({$v['id']})">
+		<elseif condition="$v['is_recommend'] eq 1"/><img   onclick="setrecommond({$v['id']})" src="__PUBLIC__/admin/assets/images/yes.gif"></if></td>
+
+		<td><if condition="$v['is_on_sale'] eq 0"><img src="__PUBLIC__/admin/assets/images/no.gif" onclick="setgoodsstatus({$v['id']})">
+		<elseif condition="$v['is_on_sale'] eq 1"/><img   onclick="setgoodsstatus({$v['id']})" src="__PUBLIC__/admin/assets/images/yes.gif"></if>
+		</td>
+        <td>
+		<a href="{:U('Home/Goods/detail',array('id'=>$v['id']))}"><img src="__PUBLIC__/admin/assets/images/icon_view.gif"  alt="查看" title="查看"></a>&nbsp;&nbsp;
+		<a href="{:U('Admin/Goods/addgoods',array('id'=>$v['id']))}"><img src="__PUBLIC__/admin/assets/images/icon_edit.gif" alt="编辑" title="编辑"></a>&nbsp;&nbsp;
+		<img src="__PUBLIC__/admin/assets/images/icon_trash.gif" onclick="setdel({$v['id']})" alt="回收站" title="回收站">
+          <!-- <a href="#" onclick="del({$v.id})" class="deluser" id="{$v.id}">编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		  <a href="#"  class="deluser" id="{$v.id}">删除</a> -->
+         <!-- <a href="#" class="inner_btn">表内按钮</a> -->
+        </td> 
+       </tr>
+	   </volist>   
+       <tr>
+	    <td colspan="10">{$page}</td>
+	   </tr>
+	   </tbody>
+      </table>
+     
+     </section>
+   
+ </div>
+</section>
+
+
+
+	   
+<!---弹出层-->
+	  <script>
+	  
+	  
+     $(document).ready(function(){
+		 //弹出文本性提示框
+		 $("#showPopTxt").click(function(){
+			 $(".pop_bg").fadeIn();
+			 });
+		 //弹出：确认按钮
+		
+		 //弹出：取消或关闭按钮
+		 $(".falseBtn").click(function(){
+			 alert("你点击了取消/关闭！");//测试
+			 $(".pop_bg").fadeOut();
+			 });
+		 });
+     </script>
+    
+<script type="text/javascript">
+      
+               function  setrecommond(e){
+			         $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/Goods/setgoodscommend')}",
+                                data:{id:e},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'设置成功',toastr.options);
+                                     setTimeout(function () {
+                       location.reload();
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'设置失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+			   } 
+
+         function  setgoodsstatus(e){
+			         $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/Goods/setgoodsstatus')}",
+                                data:{id:e},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'设置成功',toastr.options);
+                                     setTimeout(function () {
+                       location.reload();
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'设置失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+			   }
+function  setdel(e){
+ if(confirm("您确定将该商品放入回收站吗？？")){
+			         $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/Goods/setdel')}",
+                                data:{id:e},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'设置成功',toastr.options);
+                                     setTimeout(function () {
+                       location.reload();
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'设置失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+							
+						}
+			   }
+			   
+					
+			
+				$(".deluser").click(function(){
+				  var id=$(this).attr("id");
+				   if(confirm("您确定删除该商品？？")){
+                    $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/Goods/delgoods')}",
+                                data:{id:id},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'删除成功',toastr.options);
+                                     setTimeout(function () {
+                        window.location.href = "/index.php/Admin/Goods/index.html";
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'删除失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+               }
+				})
+			
+				
+			
+
+</script>

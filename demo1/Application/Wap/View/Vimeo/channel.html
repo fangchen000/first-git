@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+ </html>
+ <head>
+     <meta charset="utf-8">
+     
+	 <?php
+$oneplus_seo_meta = get_seo_meta($vars,$seo);
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+
+     <meta name="format-detection" content="telephone=no" /> 
+     <meta content="email=no" name="format-detection">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/base.css"/>
+     <link rel="stylesheet" href="__PUBLIC__/Wap/assets/css/second.css">
+ </head>
+ <body>
+ 
+
+<div class="mainbox" style="position:relative;">
+ 	<!--头部-->
+	<header>
+        <a class="back" onclick="history.go(-1)"></a>
+		<h2><a href="{:U('Wap/Vimeo/all_channel')}">所有频道</a></h2>
+	</header>
+	
+    <div class="secondon">{$id|getchannel}</div>
+	<section class="video_list">
+	<volist name="vimeo" id="v">
+    	<dl><a href="{:U('Wap/Vimeo/index',array('id'=>$v['id']))}">
+        	<dt><img src="{$v.image}" alt=""></dt>
+            <dd><p>{$v.title}</p><b>{$v.content}</b></dd></a>
+        </dl>
+	 </volist>  
+    </section>
+<include file="Public:footer"/>
+</div>
+	
+ </body>
+ </html>

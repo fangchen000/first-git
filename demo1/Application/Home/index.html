@@ -1,0 +1,12 @@
+
+<select name="category" id="select" class="text mr5">
+    <volist name="list" id="vo">
+        <option name="cid" value="{$vo.id}" <eq name="vo.id" value="getid">selected</eq> >{$vo.alias}</option>
+        <volist name="vo['child']" id="child">
+            <option name="cid" value="{$child.id}" <eq name="child.id" value="getid">selected</eq> >--{$child.alias}</option>
+            <volist name="child['grandchild']" id="grand">
+                <option name="cid" value="{$grand.id}" <eq name="grand.id" value="getid">selected</eq> >---{$grand.alias}</option>
+            </volist>
+        </volist>
+    </volist>
+</select>

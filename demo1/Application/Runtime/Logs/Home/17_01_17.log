@@ -1,0 +1,36 @@
+[ 2017-01-17T18:32:47+08:00 ] 192.168.1.119 /tiemaster/index.php?m=home&c=Indexi&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000382s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000618s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000694s ]
+ERR: 无法加载控制器:Indexi
+
+[ 2017-01-17T18:33:29+08:00 ] 192.168.1.119 /tiemaster/index.php?m=home&c=Indexi&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000358s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000432s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000493s ]
+ERR: 无法加载控制器:Indexi
+
+[ 2017-01-17T18:34:17+08:00 ] 192.168.1.119 /tiemaster/index.php?m=home&c=Index&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000341s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000431s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000495s ]
+ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'tiemaster.goods' doesn't exist
+
+[ 2017-01-17T18:35:19+08:00 ] ::1 /tiemaster/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000481s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000653s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000726s ]
+ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'tiemaster.goods' doesn't exist
+

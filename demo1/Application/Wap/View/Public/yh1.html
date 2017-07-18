@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" type="__PUBLIC__/home/assets/images/x-icon" href="__PUBLIC__/home/assets/images/icon.ico" media="screen" />
+<?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+	
+?>
+
+
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/assets/css/index.css">
+<script src="__PUBLIC__/home/assets/js/jquery-1.8.3.min.js" type="text/jscript"></script>
+<script src="__PUBLIC__/home/assets/js/jquery.SuperSlide.2.1.1.js" type="text/jscript"></script>
+<script src="__PUBLIC__/home/assets/js/base.js" type="text/jscript"></script>
+</head>
+
+<body>
+
+<!--顶部条-->
+<div class="head">
+	<div class="head_center">
+    	<div class="h_left">
+        	<a href="{:U('Home/Index/index')}">商城首页</a>
+			<?php 			 
+		     if(!SESSION('is_login')){
+		     ?>
+			<a href="{:U('User/login')}">登录</a><a href="{:U('User/register')}">注册</a>
+			 <?php
+			 }else{
+			 ?>
+             <a href="{:U('Home/User/index')}"><?php echo session('USERNAME'); ?>	</a>
+            	 <a href="{:U('User/logionout')}">退出</a> 		 
+			  <?php
+			 }
+			 
+			 ?>
+</div>
+
+<!--搜索栏-->
+<div class="topbox">
+    <div class="logo"><a href="index.html"><img src="__PUBLIC__/home/assets/images/logo.png" alt=""></a></div>
+    <div class="buycar fr mar20">
+      <a class="mini-cart-container" href="{:U('Home/Order/car')}">
+        <span class="cart-num"><img src="__PUBLIC__/home/assets/images/index_12.png"><em class="mini-cart-num">0</em></span>
+        <span class="cart-item">去购物车结算</span>
+        <span class="clearfix"></span>
+      </a>
+    </div>
+    <div class="searchbox fr mar20">
+      <div class="header-search-box clearfix">
+            <img src="images/index_10.png" class="searchico">
+            <input type="text" placeholder="请输入关键词搜索">
+            <a href="sorry.html">搜索</a>
+      </div>
+      <ul class="header-search-suggestKeywords">
+          <li><a class="active" href="fenlei_yang.html" style="padding-left:0; border:none;">食用油</a></li>
+          <li><a class="active" href="fenlei_yang.html">洗护套装</a></li>
+          <li><a class="active" href="fenlei_yang.html">电饭煲</a></li>
+          <li><a class="active" href="fenlei_yang.html">纯棉四件套</a></li>
+          <li><a class="active" href="fenlei_yang.html">不锈钢炒锅</a></li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<!--导航栏-->
+<div class="navbox">
+	<div class="nav_center">
+        <b class="black_bar"></b>
+        <div class="navbox">
+            <ul>
+                 <li><a class="yanghuo">洋货馆分类</a></li>
+				<li><a href="{:U('Home/Heigh/index')}">首页</a></li>
+                <volist name="haiwai" id="v">
+                
+                <li><a href="{:U('Home/Heigh/hg',array('id'=>$v['id']))}">{$v.hg_name}</a></li>
+				</volist>
+            </ul>
+            <div class="secnav">
+                <ul>
+                    <li>
+                        <h4>母婴生活</h4>
+                        <p><a href="fenlei_yang.html" target="_blank">孕婴奶粉</a><a href="fenlei_yang.html" target="_blank">营养辅食</a></p>
+                        <h5 class="sumnav">
+                        	<dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">孕婴奶粉:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">婴儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">孕妇奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">少儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">骨质奶粉</a>
+                                </dd>
+                            </dl>
+                            <dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">零食:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">饼干</a>
+                                    <a href="fenlei_yang.html" target="_blank">糖果</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                </dd>
+                            </dl>
+                            
+                            
+                        </h5>
+                    </li>
+                    <li>
+                        <h4>健康生活</h4>
+                        <p><a href="fenlei_yang.html" target="_blank">零食</a><a href="fenlei_yang.html" target="_blank">保健品</a><a href="fenlei_yang.html" target="_blank">食用油</a></p>
+                        <h5 class="sumnav">
+                        	<dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">零食:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">饼干</a>
+                                    <a href="fenlei_yang.html" target="_blank">糖果</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                </dd>
+                            </dl>
+                            <dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">孕婴奶粉:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">婴儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">孕妇奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">少儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">骨质奶粉</a>
+                                </dd>
+                            </dl>
+                        </h5>
+                    </li>
+                    <li>
+                        <h4>美妆日化</h4>
+                        <p><a href="fenlei_yang.html" target="_blank">美容护肤</a><a href="fenlei_yang.html" target="_blank">个护</a><a href="fenlei_yang.html" target="_blank">彩妆</a></p>
+                        <h5 class="sumnav">
+                        	<dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">零食:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">饼干</a>
+                                    <a href="fenlei_yang.html" target="_blank">糖果</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                </dd>
+                            </dl>
+                            <dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">孕婴奶粉:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">婴儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">孕妇奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">少儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">骨质奶粉</a>
+                                </dd>
+                            </dl>
+                        </h5>
+                    </li>
+                    <li>
+                        <h4></span>家纺家饰</h4>
+                        <p><a href="fenlei_yang.html" target="_blank">四件套</a><a href="fenlei_yang.html" target="_blank">纯棉</a><a href="fenlei_yang.html" target="_blank">太空被</a></p>
+                        <h5 class="sumnav">
+                        	<dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">零食:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">饼干</a>
+                                    <a href="fenlei_yang.html" target="_blank">糖果</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                </dd>
+                            </dl>
+                            <dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">孕婴奶粉:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">婴儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">孕妇奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">少儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">骨质奶粉</a>
+                                </dd>
+                            </dl>
+                        </h5>
+                    </li>
+                    <li>
+                        <h4>数码家电</h4>
+                        <p><a href="fenlei_yang.html" target="_blank">洗衣机</a><a href="fenlei_yang.html" target="_blank">电饭煲</a><a href="fenlei_yang.html" target="_blank">空调</a></p>
+                        <h5 class="sumnav">
+                        	<dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">零食:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">饼干</a>
+                                    <a href="fenlei_yang.html" target="_blank">糖果</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                    <a href="fenlei_yang.html" target="_blank">一期</a>
+                                </dd>
+                            </dl>
+                            <dl>
+                            	<dt><a href="fenlei_yang.html" target="_blank">孕婴奶粉:</a></dt>
+                                <dd>
+                                    <a href="fenlei_yang.html" target="_blank">婴儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">孕妇奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">少儿奶粉</a>
+                                    <a href="fenlei_yang.html" target="_blank">骨质奶粉</a>
+                                </dd>
+                            </dl>
+                        </h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

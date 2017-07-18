@@ -1,0 +1,188 @@
+<section class="rt_wrap content mCustomScrollbar">
+
+ <div class="rt_content">
+     <section>
+
+      <div class="page_title">
+       <h2 class="fl">用户列表</h2>
+          <section>
+              <form method="post" action="{:U('Admin/User/index')}">
+                  <input type="text" class="textbox" placeholder="用户账号" name="keywords" value="{$keywords}"/>
+                 
+                  <input type="submit" value="搜索" class="group_btn"/>
+              </form>
+             
+
+          </section>
+      </div>
+
+	  <div class="btm_btn">
+          <!--<if condition="$_SESSION.adminjurisdiction eq 0">-->
+                <!--<a href="#" class="link_btn" id="open" >开启</a>-->
+                <!--<a href="#" class="link_btn" id="ban">禁用</a>-->
+
+              <!--<a href="#" class="link_btn" id="add_users">添加地区管理员</a>-->
+          <!--</if>-->
+
+       </div>
+
+      <table class="table">
+       <tr>
+      <th>选择</th>
+      <th>会员编号</th>
+		<th>会员账号</th>
+		
+		
+		<th>注册时间</th>
+		
+        <th>账户状态</th>
+        
+         <th>操作</th>
+       </tr>
+	   <tbody class="middle-align table table-bordered table-striped">
+	   <volist name="userInfo" id="v">
+       <tr>
+        <td><input type="checkbox" value="{$v.id}" name="ids"></td>
+        <td>{$v.id}</td>
+        <td>{$v.mobile}</td>
+		
+		
+		<td>{$v.create_time|date="Y-m-d H:i:d",###}</td>
+		<td><if condition="$v['lock'] eq 1"><span style="color:red">后台</span><elseif condition="$v['lock'] eq 0"/><span style="color:green">前台</span></if></td>
+           <td>
+               <a href="{:U('Admin/User/addnotice',array('id'=>$v['id']))}"><img src="__PUBLIC__/admin/assets/images/icon_edit.gif" alt="编辑" title="编辑"></a>&nbsp;&nbsp;
+               <img src="__PUBLIC__/admin/assets/images/icon_trash.gif" onclick="setdel({$v['id']})" alt="删除" title="删除">
+           </td>
+       </tr>
+	   </volist>   
+       <tr>
+	    <td colspan="10">{$page}</td>
+	   </tr>
+	   </tbody>
+      </table>
+     
+     </section>
+   
+ </div>
+</section>
+<!---弹出层-->
+<!---弹出层-->
+	  <script>
+     $(document).ready(function(){
+		 //弹出文本性提示框
+		 $("#showPopTxt").click(function(){
+			 $(".pop_bg").fadeIn();
+			 });
+		 //弹出：确认按钮
+		
+		 //弹出：取消或关闭按钮
+		 $(".falseBtn").click(function(){
+			 alert("你点击了取消/关闭！");//测试
+			 $(".pop_bg").fadeOut();
+			 });
+		 });
+     </script>
+    
+<script type="text/javascript">
+
+//检测会员是否存在
+$("#username").blur(function(){
+var username=$(this).val();
+		$.ajax({
+				type:'post',
+				url:"{:U('Admin/User/checkusername')}",
+				data:{username:username},
+				success:function(msg){
+					if(msg.status==1){
+						
+			alert("会员已存在请更换账号");
+					}else{
+						
+						
+					}
+				}
+			});
+
+})
+
+//单条删除视频
+function  setdel(e){
+    if(confirm("您确定删除该会员吗？？")){
+        $.ajax({
+            type:'post',
+            url:"{:U('Admin/User/setvimeodel')}",
+            data:{id:e},
+            success:function(msg){
+                if(msg.status==1){
+                    toastr.success(msg.info,'删除成功',toastr.options);
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                }else{
+                    toastr.error(msg.info,'删除失败',toastr.options);
+
+                }
+            }
+        });
+
+    }
+}
+
+      $("#open").click(function(){   
+                    var ids =[]; 
+                $('input[name="ids"]:checked').each(function(){ 
+                ids.push($(this).val()); 
+                });
+			if(confirm("您确定认证您所选会员？？")){
+			               $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/User/setuserstatus')}",
+                                data:{ids:ids,status:1},
+                                success:function(msg){
+                            
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'开启成功',toastr.options);
+                                     setTimeout(function () {
+								location.reload();
+							}, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'操作失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+			}
+
+                    })  
+                    $("#ban").click(function(){
+                    var ids =[]; 
+                $('input[name="ids"]:checked').each(function(){ 
+                ids.push($(this).val()); 
+                });
+				if(confirm("您确定关闭您所选认证会员？？")){
+                    $.ajax({
+                                type:'post',
+                                url:"{:U('Admin/User/setuserstatus')}",
+                                data:{ids:ids,status:0},
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        toastr.success(msg.info,'禁用成功',toastr.options);
+                                     setTimeout(function () {
+                        window.location.href = "/index.php/Admin/User/index.html";
+                    }, 1500);
+                                    }else{
+                                        toastr.error(msg.info,'操作失败',toastr.options);
+                                        
+                                    }
+                                }
+                            });
+               }
+                    })
+$("#add_users").click(function(){
+
+      setTimeout(function () {
+            window.location.href = "/index.php/Admin/User/chongmi.html";
+        }, 0);
+        })
+
+</script>

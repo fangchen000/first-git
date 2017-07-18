@@ -1,0 +1,338 @@
+
+
+
+<include file="Public:header"/>
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/grcenter.css">
+<script src="__PUBLIC__/home/assets/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/home/assets/js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="__PUBLIC__/home/assets/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/home/assets/js/common.js"></script>
+<script src="__PUBLIC__/home/assets/layer/layer.js"></script>
+
+<div class="header-nav" style="*z-index:9;">
+  <div class="w1190 mtauto f-pr clearfix" style="*z-index:10;"> 
+    <!--  **  li的类名为has-erji时，表示在对应页面有二级导航-->
+   <include file="Public:nav"/>
+    <div class="navBtn f-oh"> <a class="gy-btn" onclick="member_new_sell()">发布供应</a> <a class="cg-btn" href="">发布采购</a> </div>
+    <!-- *** 此按钮首页不应显示，其他页均应显示 -->
+    <div class="vertical-navgation">
+    <include file="Public:left1"/>
+  </div>
+</div>
+<div class="mainbox">
+  <div class="nav-left">
+    <div class="side-nav side-line">
+       <include file="Public:dp"/>
+      
+      <!--//客户服务及投诉-->
+     
+    </div>
+  </div>
+  <div class="nav-right" >
+    <div class="content" style="border:none;">
+      <div class="titlebar">
+        <div class="titlebar-name">收货地址管理</div>
+      </div>
+      <input type="hidden" name="webUrl" id="webUrl" value="http://hnuser.cnhnb.com:80/uc-web/">
+      <form action="" method="post" id="iforms" onsubmit="return false">
+        <input type="hidden" name="hnUserId" id="hnUserId" value="558651">
+        <input type="hidden" name="provinceName" id="proviceName">
+        <input type="hidden" name="cityName" id="cityName">
+        <input type="hidden" name="areaName" id="areaName">
+        <input type="hidden" name="defaultOne" id="defaultOne" value="2">
+        <input type="hidden" name="id" id="id" value="10291">
+        <div class="add-address">
+          <h2 id="titles">修改收货地址</h2>
+          <ul>
+            <li class="l1">*</li>
+            <li class="l2">所在地区：</li>
+            <li class="l3">
+              <select name="location_p" id="location_p">
+              </select>
+              <select name="location_c" id="location_c">
+              </select>
+              <select name="location_a" id="location_a">
+              </select><span style="color:red" id="checkpro"></span>
+			  
+			  <input type="hidden" id="p" value="{$addInfo.province}">
+			  <input type="hidden" id="c" value="{$addInfo.city}"/>
+			  <input type="hidden" id="a" value="{$addInfo.distract}"/>
+			  
+              <script src="__PUBLIC__/home/assets/js/region_select.js"></script> 
+              <script type="text/javascript">
+			  var p=$("#p").val();
+			  var c=$("#c").val();
+			  var a=$("#a").val();
+			  
+                            new PCAS('location_p', 'location_c', 'location_a', p, c, a);
+                        </script> 
+						
+						
+						
+            </li>
+          </ul>
+          <ul>
+            <li class="l1">*</li>
+            <li class="l2">街道地址：</li>
+            <li class="l3">
+              <textarea id="desc" name="desc" cols="80" rows="3" maxlength="20" >{$addInfo.desc}</textarea>&nbsp;&nbsp;<span style="color:red" id="checkdesc">
+			  </span>
+            </li>
+          </ul>
+          <ul>
+            <li class="l1">*</li>
+            <li class="l2">邮政编码：</li>
+            <li class="l3">
+              <input name="code" id="code" type="text" size="30" minlength="6" maxlength="6" value="{$addInfo.code}">
+            </li>
+          </ul>
+          <ul>
+            <li class="l1">*</li>
+            <li class="l2">收货人：</li>
+            <li class="l3">
+              <input name="username" id="username" type="text" size="30" maxlength="40" value="{$addInfo.username}">&nbsp;&nbsp;<span style="color:red" id="checkuser">
+			  </span>
+            </li>
+          </ul>
+          <ul>
+            <li class="l1">*</li>
+            <li class="l2">手机号码：</li>
+            <li class="l3">
+              <input name="user_phone" id="user_phone" type="text" size="30" maxlength="11" value="{$addInfo.user_phone}">&nbsp;&nbsp;<span style="color:red" id="checkphone">
+			  </span>
+            </li>
+          </ul>
+		  <input type="hidden" id="add_id" value="{$addInfo.id}"/>
+          <ul>
+            <li class="l1">&nbsp;</li>
+            <li class="l2">固定电话：</li>
+            <li class="l3">
+              <input name="tel-1" id="tel-1" type="text" size="2" value="86" disabled="disabled">
+             
+              <input id="user_tel" name="user_tel" type="text" size="20" maxlength="8" value="{$addInfo.user_tel}" onkeyup="this.value=this.value.replace(/\D/g,&#39;&#39;)">
+            </li>
+          </ul>
+          <ul>
+            <li class="l1">&nbsp;</li>
+            <li class="l2">&nbsp;</li>
+            <li class="l3">
+              <input type="checkbox" name="first" id="first" class="default" value="1">
+              设置为默认地址 </li>
+          </ul>
+          <ul>
+            <li class="l1">&nbsp;</li>
+            <li class="l2">&nbsp;</li>
+            <li class="l3"> <a href="javascript:void(0);" class="but submit">保存</a> </li>
+          </ul>
+        </div>
+      </form>
+	  
+	   <link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+
+<script src="__PUBLIC__/home/js/toastr.js"></script>
+<script>
+
+          
+        $(function(){
+		
+	
+	            toastr.options = {
+				"closeButton": false,
+				  "debug": false,
+				  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "990",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "990",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+            };
+				
+					
+					
+				});	
+				
+				</script> 
+	  
+	  
+	  <script>
+	    $(".submit").click(function(){
+		var m=[];
+		$("input[name='first']:checked").each(function(){
+		m.push($(this).val());
+		})
+		if(m==1){
+		m=1;
+		}else{
+		m=0;
+		}
+	
+		var province=$('#location_p').val();
+		var city=$('#location_c').val();
+		var distract=$('#location_a').val();
+		var desc=$("#desc").val();
+		var code=$("#code").val();
+		var username=$("#username").val();
+		var user_phone=$("#user_phone").val();
+		var user_tel=$("#user_tel").val();
+		var add_id=$("#add_id").val();
+		if(province=="" || city=="" || distract==""){
+		$("#checkpro").html("请把省市区补充完整");
+		}
+		if(desc==""){
+		$("#checkdesc").html("详细地址不能为空");
+		$("#desc").focus();
+		return false;
+		}else if(username==""){
+		$("#checkuser").html("收货人不能为空");
+		}else if(user_phone==""){
+		$("#checkphone").html("手机号不能为空");
+		}else{
+		
+			  $.ajax({
+				type: "post",
+				url: "{:U('Userlr/doaddress')}",
+				data: {
+					id:add_id,
+					province,province,
+					city:city,
+					distract:distract,
+					desc:desc,
+					code:code,
+					username:username,
+					user_phone:user_phone,
+					user_tel:user_tel,
+					m:m	
+				},
+				dataType: 'json',
+				success: function (msg) {
+					if (msg.status == 1) {
+			 toastr.success(msg.info,'操作成功', toastr.options);
+			 setTimeout(function () {
+							window.location.href = "/index.php/Home/Userlr/myaddress.html";
+						}, 1500);
+						   }else{
+							   toastr.error(msg.info,'操作失败', toastr.options);
+						   } 
+					
+				}
+
+
+			});
+		
+		}
+		})
+	  
+	  
+	  </script>
+	  
+	  
+	  
+      <div class="list-address">
+        <h2>已保存的收货地址</h2>
+        <ul class="list-title">
+          <li class="l1">收货人</li>
+          <li class="l2">所在地区</li>
+          <li class="l3">街道地址</li>
+          <li class="l4">邮编</li>
+          <li class="l5">电话/手机</li>
+          <li class="l6">操作</li>
+        </ul>
+		<volist name="firstaddressInfo" id="v">
+        <ul class="list-record">
+          
+          <li class="l1">{$v.username}</li>
+          <li class="l2">{$v.province}{$v.city}{$v.distract}</li>
+          <li class="l3">{$v.desc}</li>
+          <li class="l4"> {$v.code} </li>
+          <li class="l5"> {$v.user_phone} </li>
+          <li class="l6 ys"> <a href="#" class="green" id="def_10291" defid="10291">默认地址</a> 
+		  <a href="{:U('Home/Userlr/myaddress',array('id'=>$v['id']))}">修改</a>
+		  <a href="javascript:void(0);" delid="10291" id="del_10291">删除</a> </li>
+        </ul>
+		</volist>
+		
+		<volist name="addressInfo" id="v">
+        <ul class="list-record">
+          
+          <li class="l1">{$v.username}</li>
+          <li class="l2">{$v.province}{$v.city}{$v.distract}</li>
+          <li class="l3">{$v.desc}</li>
+          <li class="l4"> {$v.code} </li>
+          <li class="l5"> {$v.user_phone} </li>
+          <li class="l6 ys"> <a href="#" class="red" id="def_10291" defid="10291" onclick="setfirst({$v['id']})">设为默认</a> 
+		  <a href="{:U('Home/Userlr/myaddress',array('id'=>$v['id']))}">修改</a>
+		  <a href="#" delid="10291" id="del_10291" onclick="deladdress({$v['id']})">删除</a> </li>
+        </ul>
+		</volist>
+        <div class="blank_20"></div>
+        <div class="blank_20"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/home/assets/js/jquery.ba-resize.min.js"></script> 
+<script>
+
+  function setfirst(e){
+
+       $.ajax({
+				type: "post",
+				url: "{:U('Userlr/setfirstaddress')}",
+				data: {
+					id:e,	
+				},
+				dataType: 'json',
+				success: function (msg) {
+					if (msg.status == 1) {
+			 toastr.success(msg.info,'操作成功', toastr.options);
+			 setTimeout(function () {
+							window.location.href = "/index.php/Home/Userlr/myaddress.html";
+						}, 1500);
+						   }else{
+							   toastr.error(msg.info,'操作失败', toastr.options);
+						   } 
+					
+				}
+
+
+			});
+  
+  }
+    function deladdress(e){
+ 
+       $.ajax({
+				type: "post",
+				url: "{:U('Userlr/deladdress')}",
+				data: {
+					id:e,	
+				},
+				dataType: 'json',
+				success: function (msg) {
+					if (msg.status == 1) {
+			 toastr.success(msg.info,'操作成功', toastr.options);
+			 setTimeout(function () {
+							window.location.href = "/index.php/Home/Userlr/myaddress.html";
+						}, 1500);
+						   }else{
+							   toastr.error(msg.info,'操作失败', toastr.options);
+						   } 
+					
+				}
+
+
+			});
+  
+  }
+
+
+</script>
+
+<!-- 底部 -->
+<include file="Public:footer"/>

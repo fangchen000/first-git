@@ -1,0 +1,233 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+	<script type="text/javascript" src="__PUBLIC__/home/js/ajaxupload.js"></script>
+
+	<div class="rt_content">
+		<section>
+
+			<div class="page_title">
+				<h2 class="fl">各地区广告管理</h2>
+				<section>
+					<form method="post" action="{:U('Admin/Ad/zylist')}">
+						<input type="text" class="textbox" placeholder="广告标题" name="title" value="{$title}"/>
+						<select class="textbox" id="province" name="province">
+							<if condition="$province eq ''">
+								<option value="0">请选择省..</option>
+								<else/>
+								<option value="{$province}">{$province|get_cityname}</option>
+							</if>
+							<volist name="provinces" id="pro">
+								<option value="{$pro['code']}">{$pro['name']}</option>
+							</volist>
+						</select>
+						<select  id="city" class="textbox" name="city">
+							<if condition="$city eq ''">
+								<option value="city">请选择市..</option>
+								<else/>
+								<option value="{$city}">{$city|get_cityname}</option>
+							</if>
+
+						</select>
+
+						<input type="submit" value="搜索" class="group_btn"/>
+					</form>
+					<script>
+						$("#province").change(function(){
+							var code=$(this).val();
+							$.post("{:U('Home/Student/get_city')}",{p_code:code}, function(data){
+								var str = "<option value=0 >请选择市..</option>";
+								for(var i=0; i< data.length; i++){
+									str = str + '<option value="' + data[i].code + '">' + data[i].name + '</option>';
+								}
+								//alert(str);
+								document.getElementById("city").innerHTML = str;
+							})
+						})
+					</script>
+				</section>
+				<if condition="$_SESSION.adminjurisdiction eq 0">
+					<a class="fr top_rt_btn link_btn" href="{:U('Ad/adsadd')}?zn=1">添加站内广告</a>&nbsp;&nbsp;&nbsp;
+					<a class="fr top_rt_btn link_btn" href="{:U('Ad/adsadd')}">添加普通广告</a>
+					<else/>
+					<a class="fr top_rt_btn link_btn" href="{:U('Ad/adsadd')}">添加广告</a>
+				</if>
+
+			</div>
+
+			<div class="btm_btn" style="margin:15px 0;">
+				<!-- <h2><strong style="color:grey;"></strong></h2> -->
+				<span>批量操作:</span>
+				<a href="#" class="link_btn" id="open" >审核</a>
+				<a href="#" class="link_btn" id="ban"style="background-color:Orange">拒绝</a>
+				<a href="#" class="link_btn" id="del"style="background-color:red">删除</a>
+
+			</div>
+
+			<table class="table">
+				<tr>
+					<th>选择</th>
+					<th>广告所属图层</th>
+					<th>展示地区</th>
+					<th>广告标题</th>
+					<th>跳转链接</th>
+					<th>广告封面</th>
+					<th>广告简介</th>
+					<th>广告状态</th>
+					<th>操作</th>
+				</tr>
+				<tbody class="middle-align table table-bordered table-striped">
+				<volist name="result" id="v">
+					<tr>
+						<td><input type="checkbox" value="{$v.id}" name="ids"></td>
+						<td>{$v.cad_id|get_parent}</td>
+						<if condition="$v.province eq 1"><td>站内广告</td><else/>	<td>{$v.province|get_cityname} - {$v.city|get_cityname}</td> </if>
+
+						<td>{$v.title} </td>
+						<td>{$v.url} </td>
+						<td><img src="{$v.image}" style="width:100px;" ></td>
+						<td>{$v.content}</td>
+						<!--<td>{$v.content|mb_substr=0,20,'utf8'}</td>-->
+						<td><if condition="$v['status'] eq 0">未审核
+							<elseif condition="$v['status'] eq 1"/>
+							审核通过
+							<elseif condition="$v['status'] eq -1"/>
+							审核失败
+						</if>
+						</td>
+						<td>
+							<if condition="$_SESSION.adminjurisdiction eq 0">
+								<a href="{:U('Admin/Ad/adsadd',array('id'=>$v['id']))}"><img src="__PUBLIC__/admin/assets/images/icon_edit.gif" alt="编辑" title="编辑"></a>&nbsp;&nbsp;
+								<img src="__PUBLIC__/admin/assets/images/icon_trash.gif" onclick="setdel({$v['id']})" alt="删除" title="回收站">
+								<else/>
+								<if condition="$v.province eq 1">
+									<a onclick="alert('此为站内广告，不可修改')"><img src="__PUBLIC__/admin/assets/images/icon_edit.gif" alt="编辑" title="编辑"></a>&nbsp;&nbsp;
+									<img src="__PUBLIC__/admin/assets/images/icon_trash.gif" onclick="alert('此为站内广告，不可删除')" alt="删除" title="回收站">
+									<else/>
+									<a href="{:U('Admin/Ad/adsadd',array('id'=>$v['id']))}"><img src="__PUBLIC__/admin/assets/images/icon_edit.gif" alt="编辑" title="编辑"></a>&nbsp;&nbsp;
+									<img src="__PUBLIC__/admin/assets/images/icon_trash.gif" onclick="setdel({$v['id']})" alt="删除" title="回收站">
+								</if>
+
+							</if>
+
+
+							<!-- <a href="#" class="inner_btn">表内按钮</a> -->
+						</td>
+					</tr>
+				</volist>
+				<tr>
+					<td colspan="9">{$page}</td>
+				</tr>
+				</tbody>
+			</table>
+
+		</section>
+
+	</div>
+</section>
+
+
+
+
+<script type="text/javascript">
+	$("#open").click(function(){
+		var ids =[];
+		$('input[name="ids"]:checked').each(function(){
+			ids.push($(this).val());
+		});
+		if(confirm("您确定要审核所选广告位吗？？")){
+			$.ajax({
+				type:'post',
+				url:"{:U('Admin/Ad/setordertatus')}",
+				data:{ids:ids,status:1},
+				success:function(msg){
+					if(msg.status==1){
+						toastr.success(msg.info,'设置成功',toastr.options);
+						setTimeout(function () {
+							location.reload();
+						}, 1500);
+					}else{
+						toastr.error(msg.info,'设置失败',toastr.options);
+
+					}
+				}
+			});
+		}
+	})
+
+
+	$("#ban").click(function(){
+		var ids =[];
+		$('input[name="ids"]:checked').each(function(){
+			ids.push($(this).val());
+		});
+		if(confirm("您确定要拒绝所选广告位吗？？")){
+			$.ajax({
+				type:'post',
+				url:"{:U('Admin/Ad/setordertatus')}",
+				data:{ids:ids,status:-1},
+				success:function(msg){
+					if(msg.status==1){
+						toastr.success(msg.info,'设置成功',toastr.options);
+						setTimeout(function () {
+							location.reload();
+						}, 1500);
+					}else{
+						toastr.error(msg.info,'设置失败',toastr.options);
+
+					}
+				}
+			});
+		}
+	})
+
+
+	$("#del").click(function(){
+		var ids =[];
+		$('input[name="ids"]:checked').each(function(){
+			ids.push($(this).val());
+		});
+		if(confirm("您确定要删除所选广告位吗？？")){
+			$.ajax({
+				type:'post',
+				url:"{:U('Admin/Ad/deluserchannel')}",
+				data:{ids:ids},
+				success:function(msg){
+					if(msg.status==1){
+						toastr.success(msg.info,'删除成功',toastr.options);
+						setTimeout(function () {
+							location.reload();
+						}, 1500);
+					}else{
+						toastr.error(msg.info,'删除失败',toastr.options);
+
+					}
+				}
+			});
+		}
+	})
+
+
+	function  setdel(e){
+		if(confirm("您确定要删除该广告位吗？？")){
+			$.ajax({
+				type:'post',
+				url:"{:U('Admin/Ad/delchannel')}",
+				data:{ids:e},
+				success:function(msg){
+					if(msg.status==1){
+						toastr.success(msg.info,'删除成功',toastr.options);
+						setTimeout(function () {
+							location.reload();
+						}, 1500);
+					}else{
+						toastr.error(msg.info,'设置失败',toastr.options);
+
+					}
+				}
+			});
+		}
+
+	}
+
+</script>
+

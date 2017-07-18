@@ -1,0 +1,531 @@
+<include file="Public:header"/>
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/grcenter.css">
+<script src="__PUBLIC__/home/assets/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/home/assets/js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="__PUBLIC__/home/assets/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/home/assets/js/common.js"></script>
+<script src="__PUBLIC__/home/assets/layer/layer.js"></script>
+<script src="__PUBLIC__/home/assets/js/punlic_qita.js"></script>
+<!--导航-->
+<div class="header-nav" style="*z-index:9;">
+  <div class="w1190 mtauto f-pr clearfix" style="*z-index:10;"> 
+    <!--  **  li的类名为has-erji时，表示在对应页面有二级导航-->
+   <include file="Public:nav"/>
+    <div class="navBtn f-oh"> <a class="gy-btn" onclick="member_new_sell()">发布供应</a> <a class="cg-btn" href="">发布采购</a> </div>
+    <!-- *** 此按钮首页不应显示，其他页均应显示 -->
+    <div class="vertical-navgation">
+    <include file="Public:left1"/>
+  </div>
+</div>
+<div class="mainbox">
+	<div class="nav-left">
+    	<div class="side-nav side-line">
+               <include file="Public:dp"/>
+            </div>
+    </div>
+  <div class="nav-right">
+        <div class="content">
+            <div class="user-iteam red lh_24 main-tips"> 审核须知：<br>
+            1.请上传有效的营业执照与组织机构代码证照片或扫描件，已办理三证合一执照的企业，可选择三证合一认证方式进行提交资料。<br>
+            2.所填公司名称与营业执照、组织机构代码上的名称必须一致；<br>
+            3.证件可以是清晰扫描件或者手机拍摄图片，公司名称、有效期及证件号码必须清晰可辨。 </div>
+            <div class="dkbox">
+                <div class="zzbox">
+                    <ul class="zj">
+                        <li><input type="radio" id="licenceMerge"  name="type"   reverse="licenceOld" value="1" checked="checked"> 旧版营业执照 </li>
+                        <li><input type="radio"  id="licenceOld" name="type" reverse="licenceMerge"  value="2" > 三证合一执照</li>
+                    </ul>
+                </div>
+                <div class="zhbox">
+                    <div class="ygbox">
+                        <form action="#" method="post" id="ifroms" enctype="multipart/form-data">
+                            <label style="margin-left:54px;">企业名称：
+							<input type="text" placeholder="企业名称与证件名称需保持一致" name="company" id="company" class="bk" style="color:#666;" value="{$user.company}">
+							<span style="color:#F00;margin-left:4px;font-size:12px;" id="checkcom">*（注：通过企业实名认证后将不能再修改，请确保填写正确）</span></label><br><br>
+                            <label style="margin-left:54px;">法人代表：<input type="text" placeholder="法人姓名与证件姓名称需保持一致" class="bk"  id="master" name="master" style="color:#666;" value="{$user.master}"> 
+							<span style="color:#F00;margin-left:4px;" id="checkmaster">*</span></label><br><br>
+                            <label>统一社会信用代码：<input type="text" placeholder="执照号码与图片号码需保持一致" class="bk" id="bus_code" name="bus_code" style="color:#666;" value="{$user.bus_code}">
+							<span style="color:#F00;margin-left:4px;"id="checkbus_code">*</span></label>
+                            <div class="fdbox" style="overflow:hidden;">
+                                <div class="sctxbox">
+                                     <div id="localImag3">
+									<if condition="$user['bus_photo'] eq null">
+									 <img id="newbikephoto" style="width:64px; height:64px"  src="__PUBLIC__/home/assets/images/center_08.jpg">
+									 <else/>
+									    <img id="newbikephoto"  src="{$user['bus_photo']}" style="float:none;display:black;padding:0;background-image:none;margin-top:5px;">
+									 </if>
+									
+									 </div>
+                                     <p class="ctbox"><input type="button" class="btn btn-primary" id="upload_button"  value="上传图片"  style="float:none;display:black;padding:0;background:none;line-height:30px;color:#fff;width:100%;height:100%;margin-top:0px;"/></p>
+                                     <!--  <input type="file" name="bus_photo" id="doc3" onchange="javascript:setImagePreview3();" style="position:relative;left:7px;top:-37px; opacity:0;cursor:pointer;"> -->
+									  <!-- <input type="button" class="btn btn-primary" id="upload_button"  value="上传图片"  style="float:none;display:black;padding:0;background-image:none;margin-top:5px;"/> -->
+                                  </div>
+                                <div class="slbox" >
+								    <span id="zheng" style="color:red;"></span>
+									<div class="xfbox" style="margin-top:20px;">
+										<span class="label-exam">示例：</span>
+										<a id="w3" href="javascript:void(0);" class="btn-1 btn-width-a">
+										<div class="comp-cert-img" onClick="zjbox()"><img src="__PUBLIC__/home/assets/images/yyzz.jpg" width="90" alt=""></div>
+									   </a>
+										<div class="comp-cert-img-tips">
+										 请上传1张图片，支持jpg、png、gif格式，建议上传清晰、真实图片
+										<br><em class="star">*</em>
+										</div>
+									</div>
+                                </div>
+                            </div>
+                            <label >组织机构代码证号码：
+							<input type="text" placeholder="证件号码与图片号码需保持一致" class="bk" style="margin-top:20px;color:#333;" id="gro_code" name="gro_code" value="{$user.gro_code}">
+							<span style="color:#F00;margin-left:4px" id="checkgro_code">*</span></label>
+                            <div class="fdbox" style="overflow:hidden;">
+                                <div class="sctxbox">
+                                         <div id="localImag2">
+										 <if condition="$user['gro_photo'] eq null">
+										 <img id="newbikephoto1" style="width:64px; height:64px"  src="__PUBLIC__/home/assets/images/center_08.jpg">
+										 <else/>
+										<!--  <img id="preview2" style="width:64px; height:64px"  src="/Uploads/{$user.gro_photo}"/> -->
+										  <img id="newbikephoto1"  src="{$user.gro_photo}" style="float:none;display:black;padding:0;background-image:none;margin-top:5px;">
+										 </if>
+										 </div>
+                                          <p class="ctbox"><input type="button" class="btn btn-primary" id="upload_button1"  value="上传图片"  style="float:none;display:black;padding:0;background:none;line-height:30px;color:#fff;width:100%;height:100%;margin-top:0px;"/></p>
+										  
+                                      </div>
+                                <div class="slbox" >
+								<span id="bei" style="color:red;margin-left:70px;"></span>
+								<div class="xfbox" style="margin-top:20px;">
+                                    <span class="label-exam">示例：</span>
+                                    <a id="w3-1" href="javascript:void(0);" class="btn-1 btn-width-a">
+                                        <div class="comp-cert-img" onClick="zjebox()"><img src="__PUBLIC__/home/assets/images/yyzz2.jpg" width="90" alt=""></div>
+                                    </a>
+                                    <div class="comp-cert-img-tips">
+                                     请上传1张图片，支持jpg、png、gif格式，每张最大2M，建议上传清晰、真实图片
+                                    <br><em class="star">*</em></div>
+                                </div>
+								</div>
+                            </div>
+							<if condition="$user['status'] eq 1">
+							<a href="#" onclick="checkForm()" style="width:158px;height:35px; background-color:#e06d0f; color:#fff;border:none;margin-left:130px;margin-top:20px;cursor:pointer;display:block; text-align:center;line-height:35px;">已审核</a>
+                            
+							<else/>
+							<input type="button" onclick="checkForm()"  value="提交" style="width:158px;height:35px; background-color:#e06d0f; color:#fff;border:none;margin-left:130px;margin-top:20px;cursor:pointer;">
+							</if>
+                            <P class="bz">（注：付费会员审核时间一般在工作日8小时内完成审核，免费会员一般在工作日24小时内完成审核。审核结果请前往消息中心查看）</P>
+                        </form>
+                    </div>
+                    <div class="ygbox">
+                       <form action="#" method="post" id="ifroms" onsubmit="return checkForm1()"enctype="multipart/form-data">
+                            <label style="margin-left:54px;">企业名称：<input type="text" placeholder="企业名称与证件名称需保持一致" class="bk" id="com" value="{$user1.company}" name="com"><span id="zzcom" style="color:#F00;margin-left:4px;font-size:12px;"></span></label><br><br>
+                            <label style="margin-left:54px;">法人代表：<input type="text" placeholder="法人姓名与证件姓名称需保持一致" class="bk" id="mas" value="{$user1.master}" name="mas"><span id="zzmas" style="color:#F00;margin-left:4px;">*</span></label><br><br>
+                            <label>统一社会信用代码：<input type="text" placeholder="执照号码与图片号码需保持一致" class="bk" id="b_code" value="{$user1.bus_code}" name="b_code"><span id="zzcode" style="color:#F00;margin-left:4px;color:#333;">*</span></label>
+                            <div class="fdbox" style="overflow:hidden;">
+                                <div class="sctxbox">
+                                     <div id="localImag1">
+									 
+									 
+                                     <if condition="$user1['bus_photo'] eq null">
+									 <img id="newbikephoto2" style="width:64px; height:64px"  src="__PUBLIC__/home/assets/images/center_08.jpg">
+									 <else/>
+								<!-- 	 <img id="newbikephoto1" style="width:64px; height:64px"  src="/Uploads/{$user.bus_photo}"/> -->
+									 <img id="newbikephoto2" style="width:64px; height:64px"  src="{$user1.bus_photo}">
+									 </if>
+									</div>
+									
+                                      <p class="ctbox"><input type="button" class="btn btn-primary" id="upload_button2"  value="上传图片"  style="float:none;display:black;padding:0;background:none;line-height:30px;color:#fff;width:100%;height:100%;margin-top:0px;"/></p>
+                                     
+                                  </div>
+                                <div class="slbox">
+								  <span id="jj" style="color:red;"></span>
+									<div class="xfbox" style="margin-top:20px;">
+                                    <span class="label-exam">示例：</span>
+                                    <a id="w3" href="javascript:void(0);" class="btn-1 btn-width-a">
+                                    <div class="comp-cert-img" onClick="zjrbox()"><img src="__PUBLIC__/home/assets/images/license.jpg" width="90" alt=""></div>
+                                   </a>
+                                    <div class="comp-cert-img-tips">
+                                     请上传1张图片，支持jpg、png、gif格式，每张最大2M，建议上传清晰、真实图片
+                                    <br><em class="star">*</em>
+                                    </div>
+                                </div>
+								</div>
+                            </div>
+                            
+							<if condition="$user1['status'] eq 1">
+							<a href="#" onclick="checkForm1()" style="width:158px;height:35px; background-color:#e06d0f; color:#fff;border:none;margin-left:130px;margin-top:20px;cursor:pointer;display:block; text-align:center;line-height:35px;">已审核</a>
+                            
+							<else/>
+							<input type="button" onclick="checkForm1()" value="提交" style="width:158px;height:35px; background-color:#e06d0f; color:#fff;border:none;margin-left:130px;margin-top:20px;cursor:pointer;">
+							</if>
+                           
+                            
+                        </form>
+						
+						
+						
+						
+                    </div>
+                </div>
+            </div>
+         </div>
+   </div> 
+
+      <!-- 三证合一 -->
+         <script>
+        	jQuery(".dkbox").slide({mainCell:".zhbox",titCell:".zj li",trigger:"click"});
+			
+        </script>
+   <div class="zjbox" id="zjbox" style="display:none" > 
+   <img src="__PUBLIC__/home/assets/images/yyzz.jpg" style="width:400px;height:300px;margin-top:20px;margin-left:20px;">
+ </div>
+   <div class="zjebox" id="zjebox" style="display:none" > 
+   <img src="__PUBLIC__/home/assets/images/yyzz2.jpg" style="width:400px;height:300px;margin-top:20px;margin-left:20px;">
+ </div>
+   <div class="zjrbox" id="zjrbox" style="display:none" > 
+   <img src="__PUBLIC__/home/assets/images/license.jpg" style="width:205px;height:300px;margin-top:20px;margin-left:120px;">
+ </div>
+</div> 
+
+<link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+
+<script src="__PUBLIC__/home/js/toastr.js"></script>
+<script>
+
+          
+        $(function(){
+		
+	
+	            toastr.options = {
+				"closeButton": false,
+				  "debug": false,
+				  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "990",
+				  "timeOut": "5000",
+				  "extendedTimeOut": "990",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+            };
+				
+					
+					
+				});	
+				
+				</script> 
+
+
+<script type="text/javascript" src="__PUBLIC__/home/js/ajaxupload.js"></script>
+<script type="text/javascript">
+$(function(){
+	var button = $('#upload_button'), interval;
+	var button1 = $('#upload_button1'), interval;
+	var button2 = $('#upload_button2'), interval;
+	var confirmdiv = $('#uploadphotoconfirm');
+	var confirmdiv1 = $('#uploadphotoconfirm1');
+    var fileType = "pic",fileNum = "one"; 
+    new AjaxUpload(button,{
+        action: "{:U('Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;               
+                }
+            }
+                        
+            confirmdiv.text('文件上传中');
+            
+            if(fileNum == 'one')
+                this.disable();
+            
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');                    
+                } else {
+                    confirmdiv.text('文件上传中');             
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+			if(response != "success"){
+				if(response =='2'){
+					confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+				}else{
+					if(response.length>20){
+						confirmdiv.text("文件上传失败请重新上传"+response);			
+					}else{
+						confirmdiv.text("上传完成");
+					 	$("#newbikephotoName").val("/upload/images/"+response);
+						$("#newbikephoto").attr("src","/upload/images/"+response);			
+					}
+				}
+				
+			}
+                                  
+            window.clearInterval(interval);
+                        
+            this.enable();
+            
+            if(response == "success")
+            alert('上传成功');              
+        }
+    });
+	
+	
+	
+	 new AjaxUpload(button1,{
+        action: "{:U('Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;               
+                }
+            }
+                        
+            confirmdiv.text('文件上传中');
+            
+            if(fileNum == 'one')
+                this.disable();
+            
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');                    
+                } else {
+                    confirmdiv.text('文件上传中');             
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+			if(response != "success"){
+				if(response =='2'){
+					confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+				}else{
+					if(response.length>20){
+						confirmdiv.text("文件上传失败请重新上传"+response);			
+					}else{
+						confirmdiv.text("上传完成");
+					 	$("#newbikephotoName1").val("/upload/images/"+response);
+						$("#newbikephoto1").attr("src","/upload/images/"+response);			
+					}
+				}
+				
+			}
+                                  
+            window.clearInterval(interval);
+                        
+            this.enable();
+            
+            if(response == "success")
+            alert('上传成功');              
+        }
+    });
+	
+	
+	
+	
+	 new AjaxUpload(button2,{
+        action: "{:U('Up/uppic')}",
+        name: 'userfile',
+        onSubmit : function(file, ext){
+            if(fileType == "pic")
+            {
+                if (ext && /^(jpg|png|jpeg|gif|JPG)$/.test(ext)){
+                    this.setData({
+                        'info': '文件类型为图片'
+                    });
+                } else {
+                     confirmdiv.text('文件格式错误，请上传格式为.png .jpg .jpeg 的图片');
+                    return false;               
+                }
+            }
+                        
+            confirmdiv.text('文件上传中');
+            
+            if(fileNum == 'one')
+                this.disable();
+            
+            interval = window.setInterval(function(){
+                var text = confirmdiv.text();
+                if (text.length < 14){
+                    confirmdiv.text(text + '.');                    
+                } else {
+                    confirmdiv.text('文件上传中');             
+                }
+            }, 200);
+        },
+        onComplete: function(file, response){
+			if(response != "success"){
+				if(response =='2'){
+					confirmdiv.text("文件格式错误，请上传格式为.png .jpg .jpeg 的图片");
+				}else{
+					if(response.length>20){
+						confirmdiv.text("文件上传失败请重新上传"+response);			
+					}else{
+						confirmdiv.text("上传完成");
+					 	$("#newbikephotoName").val("/upload/images/"+response);
+						$("#newbikephoto2").attr("src","/upload/images/"+response);			
+					}
+				}
+				
+			}
+                                  
+            window.clearInterval(interval);
+                        
+            this.enable();
+            
+            if(response == "success")
+            alert('上传成功');              
+        }
+    });
+	
+	
+	
+	
+});
+
+
+</script>
+
+
+ <script>
+	  
+	  function checkForm(){
+	  var company=$("#company").val();
+      var master=$("#master").val();
+	  var bus_code=$("#bus_code").val();
+	 
+	  var gro_code=$("#gro_code").val();
+	    var   bus_photo=$("#newbikephoto1").attr("src");
+	   var   gro_photo=$("#newbikephoto").attr("src");
+	   
+	 
+	 
+   
+	   if(company==""){
+	    $("#checkcom").html("企业名称不能为空");
+		$("#company").focus();
+		return false;
+	   }else{
+	    $("#checkcom").html("*（注：通过企业实名认证后将不能再修改，请确保填写正确）");
+	   }
+	   if(master==""){
+	   $("#checkmaster").html("*法人代表不能为空");
+	   $("#master").focus();
+	   return false;
+	   }else{
+	   $("#checkmaster").html("");
+	   }
+	   if(bus_code==""){
+	   $("#checkbus_code").html("*信用社代码不能为空");
+	   $("#bus_code").focus();
+	   return false;
+	   }else{
+	   $("#checkbus_code").html("*");
+	   }
+	   if(gro_code==""){
+	   $("#chckgro_code").html("*组织机构代码证号码不能为空");
+	   $("#gro_code").focus();
+	   return false;
+	   }else{
+	    $("#chckgro_code").html("");
+		
+		$.ajax({
+			 'type':'post',
+			 'url':"{:U('Userlr/qyapply1')}",
+			 'data':{company:company,master:master,bus_code:bus_code,gro_code:gro_code,bus_photo:bus_photo,gro_photo:gro_photo},
+			 'dataType':'json',
+			 'success':function(msg){
+			   if(msg.status==1){
+			alert(msg.info);
+			  setTimeout(function () {
+                        window.location.href = "/index.php/Home/Userlr/qyapply.html";
+                    }, 1500);
+			   }else{
+			    
+				  alert(msg.info); 
+			   }
+	   }
+	 
+	 
+	   
+	           
+  
+  });
+	  }
+	  }
+	  </script>
+<script>
+	  
+	  function checkForm1(){
+	 
+	  var company=$("#com").val();
+      var master=$("#mas").val();
+	  var bus_code=$("#b_code").val();
+	
+	   var   bus_photo=$("#newbikephoto2").attr("src");
+	   if(company==""){
+	    $("#zzcom").html("企业名称不能为空");
+		$("#com").focus();
+		return false;
+	   }else{
+	    $("#zzcom").html("*（注：通过企业实名认证后将不能再修改，请确保填写正确）");
+	   }
+	   if(master==""){
+	   $("#zzmas").html("*法人代表不能为空");
+	   $("#mas").focus();
+	   return false;
+	   }else{
+	   $("#zzmas").html("");
+	   }
+	   if(bus_code==""){
+	   $("#zzcode").html("*信用社代码不能为空");
+	   $("#b_code").focus();
+	   return false;
+	   }else{
+	 
+	     $.ajax({
+			 'type':'post',
+			 'url':"{:U('Userlr/zzapply')}",
+			 'data':{company:company,master:master,bus_code:bus_code,bus_photo:bus_photo},
+			 'dataType':'json',
+			 'success':function(msg){
+			   if(msg.status==1){
+			alert(msg.info);
+			  setTimeout(function () {
+                        window.location.href = "/index.php/Home/Userlr/qyapply.html";
+                    }, 1500);
+			   }else{
+			    
+				  alert(msg.info); 
+			   }
+	   }
+	 
+  });
+	   
+	   }
+	   
+	 
+	
+	  }
+	  </script>
+
+
+<!-- 底部 -->
+<include file="Public:footer"/>

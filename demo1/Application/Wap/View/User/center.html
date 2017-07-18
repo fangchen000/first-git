@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+ </html>
+ <head>
+     <meta charset="utf-8">
+      <?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+  
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+     <meta name="format-detection" content="telephone=no" /> 
+     <meta content="email=no" name="format-detection">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/base.css"/>
+     <link rel="stylesheet" href="__PUBLIC__/Wap/assets/css/pol.css">
+ </head>
+ <body style="padding-top:76px;">
+  
+    <!--头部-->
+    <header>
+    	<if condition="$us_id['is_status'] eq 1"><div class="warning" onclick="document.location='/index.php/Wap/User/plo_email.html'">您的邮箱还未验证</div></if>
+        <h2 style="position:relative;">个人主页<a class="back" onclick="history.go(-1)"></a></h2>
+    </header>
+	
+    <!--个人主页-->
+    <div class="pol">
+    	<div class="headimg">
+        	<a href="{:U('Wap/User/pol_info')}">
+			<if condition="$us_id['photo'] eq null">
+                <img src="__PUBLIC__/Wap/assets/images/pol_head.png" alt="" style="width:100%;border-radius:50%;">
+			<else/>
+			<img src="{$us_id['photo']}" alt="" style="width:100%;border-radius:50%;">
+			</if>
+                <div class="headinfo">
+                    <h2>{$us_id['username']}</h2>
+                    <h3>积分：<span>{$us_id['score']}</span></h3>
+                    <h3>注册时间：{$us_id['create_time']|date="Y-m-d H:i:s",###}</h3>
+                </div>
+                <i></i>
+            </a>  
+        </div>
+        <div class="polnav">
+        	<dl><a href="{:U('Wap/User/myvimeo')}">
+            	<dt><img src="__PUBLIC__/Wap/assets/images/pol_icon01.png" alt=""></dt>
+                <dd>我的上传</dd></a>
+            </dl>
+            <dl><a href="{:U('Wap/User/create_channel')}">
+            	<dt><img src="__PUBLIC__/Wap/assets/images/pol_icon02.png" alt=""></dt>
+                <dd>我的频道</dd></a>
+            </dl>
+            <dl><a href="{:U('Wap/User/tag')}">
+            	<dt><img src="__PUBLIC__/Wap/assets/images/pol_icon03.png" alt=""></dt>
+                <dd>我的标签</dd></a>
+            </dl>
+            <dl><a href="{:U('Wap/User/mycollect')}">
+            	<dt><img src="__PUBLIC__/Wap/assets/images/pol_icon04.png" alt=""></dt>
+                <dd>我的收藏</dd></a>
+            </dl>
+        </div>
+    </div> 
+    <div class="jilu">
+    	<a href="{:U('Wap/User/history')}">
+            <h3>观看历史</h3>
+            <p>共{$historycount}条记录</p>
+            <i></i>
+        </a>
+    </div>  
+    <div style=" padding:0 12px; margin-bottom:20px;">
+    	<p style=" text-indent:30px;color:#999;font-size:12px; line-height:20px;">youtube视频网站，一个神奇的网站，信息分享的平台，在这里您可以分享您的作品，您也可以观看他人的作品，在这里，您可以认识更多人！</p>
+    </div>
+   
+    
+    <div class="out"><a href="{:U('Wap/User/logionout')}">退出登录</a></div>
+
+	<!--页脚-->
+<include file="Public:footer"/>
+    
+	
+ </body>
+ </html>

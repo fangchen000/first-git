@@ -1,0 +1,226 @@
+
+<link rel="stylesheet" href="__PUBLIC__/admin/assets/js/daterangepicker/daterangepicker-bs3.css">
+  
+<script src="__PUBLIC__/admin/assets/js/daterangepicker/daterangepicker.js"></script>
+<script src="__PUBLIC__/admin/assets/js/datepicker/bootstrap-datepicker.js"></script>
+
+
+<div class="row">
+        <div class="col-sm-12">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">广告修改 -- AD Update</div>
+            <div class="panel-body">
+              <div class="col-sm-5">
+              
+                <a href="{:U('Ad/adsindex')}"><button class="btn btn-success">广告列表查看 -- AD List</button></a>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div>
+
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">广告修改 -- AD Update</h3>
+							<div class="panel-options">
+								<a href="#" data-toggle="panel">
+									<span class="collapse-icon">&ndash;</span>
+									<span class="expand-icon">+</span>
+								</a>
+								<a href="#" data-toggle="remove">
+									
+								</a>
+							</div>
+						</div>
+						<div class="panel-body">
+							<form  role="form" class="form-horizontal" >
+								<div class="form-group">
+								<input type="hidden" id='id' value="{$date.id}">
+									<label class="col-sm-2 control-label" for="field-1">广告标题</label>
+									
+									<div class="col-sm-10"><input class="form-control" type="text" name="name" id="name" value="{$date.name}">
+							        </div>
+								</div>
+
+								<div class="form-group-separator"></div>
+								<div class="form-group has-info">
+									<label class="col-sm-2 control-label" for="field-9">广告简介</label>
+									
+									<div class="col-sm-10">
+										<textarea id="desc" class="form-control"  style="width:600px;height:99px">{$date.desc}</textarea>
+									</div>
+								</div>
+							
+
+								<div class="form-group-separator"></div>
+								<div class="form-group has-success">
+									<label class="col-sm-2 control-label" for="field-6">广告位置</label>
+									
+									<div class="col-sm-10"> 
+										<select class="form-control" id="type">
+										<if condition="$date['nid'] eq 0">
+										 <option value="0">首页大图</option>
+										<else/>
+										<option value="{$date.nid}">{$date.posname}</option>
+										</if>
+										
+										<option value="0">首页大图</option>          
+								        <foreach name="nav" item="v">
+                                        <option value="{$v.id}">{$v.title}</option>                                                                       
+                                        </foreach>
+                                        </select>
+ 									</div>	
+								</div>
+								
+								<div class="form-group-separator"></div>
+								
+								
+								<div class="form-group has-info">
+									<label class="col-sm-2 control-label" for="field-9">广告链接</label>
+									
+									 <div class="col-sm-10">
+									 	<input class="form-control" type="text" id="url" name="ad_link" value="{$date.ad_link}">
+									</div>
+								</div>
+								<div class="form-group-separator"></div>
+								<div class="form-group has-error" id="0">
+									<label class="col-sm-2 control-label" for="field-10">修改广告图片</label>
+									
+							    <div class="col-sm-10">
+                               	<div class="col-sm-4">
+                                <empty name="date.image">
+                             	<else/>
+                             	<img src="__ROOT__/Uploads/{$date.image}" style="width:200px;height:99px;" id="upload_pic" path="{$date.image}"/>
+               				    </empty>
+								</div>
+                                <div class="col-sm-3">
+								<input  type="file" id="files" name='upload' data-url="{:U('Ad/upload')}" style="width:200px">
+								</div>
+								</div>
+								</div>
+					
+								
+								<div class="form-group has-success">
+									<label class="col-sm-2 control-label" for="field-12">广告排序</label>
+									
+							    <div class="col-sm-10">
+							    	<input class="form-control" type="text" id="sort"  name="sort" value="{$date.sort}">
+								</div>
+								</div>
+								<div class="form-group-separator"></div>
+								<div class="form-group">
+									
+									<input type="button" onclick="upads()" class="btn btn-info btn-single pull-right" value="确认修改">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<script src="__PUBLIC__/admin/assets/js/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
+	
+	<script src="__PUBLIC__/admin/assets/js/jquery-file-upload/js/vendor/load-image.min.js"></script>
+	
+	<script src="__PUBLIC__/admin/assets/js/jquery-file-upload/js/vendor/canvas-to-blob.min.js"></script>
+	
+	<script src="__PUBLIC__/admin/assets/js/jquery-file-upload/js/jquery.iframe-transport.js"></script>
+	
+	<script src="__PUBLIC__/admin/assets/js/jquery-file-upload/js/jquery.fileupload.js"></script>
+	
+	<script src="__PUBLIC__/admin/assets/js/jquery-file-upload/js/jquery.fileupload-process.js"></script>
+	
+	<script src="__PUBLIC__/admin/assets/js/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
+
+
+	<script type="text/javascript">
+
+
+  $(function () {  
+            //文件上传地址   
+           //var url = 'http://localhost/index.php/upload/do_upload';   
+           //初始化，主要是设置上传参数，以及事件处理方法(回调函数)   
+           $('#files').val('');
+           $('#files').fileupload({  
+             autoUpload: true,//是否自动上传   
+                //url: url,//上传地址   
+               dataType: 'json',  
+                done: function (e, data){
+                  
+                    $('#files').parent().prev("div.col-sm-4").html('<img src="__ROOT__/Uploads/'+data.result.path+'" style="width:200px;height:99px;"  id="upload_pic" path="'+data.result.path+'"/>')
+               },
+               complete:function(){
+                          
+                        }
+            });  
+        }); 
+			
+</script>
+			
+	
+ 
+<script>
+
+ function upads(){
+ var id=$('#id').val();
+ var name=$("#name").val();
+ var url=$("#url").val();
+ var desc=$('#desc').val();
+ var image=$('#upload_pic').attr('path');
+ var sort=$('#sort').val();
+ var type=$('#type').val();
+ var reg =/^1((3[2-9])||(7[4-9])||(5[0-9])||(5[0-9])||(8[0-9])||(82))\d{8}$/g;
+ var reg1=/^\w+@\w+(\.\w+)+$/;
+ var reg2=/^[1-9]\d{5}$/;
+ var reg4=new RegExp(/^([\u4E00-\uFA29]*[a-z]*[A-Z]*[0-9]*)+$/g);
+
+
+
+if(name==""){
+alert("广告标题不能为空");
+$("#name").focus();
+return false;
+}else if(url==""){
+alert("链接不能为空");
+$("#postcode").focus();
+return false;
+}
+
+ $.ajax({
+            type: "post",
+            url: "{:U('Ad/adsupdate')}",
+            data: {
+            	id: id,
+            	name: name,
+            	nid: type,
+            	ad_link: url,
+            	image: image,
+            	sort: sort,
+            	desc: desc 
+            },
+            dataType: 'json',
+            success: function (dat) {  
+
+ 								if(dat.status==1){
+                                    bootbox.alert('编辑成功');
+									var url="{:U('Ad/adsindex')}";
+                                    window.location.href=url;
+                                }else{
+                                    bootbox.alert('编辑失败');
+                                }
+
+                            }
+
+
+        });    
+
+}
+
+
+</script>
+
+			

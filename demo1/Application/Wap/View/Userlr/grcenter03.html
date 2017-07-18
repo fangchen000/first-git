@@ -1,0 +1,370 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>中国马铃薯种薯交易网</title>
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/grcenter.css">
+<script src="__PUBLIC__/home/assets/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/home/assets/js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="__PUBLIC__/home/assets/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC__/home/assets/js/common.js"></script>
+<script src="__PUBLIC__/home/assets/layer/layer.js"></script>
+<script src="__PUBLIC__/home/assets/js/punlic_qita.js"></script>
+</head>
+
+<body>
+<!--顶部-->
+<div class="header-top">
+  <div class="w1190 mtauto clearfix"> 
+    <!--判断是否登录-->
+    <div class="welcome f-fl"><font>您好，欢迎来到中国马铃薯种薯交易网！</font><span class="userMsg"><a href="">登录</a> | <a href="">注册</a></span></div>
+    
+    <!--判断是否登录-->
+    <div class="menu f-fr"> <font> <a href="">我的订单</a> </font> <font> <a href="javascript:;" id="addcollect">收藏我们</a> </font> <font class="has-con"> <a class="drop-down" href="javascript:;">关注我们</a> <span class="wx" style="display: none;"> <img src="images/header-wx.jpg" alt=""> </span> </font> <font class="has-con"> <a class="drop-down" href="javascript:;">客户服务</a> <span class="list" style="display: none;"> <a href="">联系客服</a> <a href="">帮助中心</a> </span> </font> </div>
+  </div>
+</div>
+<!--logo，搜索，电话-->
+<div class="header-logo">
+  <div class="w1190 mtauto clearfix af-header">
+    <div class="logo f-fl"> <a href="index.html"><img src="__PUBLIC__/home/assets/images/fixed-nav-logo.png" alt=""></a> </div>
+    
+    <!--搜索-->
+    <form>
+      <div class="searchBox f-fl">
+        <div class="sou-box">
+          <div class="has-con"> <font class="drop-down"> 供应 </font> <span class="list"> <font id="sell">供应</font> <font id="pur">采购</font> <font id="tag">溯源码</font> </span>
+            <input type="hidden" name="search_header_type" class="header_search" value="sell">
+          </div>
+          <div class="inputDiv">
+            <input type="text" placeholder="请输入关键词，例如：白菜、西瓜、椴木香菇" name="keywords" value="">
+          </div>
+          <div class="inputBtn">
+            <input type="submit" value="搜索">
+          </div>
+        </div>
+        <div class="hotwords"> <a href="">大豆 </a><em>|</em> <a href="">苹果 </a><em>|</em> <a href="">烟富三苹果 </a><em>|</em> <a href="">白菜 </a><em>|</em> <a href="">大米 </a><em>|</em> </div>
+      </div>
+    </form>
+    <div class="hotline f-fr"> <img src="images/header-line.png" alt=""> </div>
+  </div>
+</div>
+<!--导航-->
+<div class="header-nav" style="*z-index:9;">
+  <div class="w1190 mtauto f-pr clearfix" style="*z-index:10;"> 
+    <!--  **  li的类名为has-erji时，表示在对应页面有二级导航-->
+    <ul class="horizontal clearfix">
+      <li class="active"> <a href="index.html">首页</a> </li>
+      <li> <a href="">供应大厅</a>
+        <div class="border"></div>
+      </li>
+      <li> <a href="">采购中心</a>
+        <div class="border"></div>
+      </li>
+      <li> <a href="">可信农产品</a> </li>
+      <li> <a href="">价格行情</a> </li>
+      <li> <a href="">物流信息</a> </li>
+      <li> <a href="">资讯</a> </li>
+    </ul>
+    <div class="navBtn f-oh"> <a class="gy-btn" onclick="member_new_sell()">发布供应</a> <a class="cg-btn" href="">发布采购</a> </div>
+    <!-- *** 此按钮首页不应显示，其他页均应显示 -->
+    <div class="vertical-navgation">
+      <div class="cate"> <span>马铃薯分类</span> </div>
+      <div class="vert-box clearfix" style="display:none;">
+        <div class="cateBox cateBox1">
+          <div class="arrow-bc"> <span class="core core1"> <font>粮油</font> </span> </div>
+          <div class="core-box">
+            <div class="fb-list1"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list2"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list3"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list4"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list5"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+          </div>
+        </div>
+        <div class="cateBox cateBox2">
+          <div class="arrow-bc"> <span class="core core2"> <font>蔬菜</font> </span> </div>
+          <div class="core-box">
+            <div class="fb-list1"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list2"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list3"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list4"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list5"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+          </div>
+        </div>
+        <div class="cateBox cateBox3">
+          <div class="arrow-bc"> <span class="core core3"> <font>水果</font> </span> </div>
+          <div class="core-box">
+            <div class="fb-list1"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list2"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list3"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list4"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list5"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+          </div>
+        </div>
+        <div class="cateBox cateBox4">
+          <div class="arrow-bc"> <span class="core core4"> <font>绿化苗木</font> </span> </div>
+          <div class="core-box">
+            <div class="fb-list1"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list2"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list3"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list4"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list5"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+          </div>
+        </div>
+        <div class="cateBox cateBox5">
+          <div class="arrow-bc"> <span class="core core5"> <font>干果</font> </span> </div>
+          <div class="core-box">
+            <div class="fb-list1"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list2"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list3"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list4"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list5"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+          </div>
+        </div>
+        <div class="cateBox cateBox6">
+          <div class="arrow-bc"> <span class="core core6"> <font>中药材</font> </span> </div>
+          <div class="core-box">
+            <div class="fb-list1"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list2"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list3"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list4"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list5"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+          </div>
+        </div>
+        <div class="cateBox cateBox7">
+          <div class="arrow-bc"> <span class="core core7"> <font>其他</font> </span> </div>
+          <div class="core-box">
+            <div class="fb-list1"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list2"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list3"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list4"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+            <div class="fb-list5"> <a href="">大豆</a> <a href="">大米</a> <a href="">蚕豆</a> <a href="">菜粕</a> <a href="">豆粕</a> <a href="">大麦</a> <a href="">次粉</a> <a href="">稻米</a> <a href="">菜籽</a> <a href="">茶油籽</a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mainbox">
+  <div class="nav-left">
+    <div class="side-nav side-line">
+      <div class="side-list">
+        <h2 class="is-sub"><a href="javascript:void(0);" class="show" >个人设置</a></h2>
+        <ul class="hidden"  style="display:block;">
+          <li></li>
+          <li>
+            <h3><a href="grcenter.html" targetmet="1" level="2" >我的个人信息</a></h3>
+          </li>
+          <li></li>
+          <li>
+            <h3><a href="grcenter02.html" targetmet="1" level="2">个人实名认证</a></h3>
+          </li>
+          <li></li>
+          <li>
+            <h3><a href="grcenter03.html"  targetmet="1" level="2"  class="cur">企业实名认证</a></h3>
+          </li>
+          <li></li>
+          <li>
+            <h3><a href="grcenter04.html"  targetmet="1" level="2" >系统消息通知</a></h3>
+          </li>
+          <li></li>
+          <li>
+            <h3><a href="grcenter05.html"  targetmet="1" level="2">修改个人密码</a></h3>
+          </li>
+          <li></li>
+          <li>
+            <h3><a href="grcenter06.html"  targetmet="1" level="2" >收货地址管理</a></h3>
+          </li>
+          <li></li>
+          <h3><a href="grcenter07.html"  targetmet="1" level="2" >收藏夹</a></h3>
+          </li>
+        </ul>
+        <h2 class="is-sub"><a href="javascript:void(0);" class="hide" id="51eefbcc-d8e6-11e4-8026-40167e2206a7">买家中心</a></h2>
+        <ul class="hidden" >
+          <li></li>
+          <li>
+            <h3><a href="grcenter08.html"  targetmet="1" level="2" >我要发布求购</a></h3>
+          </li>
+          <li></li>
+          <li>
+            <h3><a href="grcenter09.html"  targetmet="1" level="2">求购信息管理</a></h3>
+          </li>
+          <li></li>
+          <li>
+            <h3><a href="grcenter10.html"  targetmet="1" level="2">已买到的产品</a></h3>
+          </li>
+          <li></li>
+          <li>
+            <h3><a href="grcenter11.html"  targetmet="1" level="2" >我的评价</a></h3>
+          </li>
+        </ul>
+        <h2 class="is-sub"><a href="javascript:void(0);" class="hide">卖家中心</a></h2>
+        <ul class="hidden">
+          <li></li>
+          <li>
+            <h3><a href="grcenter12.html"  targetmet="1" level="2" >我的发布</a></h3>
+          </li>
+          <li></li>
+          <li>
+            <h3><a href="grcenter13.html"  targetmet="1" level="2" >我的供应</a></h3>
+          </li>
+        </ul>
+      </div>
+      
+      <!--//客户服务及投诉-->
+      <div class="side-customer">
+        <h2>客户服务</h2>
+        <p> 客服热线：400-008-8688 <br>
+          客服邮箱：service@cnhnb.com <br>
+          市场推广：0731-88189999-8861 <br>
+          商务合作：0731-88189999-8862 <br>
+          <span> <strong>企业客服：</strong> <a target="_blank" href="http://b.qq.com/webc.htm?new=0&sid=4000088688&eid=218808P8z8p8q8Q8Q8q8x&o=www.cnhnb.com&q=7" class="dp_but_qq" title="请点击这里给和我交谈"></a> </span> </p>
+      </div>
+    </div>
+  </div>
+  <div class="nav-right">
+        <div class="content">
+            <div class="user-iteam red lh_24 main-tips"> 审核须知：<br>
+            1.请上传有效的营业执照与组织机构代码证照片或扫描件，已办理三证合一执照的企业，可选择三证合一认证方式进行提交资料。<br>
+            2.所填公司名称与营业执照、组织机构代码上的名称必须一致；<br>
+            3.证件可以是清晰扫描件或者手机拍摄图片，公司名称、有效期及证件号码必须清晰可辨。 </div>
+            <div class="dkbox">
+                <div class="zzbox">
+                    <ul class="zj">
+                        <li><input type="radio" id="licenceOld" name="type" checked="checked" reverse="licenceMerge" value="1"> 旧版营业执照 </li>
+                        <li><input type="radio" id="licenceMerge" name="type" reverse="licenceOld" value="2"> 三证合一执照</li>
+                    </ul>
+                </div>
+                <div class="zhbox">
+                    <div class="ygbox">
+                        <form>
+                            <label style="margin-left:54px;">企业名称：<input type="text" value="企业名称与证件名称需保持一致" class="bk"><span style="color:#F00;margin-left:4px;font-size:12px;">*（注：通过企业实名认证后将不能再修改，请确保填写正确）</span></label><br><br>
+                            <label style="margin-left:54px;">法人代表：<input type="text" value="法人姓名与证件姓名称需保持一致" class="bk"><span style="color:#F00;margin-left:4px;">*</span></label><br><br>
+                            <label>统一社会信用代码：<input type="text" value="执照号码与图片号码需保持一致" class="bk"><span style="color:#F00;margin-left:4px;">*</span></label>
+                            <div class="fdbox">
+                                <div class="sctxbox">
+                                     <div id="localImag3"><img id="preview3" style="width:64px; height:64px"  src="__PUBLIC__/home/assets/images/center_08.jpg"></div>
+                                     <p class="ctbox">上传图片</p>
+                                      <input type="file" name="sw_card" id="doc3" onchange="javascript:setImagePreview3();" style="position:relative;left:7px;top:-37px; opacity:0;cursor:pointer;">
+                                  </div>
+                                <div class="slbox">
+                                    <span class="label-exam">示例：</span>
+                                    <a id="w3" href="javascript:void(0);" class="btn-1 btn-width-a">
+                                    <div class="comp-cert-img" onClick="zjbox()"><img src="images/yyzz.jpg" width="90" alt=""></div>
+                                   </a>
+                                    <div class="comp-cert-img-tips">
+                                     请上传1张图片，支持jpg、png、gif格式，每张最大2M，建议上传清晰、真实图片
+                                    <br><em class="star">*</em>
+                                    </div>
+                                </div>
+                            </div>
+                            <label >组织机构代码证号码：<input type="text" value="证件号码与图片号码需保持一致" class="bk" style="margin-top:20px;"><span style="color:#F00;margin-left:4px">*</span></label>
+                            <div class="fdbox">
+                                <div class="sctxbox">
+                                         <div id="localImag2"><img id="preview2" style="width:64px; height:64px"  src="__PUBLIC__/home/assets/images/center_08.jpg"></div>
+                                         <p class="ctbox">上传图片</p>
+                                          <input type="file" name="zu_card" id="doc2" onchange="javascript:setImagePreview2();" style="position:relative;left:7px;top:-37px; opacity:0;cursor:pointer;">
+                                      </div>
+                                <div class="slbox">
+                                    <span class="label-exam">示例：</span>
+                                    <a id="w3-1" href="javascript:void(0);" class="btn-1 btn-width-a">
+                                        <div class="comp-cert-img" onClick="zjebox()"><img src="images/yyzz2.jpg" width="90" alt=""></div>
+                                    </a>
+                                    <div class="comp-cert-img-tips">
+                                     请上传1张图片，支持jpg、png、gif格式，每张最大2M，建议上传清晰、真实图片
+                                    <br><em class="star">*</em></div>
+                                </div>
+                            </div>
+                            <input type="submit" value="提交" style="width:158px;height:35px; background-color:#e06d0f; color:#fff;border:none;margin-left:130px;margin-top:20px;cursor:pointer;">
+                            <P class="bz">（注：付费会员审核时间一般在工作日8小时内完成审核，免费会员一般在工作日24小时内完成审核。审核结果请前往消息中心查看）</P>
+                        </form>
+                    </div>
+                    <div class="ygbox">
+                        <form>
+                            <label style="margin-left:54px;">企业名称：<input type="text" value="企业名称与证件名称需保持一致" class="bk"><span style="color:#F00;margin-left:4px;font-size:12px;">*（注：通过企业实名认证后将不能再修改，请确保填写正确）</span></label><br><br>
+                            <label style="margin-left:54px;">法人代表：<input type="text" value="法人姓名与证件姓名称需保持一致" class="bk"><span style="color:#F00;margin-left:4px;">*</span></label><br><br>
+                            <label>统一社会信用代码：<input type="text" value="执照号码与图片号码需保持一致" class="bk"><span style="color:#F00;margin-left:4px;">*</span></label>
+                            <div class="fdbox">
+                                <div class="sctxbox">
+                                     <div id="localImag1"><img id="preview1" style="width:64px; height:64px"  src="__PUBLIC__/home/assets/images/center_08.jpg"></div>
+                                     <p class="ctbox">上传图片</p>
+                                      <input type="file" name="ye_card" id="doc1" onchange="javascript:setImagePreview1();" style="position:relative;left:7px;top:-37px; opacity:0;cursor:pointer;">
+                                  </div>
+                                <div class="slbox">
+                                    <span class="label-exam">示例：</span>
+                                    <a id="w3" href="javascript:void(0);" class="btn-1 btn-width-a">
+                                    <div class="comp-cert-img" onClick="zjrbox()"><img src="images/license.jpg" width="90" alt=""></div>
+                                   </a>
+                                    <div class="comp-cert-img-tips">
+                                     请上传1张图片，支持jpg、png、gif格式，每张最大2M，建议上传清晰、真实图片
+                                    <br><em class="star">*</em>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <input type="submit" value="提交" style="width:158px;height:35px; background-color:#e06d0f; color:#fff;border:none;margin-left:130px;margin-top:20px;cursor:pointer;">
+                            <P class="bz">（注：付费会员审核时间一般在工作日8小时内完成审核，免费会员一般在工作日24小时内完成审核。审核结果请前往消息中心查看）</P>
+                        </form>
+                    </div>
+                </div>
+            </div>
+         </div>
+   </div>
+
+      <!-- 三证合一 -->
+        <script>
+        	jQuery(".dkbox").slide({mainCell:".zhbox",titCell:".zj li",trigger:"click"});
+			
+        </script>
+   <div class="zjbox" id="zjbox" style="display:none" > 
+   <img src="images/yyzz.jpg" style="width:400px;height:300px;margin-top:20px;margin-left:20px;">
+ </div>
+   <div class="zjebox" id="zjebox" style="display:none" > 
+   <img src="images/yyzz2.jpg" style="width:400px;height:300px;margin-top:20px;margin-left:20px;">
+ </div>
+   <div class="zjrbox" id="zjrbox" style="display:none" > 
+   <img src="images/license.jpg" style="width:205px;height:300px;margin-top:20px;margin-left:120px;">
+ </div>
+</div>
+
+<!-- 底部 -->
+<div class="footer-helpList">
+  <div class="w1190 mtauto f-oh">
+    <dl class="list1">
+      <dt>交易指南</dt>
+      <dd> <a href=""> 注册登陆</a> </dd>
+      <dd> <a href=""> 如何买货</a> </dd>
+      <dd> <a href=""> 如何卖货</a> </dd>
+    </dl>
+    <dl class="list1">
+      <dt>联系我们</dt>
+      <dd> <a href=""> 关于云农场</a> </dd>
+      <dd> <a href=""> 联系我们</a> </dd>
+      <dd> <a href=""> 关于我们</a> </dd>
+    </dl>
+    <dl class="list1">
+      <dt>配送支付</dt>
+      <dd> <a href=""> 支付方式</a> </dd>
+      <dd> <a href=""> 如何付款</a> </dd>
+      <dd> <a href=""> 常见问题</a> </dd>
+    </dl>
+    <dl class="list1">
+      <dt>服务保障</dt>
+      <dd> <a href=""> 退货原则</a> </dd>
+      <dd> <a href=""> 发布规则</a> </dd>
+      <dd> <a href=""> 免责条款</a> </dd>
+    </dl>
+    <div class="images f-fr"> <img class="hotLine" src="images/header-line.png" alt=""> <img class="wx" src="images/footer-wx.png" alt=""> <img class="app" src="images/newfooter-app.png" alt=""> </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="w1190 mtauto f-oh f-pr">
+    <div class="friendLinks"> <font>友情链接：</font> <a href="" target="_blank">云农场</a><em>丨</em> <a href="" target="_blank">种筹天下</a><em>丨</em> <a href="" target="_blank">乡间货的</a><em>丨</em> <a href="" target="_blank">蓝孩子农资网</a><em>丨</em> <a href="" target="_blank">山东油桃</a><em>丨</em> <a href="" target="_blank">农业新闻</a><em>丨</em> </div>
+    <div class="Icp">
+      <p>北京天辰云农场有限公司 北京市朝阳区东三环中路39号建外SOHO东区9号楼22F  Copyright ©2014,版权所有北京天辰云农场有限公司，京ICP备14023165号-2</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

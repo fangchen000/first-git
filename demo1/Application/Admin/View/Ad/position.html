@@ -1,0 +1,54 @@
+<section class="rt_wrap content mCustomScrollbar">
+	<h2><strong style="color:grey;">广告位管理</strong></h2>
+
+	<ul class="ulColumn2">
+
+		<li>
+			<span class="item_name" style="width:120px;">广告位名称：</span>
+			<input type="text" class="textbox textbox_295" placeholder="广告位名称" id="cad_name" value="{$brandInfo.cad_name}"/>
+		</li>
+
+		<li>
+			<span class="item_name" style="width:120px;">尺寸大小：</span>
+			<input type="text" class="textbox textbox_295" placeholder="800*400" id="size_name" value="{$brandInfo.size_name}"/>
+		</li>
+
+		<li>
+			<span class="item_name" style="width:120px;"></span>
+			<input type="submit" class="link_btn"/>
+		</li>
+	</ul>
+</section>
+<input type="hidden" id="idd" value="{$brandInfo.id}"/>
+
+<script>
+
+	$(".link_btn").click(function(){
+
+		var id=$("#idd").val();
+		var size_name=$("#size_name").val();
+		var cad_name=$("#cad_name").val();
+		if(size_name==""){
+			toastr.error("广告位名称不能为空",'操作失败',toastr.options);
+			return false;
+		}else if(cad_name==""){
+			toastr.error("请填写广告尺寸的规格",'操作失败',toastr.options);
+			return false;
+		}
+		$.post("{:U('Ad/position')}",{size_name:size_name,cad_name:cad_name,id:id},function(sb){
+			if (sb.status==1) {
+				layer.msg('操作成功',{icon:6});
+				setTimeout(function () {
+					window.location.href="{:U('Ad/adsindex')}";
+				}, 1500);
+			}else{
+				layer.msg("操作失败",{icon:2,time:2000});return false;
+			}
+		});
+		/*jjjjjj*/
+
+	})
+
+</script>
+
+

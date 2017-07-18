@@ -1,0 +1,28 @@
+/* Reset system css */
+
+
+
+/* Reset end */
+
+/* All Css */
+.clear {height:0; width:100%; overflow:hidden; clear:both;}
+.clear8 {height:8px; overflow:hidden; clear:both;}
+.float_left{ float:left;}
+.float_right{float:right;}
+
+/* All end */
+
+/* kkPages */
+
+.Pagination{ margin:0 auto;width:600px;height: 55px;_height: 45px; line-height: 20px;color: #565656;padding-top: 20px; clear:both; padding-top:20px;}
+.Pagination span{margin-right:5px; line-height:30px; font-size:12px;font-family:'宋体';display: block;float: left;margin-left: 5px;}
+.Pagination span b{padding: 0 2px;}
+.Pagination div {float:left}
+.Pagination a{ font-size: 12px;text-decoration: none;display: block;float: left;color:#44bbff; border:1px solid #CCC;height:20px;line-height: 20px;padding: 4px 10px;margin: 0 4px;}
+.Pagination .Ellipsis {line-height: 32px;overflow: hidden; display:none;}
+cite.FormNum{display: none;float: left;line-height: 20px;height: 20px; font-style:normal; padding-left:10px;}
+#PageNum{ color:#777;width: 30px;height: 20px;line-height: 20px; border: 1px solid #cacaca; margin:0 5px; text-align:center;}
+.Pagination a:hover,.Pagination a.PageCur{background-color:#44bbff; border:1px solid #44bbff;color: #ffffff; }
+
+.PageNumOK{ display:none !important; }
+

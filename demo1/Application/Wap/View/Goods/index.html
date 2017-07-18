@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+ </html>
+ <head>
+     <meta charset="utf-8">
+    <?php
+    $oneplus_seo_meta = get_seo_meta($vars,$seo);
+  
+?>
+<if condition="$oneplus_seo_meta['title']">
+    <title>{$oneplus_seo_meta['title']}</title>
+    <else/>
+    <title>{:C('WEB_SITE_TITLE')}</title>
+</if>
+<if condition="$oneplus_seo_meta['keywords']">
+    <meta name="keywords" content="{$oneplus_seo_meta['keywords']}"/>
+</if>
+<if condition="$oneplus_seo_meta['description']">
+    <meta name="description" content="{$oneplus_seo_meta['description']}"/>
+</if>
+     <meta name="format-detection" content="telephone=no" /> 
+     <meta content="email=no" name="format-detection">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+     <link rel="stylesheet" type="text/css" href="__PUBLIC__/Wap/assets/css/base.css"/>
+     <link rel="stylesheet" href="__PUBLIC__/Wap/assets/css/category.css">
+ </head>
+ <body>
+ 	<!--头部-->
+	<header>
+        <a class="back" onclick="history.go(-1)"></a>
+		<h2>所有视频分类</h2>
+	</header>
+	
+    <!--搜索-->
+	<section class="search">
+    	<form action="{:U('Wap/Goods/index')}" method="post" onsubmit="return check()">
+	    
+    	<input type="text" name="keywords" placeholder="输入您想搜索的内容" value="{$keywords}">
+		
+		<input type="submit" value="搜索">
+    </form>
+    </section>
+  <volist name="category" id="v">  
+    <section class="item">
+    	<div class="title" style="background-image:url({$v.cat_icon});">
+            <a href="{:U('Wap/Goods/details',array('id'=>$v['cat_id']))}"><img src="{$v.small}" alt=""><b>{$v.cat_name}</b></a>
+            <div class="up_black"></div>
+        </div>
+        <div class="second_nav">
+		<volist name="v['second']" id="vv"> 
+        	<a href="{:U('Wap/Goods/second',array('id'=>$vv['cat_id']))}">{$vv['cat_name']}</a>
+		</volist>
+           
+        </div>
+    </section>
+	</volist>
+    
+	
+	
+
+	<include file="Public:footer"/>
+	
+ </body>
+ </html>

@@ -1,0 +1,362 @@
+<include file="Public:seo"/>
+
+
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/base.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/index.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/page.css">
+<link rel="stylesheet" href="__PUBLIC__/home/assets/css/region.css">
+<script src="__PUBLIC__/home/assets/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/home/assets/js/index.js"></script>
+<script src="__PUBLIC__/home/assets/js/page.js"></script>
+<script src="__PUBLIC__/home/assets/js/ShopShow.js"></script>
+
+
+
+<!--logo，流程-->
+ <div class="header shop-header">
+  <div class="w1190 mtauto h120 headerCon">
+    <div class="newYear_headerCon_bg"></div>
+    <div class="newYear_headerCon_people_bg"></div>
+    <h1 class="logo f-fl mt30"> <a href="{:U('Home/Index/index')}"> <img src="__ROOT__/Uploads{$conf.logo}" title=""></a> </h1>
+    <div class="header-shop-right">
+      <div class="header-shop-text header-shop-on">我的购物车</div>
+      <div class="header-shop-text">核对订单信息</div>
+      <div class="header-shop-text">选择支付方式</div>
+    </div>
+  </div>
+</div> 
+
+<!-- 购物车-->
+ <div class="wrapper wrapper-pt" id="cart">
+  <div class="shop-box clearfix">
+    <div class="shopcart-title">我的购物车</div>
+    <div class="shopcart-all">
+      <ul class="clearfix">
+        <li class="shop-td shop-td1 caozuo"><label><input type="checkbox" name="shopcheckAll">全选</label></li>
+        <li class="shop-td shop-td2">商品信息</li>
+        <li class="shop-td shop-td3">数量</li>
+       
+        <li class="shop-td shop-td5">市场价格</li>
+        <li class="shop-td shop-td6">小计</li>
+        <li class="shop-td shop-td7">操作</li>
+      </ul>
+    </div>
+	 <form onsubmit="return false;" id="order">
+    <div class="shopcart-merchants liebiao">
+	 <volist name="goodsInfo" id="v"> 
+      <div class="shopcart-merchants-list">
+        <ul class="clearfix">
+          <li class="shopcart-td shopcart-td1"><input type="checkbox" value="{$v.id}" class="shopOnly danxuan" name="selBOX" id="sp-{$v.id}" onclick="check({$v.goods_price},{$v.id})"></li>
+          <li class="shopcart-td shopcart-td2"><a href="{:U('Home/Goods/xq',array('id'=>$v['id']))}"> <img src="/Uploads/{$v.goods_id|getgoodsimg}"><h3>{$v.goods_id|getproname}</h3></a></li>
+          <li class="shopcart-td shopcart-td3">
+            <div class="attriblute-num shopcart-td-num">
+              <a  class="cartproduct_remove" id="product_remove" onclick="jian({$v.id})">-</a>
+              <input type="text" class="attribluteInput" value="{$v.goods_num}" id="tnumber{$v.id}"disabled="true">
+              <a  class="cartproduct_add" id="product_add" onclick="jia(50,{$v.id})">+</a>
+            </div>
+          </li>
+          <li class="shopcart-td shopcart-td4">￥<span  id="danprice{$v.id}">{$v.goods_price}</span></li>
+          
+          <li class="shopcart-td shopcart-td6" >￥<span id="sp{$v.id}" class="nn">{$v.car_money}</span></li>
+          <li class="shopcart-td shopcart-td7"> <a href="" onclick="delgood({$v['id']})">删除</a> </li>
+        </ul>
+      </div>
+	 </volist> 
+   
+ <span id="total_price" style="display:none" >{$count_price}</span>
+</div>
+</form>
+ <div class="shopcart-bottom clearfix caozuo">
+      <label class="shopckecked-all">
+        <input type="checkbox" name="shopcheckAll" >全选</label>
+      <a href="" class="shopcart-bootom-a">继续购物</a> <a href="" class="shopcart-bootom-a">清空购物车</a>
+      <div class="shopcart-bottom-right">
+        <div class="shopcart-price-box"> 商品数量：  <span class="shopcart-allprice" id="mounts" >0</span> </div>
+        <div class="shopcart-price-box"> 共计 <em>￥</em> <span class="shopcart-save" id="zongmoney">0.00</span> </div>
+        <div class="shopcart-price-box">
+          <a   class="shopcart-submit">去结算</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<link href="__PUBLIC__/home/css/toastr.css" rel="stylesheet"/>
+<script src="__PUBLIC__/home/assets/layer/layer.js"></script>
+<script src="__PUBLIC__/home/js/toastr.js"></script>
+<!--shopping结束-->
+<script>
+ $(function(){
+    
+                toastr.options = {
+                "closeButton": false,
+                  "debug": false,
+                  "positionClass":$('#positionGroup input:radio:checked').val() || 'toast-center',
+                  "onclick": null,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+            };
+});
+
+$(function(){
+    $("table td .zj").click(function(){
+        var n=$(this).siblings(".numb").val();
+            n++;
+        $(this).siblings(".numb").val(n);
+    })
+    $("table td .js").click(function(){
+        var n=$(this).siblings(".numb").val();
+        if(n<2){
+            n==1;
+        }else{
+            n--;
+        $(this).siblings(".numb").val(n);
+        }
+    })
+})
+
+
+
+//减少数量
+ function jian(h){
+              var k=$("#total_price").text();
+			 
+              var money=$("#tnumber"+h).val();
+              if(money>1){
+                var value=parseInt(money)-1;
+                $("#tnumber"+h).val(value);
+                var num=$("#tnumber"+h).val();
+                var daprice=$("#danprice"+h).text();
+                n=Number(num);
+                dp=Number(daprice);
+                zong=dp*n;
+                $("#sp"+h).text(zong);
+                data=parseInt(k)-dp;
+                $("#total_price").text(data);
+                if($('#sp-'+h).attr('checked')){
+                  var zongmoney=Number($("#zongmoney").text());
+                  zongqian=zongmoney-dp;
+                  $("#zongmoney").text(zongqian);
+                }
+              }
+             }
+             
+        //增加数量   
+             function jia(f,h){
+                //alert(h);
+                //var radioId=$(".checked").text();
+			
+                var k=$("#total_price").text();
+			
+                var money=$("#tnumber"+h).val();
+			
+                var g=Number(f);
+				
+			
+                if(money<g){
+				
+                var value=parseInt(money)+1;
+                $("#tnumber"+h).val(value);
+                var num=$("#tnumber"+h).val();
+                var daprice=$("#danprice"+h).text();
+				
+                //var jprice=$("#hiddenprice").val();
+                n=Number(num);
+                
+                //$("#hiddennum").val(n);
+                dp=Number(daprice);
+                //jp=Number(jprice);
+                //win=fp+jp;
+                zong=dp*n;
+                $("#sp"+h).text(zong);
+                data=Number(k)+dp;                
+                $("#total_price").text(data);
+                if($('#sp-'+h).attr('checked')){
+                  var zongmoney=Number($("#zongmoney").text());
+                  zongqian=zongmoney+dp;
+                  $("#zongmoney").text(zongqian);
+                }
+              }
+            }
+            
+    function selectBox(obj,cName){
+     var checkall = document.getElementsByName(cName);
+    for(var $i=0;$i<checkall.length;$i++){
+      checkall[$i].checked = obj.checked;
+      }
+      var chcks = $(".liebiao").find(':checked').attr('checked','true');
+      var mount=(chcks.length);
+      var zmoney= $("#total_price").text();
+      if(obj.checked==true){
+       $("#mounts").text(mount);
+        $("#zongmoney").text(zmoney);
+      }else{
+         $("#mounts").text(0);
+        $("#zongmoney").text(0);
+      }      
+    }
+            
+    
+function delgood(e){
+            if(window.confirm("您确定要删除？")){
+                $.ajax({
+                   'type':'post',
+                   'url':"{:U('Goods/delgoods')}",
+                   data:{id:e},
+                   'dataType':'json',
+                   'success':function(msg){
+                        
+                       if(msg.status==1){
+                          
+						  layer.alert('删除成功', {
+							icon: 1,
+							skin: 'layer-ext-moon' 
+						});
+						  
+						  
+                       }else{
+                            layer.alert('删除失败', {
+							icon: 0,
+							skin: 'layer-ext-moon' 
+						});
+                       }
+                   }
+               }) 
+            }
+    } 
+    
+    
+    //生成订单
+    $(".shopcart-submit").click(function(){
+        var fuwu=[];
+		$("input[name='selBOX']:checked").each(function(){
+		fuwu.push($(this).val());
+		
+		})
+	var data = new Array();
+		var num=fuwu.length;
+		if(num==0){
+		   layer.alert('您还没有选择商品呢', {
+							icon: 0,
+							skin: 'layer-ext-moon' 
+						});
+						return false;
+		}else{
+		  for (var i=0;i<num;i++){
+	     var id=fuwu[i];
+		 var g_n=$("#tnumber"+id).val();
+	    data[i]=id+":"+g_n;
+		
+	}
+	
+          $.ajax({
+                   'type':'post',
+                   'url':"{:U('Goods/tijiao')}",
+                   data:{data:data},
+                   'dataType':'json',
+                   'success':function(msg){
+            
+                       if(msg.status==1){
+                       
+                      window.location.href="/index.php/Home/Goods/order/id/"+msg.goods_id; 
+                         
+                       }else{
+                            toastr.error(msg.info,'订单生成失败', toastr.options);
+                       }
+                   }
+               });
+		
+		}
+	
+     
+    })
+    
+    
+    
+</script>
+
+
+<script>
+
+    function check(zong,id){
+    
+       var chcks = $(".liebiao").find(':checked').attr('checked','true');
+      
+       
+       var mount=(chcks.length);
+       $("#mounts").text(mount);
+       var zongmoney=Number($("#zongmoney").text());
+        if($('#sp-'+id).attr('checked')){
+          var money=Number($('#sp'+id).text());
+          //alert(money);
+          zongmoney+=money;
+        }else{
+          var money=Number($('#sp'+id).text());
+          //alert(money);
+          zongmoney-=money;
+        };
+        $("#zongmoney").text(zongmoney);
+    } 
+
+
+ function shoucang(e){
+			       $.ajax({
+                   'type':'post',
+                   'url':"{:U('Wangshang/shoucang')}",
+				   data:{goods_id:e},
+                   'dataType':'json',
+                   'success':function(msg){
+                        
+                       if(msg.status==1){
+                        
+						  toastr.success(msg.info,'收藏成功', toastr.options);
+                       }else{
+                           toastr.error(msg.info,'收藏失败', toastr.options);
+                       }
+                   }
+               }) 
+			  
+			   }
+
+
+//全选
+
+		
+		
+
+		// 全选
+	
+
+		// 全选
+		$("input[name='shopcheckAll']").click(function(){
+			
+	 
+			$("#shopcart-allprice").html('0.00');
+			$("#shopcart-save").html('0.00');
+            //重新选中
+			if($(this).attr('checked')){
+				$("input[type='checkbox']").attr('checked', true);
+				var chcks = $(".liebiao").find(':checked').attr('checked','true');
+                var mount=(chcks.length);
+				 $("#mounts").text(mount);
+				 var total_price=$("#total_price").html();
+				 $("#zongmoney").html(total_price);
+				checkcart();
+			}else{
+				$("input[type='checkbox']").attr('checked', false);
+				 $("#mounts").text('0');
+				 $("#zongmoney").html('0');
+			}
+		});
+		   
+
+    
+</script>
+
+
+
+<include file="Public:footer"/>
